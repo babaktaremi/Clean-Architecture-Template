@@ -50,6 +50,41 @@ namespace Identity.ServiceConfiguration
             services.AddScoped<IRoleStore<Role>, RoleStore>();
             services.AddScoped<IUserStore<User>, AppUserStore>();
 
+            services.AddIdentity<User, Role>(options =>
+                {
+                    options.Stores.ProtectPersonalData = false;
+
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredUniqueChars = 0;
+                    options.Password.RequireUppercase = false;
+
+                    options.SignIn.RequireConfirmedEmail = false;
+                    options.SignIn.RequireConfirmedPhoneNumber = true;
+
+                    options.Lockout.MaxFailedAccessAttempts = 5;
+                    options.Lockout.AllowedForNewUsers = false;
+
+                    options.User.RequireUniqueEmail = false;
+
+                    //options.Stores.ProtectPersonalData = true;
+
+
+                }).AddUserStore<AppUserStore>()
+                .AddRoleStore<RoleStore>().
+                //.AddUserValidator<AppUserValidator>().
+                //AddRoleValidator<AppRoleValidator>().
+                AddUserManager<AppUserManager>().
+                AddRoleManager<AppRoleManager>().
+                AddErrorDescriber<AppErrorDescriber>()
+                //.AddClaimsPrincipalFactory<AppUserClaimsPrincipleFactory>()
+                .AddDefaultTokenProviders().
+                AddSignInManager<AppSignInManager>()
+                .AddDefaultTokenProviders()
+                .AddPasswordlessLoginTotpTokenProvider();
+
+
             //For [ProtectPersonalData] Attribute In Identity
 
             //services.AddScoped<ILookupProtectorKeyRing, KeyRing>();
@@ -190,45 +225,6 @@ namespace Identity.ServiceConfiguration
                     }
                 };
             });
-
-            services.AddIdentity<User, Role>(options =>
-            {
-                options.Stores.ProtectPersonalData = false;
-
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredUniqueChars = 0;
-                options.Password.RequireUppercase = false;
-
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedPhoneNumber = true;
-
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = false;
-
-                options.User.RequireUniqueEmail = false;
-
-
-
-                //options.Stores.ProtectPersonalData = true;
-
-
-
-            }).AddUserStore<AppUserStore>()
-                .AddRoleStore<RoleStore>().
-                //.AddUserValidator<AppUserValidator>().
-                //AddRoleValidator<AppRoleValidator>().
-                AddUserManager<AppUserManager>().
-                AddRoleManager<AppRoleManager>().
-                AddErrorDescriber<AppErrorDescriber>()
-                //.AddClaimsPrincipalFactory<AppUserClaimsPrincipleFactory>()
-                .AddDefaultTokenProviders().
-            AddSignInManager<AppSignInManager>()
-                .AddDefaultTokenProviders()
-                .AddPasswordlessLoginTotpTokenProvider();
-
-
 
             return services;
         }

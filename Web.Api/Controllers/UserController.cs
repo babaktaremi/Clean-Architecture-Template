@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Features.Admin.Queries.GetToken;
 using Application.Features.Users.Commands.ConfirmPhoneNumber;
 using Application.Features.Users.Commands.Create;
 using Application.Features.Users.Queries.GenerateUserToken.Model;
@@ -64,6 +65,14 @@ namespace Web.Api.Controllers
             var result = await _mediator.Send(model);
 
             return base.OperationResult(result);
+        }
+
+        [HttpPost("AdminLogin")]
+        public async Task<IActionResult> AdminLogin(AdminGetTokenQuery model)
+        {
+            var query = await _mediator.Send(model);
+
+            return base.OperationResult(query);
         }
     }
 }
