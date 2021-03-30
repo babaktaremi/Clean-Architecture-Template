@@ -14,10 +14,11 @@ namespace Identity.UserManager
    public class AppUserManagerImplementation:IAppUserManager
    {
        private readonly AppUserManager _userManager;
-
-       public AppUserManagerImplementation(AppUserManager userManager)
+       private readonly AppSignInManager _signInManager;
+       public AppUserManagerImplementation(AppUserManager userManager, AppSignInManager signInManager)
        {
            _userManager = userManager;
+           _signInManager = signInManager;
        }
 
         public Task<IdentityResult> CreateUser(User user)
@@ -66,5 +67,16 @@ namespace Identity.UserManager
         {
             return _userManager.Users.FirstOrDefaultAsync(c => c.PhoneNumber.Equals(phoneNumber));
         }
+
+        public Task<SignInResult> AdminLogin(User user, string password)
+        {
+            return _signInManager.PasswordSignInAsync(user, password, true, true);
+        }
+
+        public Task<User> GetByUserName(string userName)
+        {
+            return _userManager.FindByNameAsync(userName);
+        }
+
    }
 }

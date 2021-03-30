@@ -15,5 +15,7 @@ namespace Application.Contracts
        Task<bool> VerifyUserCode(User user,string code);
        Task<string> GenerateOtpCode(User user);
        Task<User> GetUserByPhoneNumber(string phoneNumber);
-    }
+       Task<SignInResult> AdminLogin(User user,string password);
+       Task<User> GetByUserName(string userName);
+   }
 }

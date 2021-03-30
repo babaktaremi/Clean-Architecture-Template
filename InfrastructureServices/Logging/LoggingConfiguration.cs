@@ -40,12 +40,12 @@ namespace InfrastructureServices.Logging
            {
                configuration.WriteTo
                    .MSSqlServer(context.Configuration
-                       .GetConnectionString("SqlServer"), "SystemLogs", autoCreateSqlTable: true)
+                       .GetConnectionString("SqlServer"), "SystemLogs",schemaName:"debug", autoCreateSqlTable: true)
                    .MinimumLevel.Warning();
 
                configuration.WriteTo.File("log.txt", rollingInterval: RollingInterval.Day);
            }
-          
+
            configuration.WriteTo.Console().MinimumLevel.Information();
 
            #region ElasticSearch Configuration. Comment if Not Needed 

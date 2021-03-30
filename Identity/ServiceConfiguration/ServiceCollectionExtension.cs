@@ -13,6 +13,7 @@ using Identity.Identity.Dtos;
 using Identity.Identity.Extensions;
 using Identity.Identity.Manager;
 using Identity.Identity.PermissionManager;
+using Identity.Identity.SeedDatabaseService;
 using Identity.Identity.Store;
 using Identity.Identity.validator;
 using Identity.Jwt;
@@ -34,6 +35,7 @@ namespace Identity.ServiceConfiguration
         {
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IAppUserManager, AppUserManagerImplementation>();
+            services.AddScoped<ISeedDataBase, SeedDataBase>();
 
             services.AddScoped<IUserValidator<User>, AppUserValidator>();
             services.AddScoped<UserValidator<User>, AppUserValidator>();
@@ -56,11 +58,21 @@ namespace Identity.ServiceConfiguration
 
             //services.AddScoped<IPersonalDataProtector, PersonalDataProtector>();
 
-            services.AddAuthentication(options =>
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(ConstantPolicies.DynamicPermission, policy =>
+                {
+                    policy.RequireAuthenticatedUser();
+                    policy.Requirements.Add(new DynamicPermissionRequirement());
+                });
+            });
+
+            services.AddAuthentication( options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                
             }).AddJwtBearer(options =>
             {
                 var secretkey = Encoding.UTF8.GetBytes(identitySettings.SecretKey);
@@ -177,15 +189,6 @@ namespace Identity.ServiceConfiguration
 
                     }
                 };
-            });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(ConstantPolicies.DynamicPermission, policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.Requirements.Add(new DynamicPermissionRequirement());
-                });
             });
 
             services.AddIdentity<User, Role>(options =>
