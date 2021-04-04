@@ -29,19 +29,19 @@ namespace Persistence.Repositories
         public async Task AddAsync(T entity)
         { 
            await Entities.AddAsync(entity);
-           await DbContext.SaveChangesAsync();
+           
         }
 
         public Task UpdateAsync(T entity)
         {
             Entities.Update(entity);
-            return DbContext.SaveChangesAsync();
+           return Task.CompletedTask;
         }
 
         public Task DeleteAsync(T entity)
         {
             Entities.Remove(entity);
-            return DbContext.SaveChangesAsync();
+           return Task.CompletedTask;
         }
     }
 }

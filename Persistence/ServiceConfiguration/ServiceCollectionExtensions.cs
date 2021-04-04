@@ -13,7 +13,7 @@ namespace Persistence.ServiceConfiguration
     {
         public static IServiceCollection AddPersistenceServices(this IServiceCollection services,IConfiguration configuration)
         {
-            services.AddScoped<IUserRefreshTokenRepository, UserRefreshTokenRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {

@@ -23,15 +23,15 @@ namespace Identity.Jwt
         private readonly AppUserManager _userManager;
         private IUserClaimsPrincipalFactory<User> _claimsPrincipal;
 
-        private readonly IUserRefreshTokenRepository _refreshTokenRepository;
+        private readonly IUnitOfWork _unitOfWork;
         //private readonly AppUserClaimsPrincipleFactory claimsPrincipleFactory;
 
-        public JwtService(IOptionsSnapshot<IdentitySettings> siteSetting, AppUserManager userManager, IUserClaimsPrincipalFactory<User> claimsPrincipal, IUserRefreshTokenRepository refreshTokenRepository)
+        public JwtService(IOptions<IdentitySettings> siteSetting, AppUserManager userManager, IUserClaimsPrincipalFactory<User> claimsPrincipal, IUnitOfWork unitOfWork)
         {
             _siteSetting = siteSetting.Value;
             _userManager = userManager;
             _claimsPrincipal = claimsPrincipal;
-            _refreshTokenRepository = refreshTokenRepository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<AccessToken> GenerateAsync(User user)
         {
@@ -61,7 +61,8 @@ namespace Identity.Jwt
             var securityToken = tokenHandler.CreateJwtSecurityToken(descriptor);
 
 
-            var refreshToken = await _refreshTokenRepository.CreateToken(user.Id);
+            var refreshToken = await _unitOfWork.UserRefreshTokenRepository.CreateToken(user.Id);
+            await _unitOfWork.CommitAsync();
 
             return new AccessToken(securityToken,refreshToken.ToString());
         }
@@ -97,12 +98,14 @@ namespace Identity.Jwt
 
         public async Task<AccessToken> RefreshToken(string refreshTokenId)
         {
-            var refreshToken = await _refreshTokenRepository.GetTokenWithInvalidation(Guid.Parse(refreshTokenId));
-
+            var refreshToken = await _unitOfWork.UserRefreshTokenRepository.GetTokenWithInvalidation(Guid.Parse(refreshTokenId));
+            
             if (refreshToken is null)
                 return null;
 
-            var user = await _refreshTokenRepository.GetUserByRefreshToken(Guid.Parse(refreshTokenId));
+            await _unitOfWork.CommitAsync();
+
+            var user = await _unitOfWork.UserRefreshTokenRepository.GetUserByRefreshToken(Guid.Parse(refreshTokenId));
 
             if (user is null)
                 return null;
