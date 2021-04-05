@@ -6,15 +6,16 @@ using Application.Contracts.Persistence;
 
 namespace Persistence.Repositories
 {
-   public class UnitOfWork:IUnitOfWork
-   {
-       private readonly ApplicationDbContext _db;
+    public class UnitOfWork : IUnitOfWork
+    {
+        private readonly ApplicationDbContext _db;
+       
+        public IUserRefreshTokenRepository UserRefreshTokenRepository { get; }
 
-       public IUserRefreshTokenRepository UserRefreshTokenRepository =>new UserRefreshTokenRepository(_db);
-
-       public UnitOfWork(ApplicationDbContext db)
+        public UnitOfWork(ApplicationDbContext db)
        {
            _db = db;
+           UserRefreshTokenRepository = new UserRefreshTokenRepository(_db);
        }
 
         public  Task CommitAsync()
