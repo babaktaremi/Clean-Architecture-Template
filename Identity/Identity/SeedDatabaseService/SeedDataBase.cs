@@ -39,6 +39,7 @@ namespace Identity.Identity.SeedDatabaseService
                 {
                     UserName = "admin",
                     Email = "admin@site.com",
+                    PhoneNumberConfirmed = true
                 };
 
               await  _userManager.CreateAsync(user, "qw123321");
