@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Contracts;
+using Application.Contracts.Identity;
 using Application.Features.Users.Queries.GenerateUserToken.Model;
 using Application.Models.Common;
 using Application.Models.Jwt;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Domain.Entities.User;
 
-namespace Identity.Identity.Dtos
+namespace Application.Models.Identity
 {
    public class RolePermissionDto
     {

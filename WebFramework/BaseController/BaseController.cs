@@ -4,7 +4,7 @@ using Application.Models.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Utils;
-using WebFrameWork.Filters;
+using WebFramework.Filters;
 
 namespace WebFramework.BaseController
 {

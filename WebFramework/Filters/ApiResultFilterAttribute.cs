@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-
-namespace WebFrameWork.Filters
+namespace WebFramework.Filters
 {
     [Obsolete(message:"Separated filters added")]
     public class ApiResultFilterAttribute : ResultFilterAttribute

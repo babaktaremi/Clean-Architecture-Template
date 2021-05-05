@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Application.Contracts.Identity;
+using Application.Models.Identity;
 using AutoMapper;
 using Domain.Entities.User;
 using Identity.Identity.Dtos;

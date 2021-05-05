@@ -1,7 +1,7 @@
-﻿using Domain.Entities.User;
-using Identity.Profiles;
+﻿using Application.Profiles;
+using Domain.Entities.User;
 
-namespace Identity.Identity.Dtos
+namespace Application.Models.Identity
 {
    public class GetRolesDto:ICreateMapper<Role>
     {

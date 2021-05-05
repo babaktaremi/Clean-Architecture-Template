@@ -2,7 +2,7 @@
 using Domain.Entities.User;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.Contracts
+namespace Application.Contracts.Identity
 {
    public interface IAppUserManager
    {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Identity.Identity.Dtos
+namespace Application.Models.Identity
 {
    public class EditRolePermissionsDto
     {

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Contracts;
+using Application.Contracts.Identity;
 using Application.Models.ApiResult;
 using Application.Models.Jwt;
 using Domain.Entities.User;

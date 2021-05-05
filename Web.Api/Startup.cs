@@ -15,7 +15,7 @@ using Application.ServiceConfiguration;
 using Identity.Identity.Dtos;
 using Identity.ServiceConfiguration;
 using Persistence.ServiceConfiguration;
-using WebFrameWork.Filters;
+using WebFramework.Filters;
 using WebFramework.ServiceConfiguration;
 using WebFramework.Swagger;
 

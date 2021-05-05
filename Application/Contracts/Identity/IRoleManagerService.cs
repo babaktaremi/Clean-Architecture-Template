@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Identity.Identity.Dtos;
+using Application.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace Identity.Identity.PermissionManager
+namespace Application.Contracts.Identity
 {
    public interface IRoleManagerService
    {
