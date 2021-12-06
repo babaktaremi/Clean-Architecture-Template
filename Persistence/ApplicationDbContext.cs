@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using Domain.Common;
 using Domain.Entities.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

@@ -1,43 +1,100 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using Application.Contracts;
+using Application.ServiceConfiguration;
+using Domain.Entities.User;
+using Identity.Identity.Dtos;
 using Identity.Identity.SeedDatabaseService;
+using Identity.Jwt;
+using Identity.ServiceConfiguration;
 using InfrastructureServices.Logging;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
+using Persistence;
+using Persistence.Repositories;
+using Persistence.ServiceConfiguration;
 using Serilog;
-namespace Web.Api
+using Web.Api.Controllers;
+using Web.Api.Controllers.V1;
+using WebFramework.Filters;
+using WebFramework.ServiceConfiguration;
+using WebFramework.Swagger;
+
+var builder= WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog(LoggingConfiguration.ConfigureLogger);
+
+var configuration = builder.Configuration;
+
+Activity.DefaultIdFormat = ActivityIdFormat.W3C;
+
+builder.Services.Configure<IdentitySettings>(configuration.GetSection(nameof(IdentitySettings)));
+
+var identitySettings = configuration.GetSection(nameof(IdentitySettings)).Get<IdentitySettings>(); 
+
+builder.Services.AddControllers(options =>
 {
-    public class Program
+    options.Filters.Add(typeof(OkResultAttribute));
+    options.Filters.Add(typeof(NotFoundResultAttribute));
+    options.Filters.Add(typeof(ContentResultFilterAttribute));
+    options.Filters.Add(typeof(ModelStateValidationAttribute));
+    options.Filters.Add(typeof(BadRequestResultFilterAttribute));
+
+}).ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; });
+//.AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<UserCreateCommand>(); }); //Uncomment for FluentValidation in Application Layer
+
+builder.Services.AddSwagger();
+
+builder.Services.AddApplicationServices().RegisterIdentityServices(identitySettings)
+    .AddPersistenceServices(configuration).AddWebFrameworkServices();
+
+builder.Services.AddAutoMapper(typeof(User),typeof(JwtService),typeof(UserController),typeof(BaseAsyncRepository<>));
+
+var app = builder.Build();
+
+
+#region Seeding and creating database
+
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var context=scope.ServiceProvider.GetService<ApplicationDbContext>();
+
+    if (context is null)
+        throw new Exception("Database Context Not Found");
+
+    if (!((RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>()).Exists())
     {
-        public static async Task Main(string[] args)
-        {
-            Activity.DefaultIdFormat = ActivityIdFormat.W3C;
-            var webHost = CreateHostBuilder(args).Build();
-
-            #region Seeding Database
-
-            using var scope = webHost.Services.CreateScope();
-
-            var seedService = scope.ServiceProvider.GetRequiredService<ISeedDataBase>();
-
-            await seedService.Seed();
-            #endregion
-
-            await CreateHostBuilder(args).Build().RunAsync();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-
-                    webBuilder.UseStartup<Startup>();
-                }).UseSerilog(LoggingConfiguration.ConfigureLogger);
+        await context.Database.MigrateAsync();
     }
+
+    var seedService = scope.ServiceProvider.GetRequiredService<ISeedDataBase>();
+    await seedService.Seed();
 }
+
+#endregion
+
+#region Pipleline Configuration
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseSwaggerAndUI();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+await app.RunAsync();
+#endregion
+
+

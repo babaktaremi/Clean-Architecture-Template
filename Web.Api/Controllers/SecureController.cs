@@ -1,9 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Identity.Identity.PermissionManager;
 using Microsoft.AspNetCore.Authorization;
 using WebFramework.BaseController;

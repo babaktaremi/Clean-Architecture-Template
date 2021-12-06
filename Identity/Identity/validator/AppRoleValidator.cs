@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Domain.Entities.User;
+﻿using Domain.Entities.User;
 using Microsoft.AspNetCore.Identity;
 
 namespace Identity.Identity.validator

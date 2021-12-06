@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +30,6 @@ namespace WebFramework.Swagger
 
                 #region DescribeAllEnumsAsStrings
                 //This method was Deprecated. 
-                options.DescribeAllEnumsAsStrings();
 
                 //You can specify an enum to convert to/from string, uisng :
                 //[JsonConverter(typeof(StringEnumConverter))]

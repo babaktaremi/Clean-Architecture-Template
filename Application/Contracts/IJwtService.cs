@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using System.Threading.Tasks;
 using Application.Models.Jwt;
 using Domain.Entities.User;
 

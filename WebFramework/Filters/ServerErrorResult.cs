@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Application.Models.ApiResult;
+﻿using Application.Models.ApiResult;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

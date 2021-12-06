@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Domain.Entities.User;
+﻿using Domain.Entities.User;
 using Identity.Identity.Manager;
 using Microsoft.EntityFrameworkCore;
 

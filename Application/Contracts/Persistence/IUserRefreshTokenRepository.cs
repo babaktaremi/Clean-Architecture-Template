@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Domain.Entities.User;
+﻿using Domain.Entities.User;
 
 namespace Application.Contracts.Persistence
 {

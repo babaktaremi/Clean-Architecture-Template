@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using System.Threading.Tasks;
 using Application.Contracts.Identity;
 using Application.Models.Identity;
 using AutoMapper;
 using Domain.Entities.User;
-using Identity.Identity.Dtos;
 using Identity.Identity.Manager;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

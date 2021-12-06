@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Domain.Entities.User;
+﻿using Domain.Entities.User;
 
 namespace Application.Models.Identity
 {

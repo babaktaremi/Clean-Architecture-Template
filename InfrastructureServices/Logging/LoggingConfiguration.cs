@@ -1,11 +1,8 @@
-﻿using System;
-using System.Data;
+﻿using System.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Events;
 using Serilog.Exceptions;
-using Serilog.Sinks.Elasticsearch;
 using Serilog.Sinks.MSSqlServer;
 
 namespace InfrastructureServices.Logging
@@ -39,8 +36,9 @@ namespace InfrastructureServices.Logging
            if (!context.HostingEnvironment.IsDevelopment())
            {
                configuration.WriteTo
-                   .MSSqlServer(context.Configuration
-                       .GetConnectionString("SqlServer"), "SystemLogs",schemaName:"debug", autoCreateSqlTable: true)
+                   .MSSqlServer(
+                       connectionString: context.Configuration.GetConnectionString("SqlServer"),
+                       sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents" ,AutoCreateSqlTable = true,SchemaName = "log"})
                    .MinimumLevel.Warning();
 
                configuration.WriteTo.File("log.txt", rollingInterval: RollingInterval.Day);
@@ -48,22 +46,22 @@ namespace InfrastructureServices.Logging
 
            configuration.WriteTo.Console().MinimumLevel.Information();
 
-           #region ElasticSearch Configuration. Comment if Not Needed 
+           #region ElasticSearch Configuration. UnComment if Needed 
 
 
-           var elasticUrl = context.Configuration.GetValue<string>("Logging:ElasticUrl");
+           //var elasticUrl = context.Configuration.GetValue<string>("Logging:ElasticUrl");
 
-           if (!string.IsNullOrEmpty(elasticUrl))
-           {
-               configuration.WriteTo.Elasticsearch(
-                   new ElasticsearchSinkOptions(new Uri(elasticUrl))
-                   {
-                       AutoRegisterTemplate = true,
-                       AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
-                       IndexFormat = "web-logs-{0:yyyy.MM.dd}",
-                       MinimumLogEventLevel = LogEventLevel.Debug
-                   });
-           }
+           //if (!string.IsNullOrEmpty(elasticUrl))
+           //{
+           //    configuration.WriteTo.Elasticsearch(
+           //        new ElasticsearchSinkOptions(new Uri(elasticUrl))
+           //        {
+           //            AutoRegisterTemplate = true,
+           //            AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv7,
+           //            IndexFormat = "web-logs-{0:yyyy.MM.dd}",
+           //            MinimumLogEventLevel = LogEventLevel.Debug
+           //        });
+           //}
 
            #endregion
        };

@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Common;
+﻿using Domain.Common;
 using Microsoft.AspNetCore.Identity;
 
 namespace Domain.Entities.User

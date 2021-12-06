@@ -1,5 +1,4 @@
-﻿using System;
-using Domain.Common;
+﻿using Domain.Common;
 
 namespace Domain.Entities.User
 {

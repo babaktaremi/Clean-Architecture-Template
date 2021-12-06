@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Contracts;
-using Application.Contracts.Identity;
+﻿using Application.Contracts.Identity;
 using Domain.Entities.User;
 using Identity.Identity.Manager;
 using Microsoft.AspNetCore.Identity;

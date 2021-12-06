@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using System.Threading.Tasks;
 using Domain.Entities.User;
 using Identity.Identity.Manager;
 using Microsoft.AspNetCore.Identity;

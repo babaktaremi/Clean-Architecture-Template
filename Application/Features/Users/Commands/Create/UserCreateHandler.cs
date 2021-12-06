@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Contracts;
+﻿using System.Diagnostics;
 using Application.Contracts.Identity;
-using Application.Contracts.Persistence;
 using Application.Models.Common;
 using Domain.Entities.User;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Features.Users.Commands.Create
 {
@@ -15,11 +12,12 @@ namespace Application.Features.Users.Commands.Create
 
         private readonly IAppUserManager _userRepository;
         private readonly IMediator _mediator;
-
-        public UserCreateHandler(IAppUserManager userRepository, IMediator mediator)
+        private readonly ILogger<UserCreateHandler> _logger;
+        public UserCreateHandler(IAppUserManager userRepository, IMediator mediator, ILogger<UserCreateHandler> logger)
         {
             _userRepository = userRepository;
             _mediator = mediator;
+            _logger = logger;
         }
 
         public async Task<OperationResult<UserCreateCommandResult>> Handle(UserCreateCommand request, CancellationToken cancellationToken)
@@ -44,6 +42,9 @@ namespace Application.Features.Users.Commands.Create
             }
 
             var code = await _userRepository.GeneratePhoneNumberToken(user, user.PhoneNumber);
+
+
+            _logger.LogWarning($"Generated Code for User ID {user.Id} is {code}");
 
             //TODO Send Code Via Sms Provider
 

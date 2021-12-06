@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Application.Models.Common;
+﻿using Application.Models.Common;
 using Application.Models.Jwt;
 using MediatR;
 

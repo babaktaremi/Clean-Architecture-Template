@@ -1,17 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Features.Admin.Queries.GetToken;
+﻿using Application.Features.Admin.Queries.GetToken;
 using Application.Features.Users.Commands.ConfirmPhoneNumber;
 using Application.Features.Users.Commands.Create;
 using Application.Features.Users.Queries.GenerateUserToken.Model;
 using Application.Features.Users.Queries.TokenRequest;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using WebFramework.BaseController;
 
-namespace Web.Api.Controllers
+namespace Web.Api.Controllers.V1
 {
     [ApiVersion("1")]
     [ApiController]

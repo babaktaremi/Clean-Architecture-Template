@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Domain.Common;
+﻿using Domain.Common;
 
 namespace Domain.Entities.Order
 {

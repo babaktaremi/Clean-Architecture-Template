@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Application.Models.Identity;
+﻿using Application.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Contracts.Identity

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Application.Contracts;
+﻿using Application.Contracts;
 using Application.Contracts.Identity;
 using Application.Models.Common;
 using Application.Models.Jwt;

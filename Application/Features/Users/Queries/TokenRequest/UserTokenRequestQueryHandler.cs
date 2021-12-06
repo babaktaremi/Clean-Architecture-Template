@@ -1,9 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Application.Contracts;
+﻿using System.Diagnostics;
 using Application.Contracts.Identity;
 using Application.Models.Common;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Features.Users.Queries.TokenRequest
 {
@@ -11,11 +10,13 @@ namespace Application.Features.Users.Queries.TokenRequest
    {
        private readonly IAppUserManager _userManager;
        private readonly IMediator _mediator;
+       private readonly ILogger<UserTokenRequestQueryHandler> _logger;
 
-       public UserTokenRequestQueryHandler(IAppUserManager userManager, IMediator mediator)
+       public UserTokenRequestQueryHandler(IAppUserManager userManager, IMediator mediator, ILogger<UserTokenRequestQueryHandler> logger)
        {
            _userManager = userManager;
            _mediator = mediator;
+           _logger = logger;
        }
 
 
@@ -27,6 +28,8 @@ namespace Application.Features.Users.Queries.TokenRequest
                 return OperationResult<UserTokenRequestQueryResult>.NotFoundResult("کاربر یافت نشد");
 
             var code = await _userManager.GenerateOtpCode(user);
+
+            _logger.LogWarning($"Generated Code for user Id {user.Id} is {code}");
 
             //TODO Send Code Via Sms Provider
 

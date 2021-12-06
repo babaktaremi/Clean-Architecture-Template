@@ -1,9 +1,8 @@
 ﻿using System.Reflection;
-using AutoMapper;
 
-namespace Application.Profiles
+namespace Web.Api.Profile
 {
-    public class RegisterMapper:Profile
+    public class RegisterMapper:AutoMapper.Profile
     {
         public RegisterMapper()
         {
@@ -13,7 +12,7 @@ namespace Application.Profiles
         private void ApplyMappingProfiles(Assembly assembly)
         {
             var types = assembly.GetExportedTypes().Where(t => t.GetInterfaces().Any(i =>
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICreateMapper<>)))
+                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(Web.Api.Profile.ICreateMapper<>)))
                 .ToList();
 
             foreach (var type in types)

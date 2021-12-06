@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.Models.ApiResult;
+﻿using Application.Models.ApiResult;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
