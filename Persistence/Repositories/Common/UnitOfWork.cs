@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.Persistence;
 
-namespace Persistence.Repositories
+namespace Persistence.Repositories.Common
 {
     public class UnitOfWork : IUnitOfWork
     {

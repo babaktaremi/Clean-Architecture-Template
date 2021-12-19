@@ -1,6 +1,7 @@
 ﻿using Application.Contracts.Persistence;
 using Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Repositories.Common;
 
 namespace Persistence.Repositories
 {

@@ -1,8 +1,7 @@
-﻿using Application.Contracts.Persistence;
-using Domain.Common;
+﻿using Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Repositories
+namespace Persistence.Repositories.Common
 {
    internal abstract class BaseAsyncRepository<T> where T:class,IEntity
     {
