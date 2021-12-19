@@ -1,16 +1,17 @@
 ﻿using Application.Contracts.Persistence;
+using Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Repositories
 {
-   public class BaseAsyncRepository<T>:IAsyncRepository<T> where T:class
+   internal abstract class BaseAsyncRepository<T> where T:class,IEntity
     {
         public readonly ApplicationDbContext DbContext;
         protected DbSet<T> Entities { get; }
         protected virtual IQueryable<T> Table => Entities;
         protected virtual IQueryable<T> TableNoTracking => Entities.AsNoTracking();
 
-        public BaseAsyncRepository(ApplicationDbContext dbContext)
+        protected BaseAsyncRepository(ApplicationDbContext dbContext)
         {
             DbContext = dbContext;
             Entities = DbContext.Set<T>(); // City => Cities

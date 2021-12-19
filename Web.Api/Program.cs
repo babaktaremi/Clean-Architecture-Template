@@ -49,7 +49,7 @@ builder.Services.AddSwagger();
 builder.Services.AddApplicationServices().RegisterIdentityServices(identitySettings)
     .AddPersistenceServices(configuration).AddWebFrameworkServices();
 
-builder.Services.AddAutoMapper(typeof(User),typeof(JwtService),typeof(UserController),typeof(BaseAsyncRepository<>));
+builder.Services.AddAutoMapper(typeof(User),typeof(JwtService),typeof(UserController));
 
 var app = builder.Build();
 

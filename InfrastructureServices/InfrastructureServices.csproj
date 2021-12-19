@@ -12,4 +12,8 @@
   <PackageReference Include="Serilog.Exceptions" Version="8.0.0" />
      <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />  
 </ItemGroup>
+<ItemGroup>
+  <ProjectReference Include="..\Identity\Identity.csproj" />
+  <ProjectReference Include="..\Persistence\Persistence.csproj" />
+</ItemGroup>
 </Project>
