@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Common
 {
-    public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse : class where TRequest : IRequest<TResponse>
     {
         private readonly IList<IValidator<TRequest>> _validators;
 
@@ -13,13 +13,13 @@ namespace Application.Common
             _validators = validators;
         }
 
-        public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var errors = _validators
-                 .Select(v => v.Validate(request))
-                 .SelectMany(result => result.Errors)
-                 .Where(error => error != null)
-                 .ToList();
+                .Select(v => v.Validate(request))
+                .SelectMany(result => result.Errors)
+                .Where(error => error != null)
+                .ToList();
 
             if (errors.Any())
             {

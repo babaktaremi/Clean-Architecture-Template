@@ -73,5 +73,9 @@ namespace Identity.UserManager
             return _userManager.FindByNameAsync(userName);
         }
 
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _userManager.Users.AsNoTracking().ToListAsync();
+        }
    }
 }

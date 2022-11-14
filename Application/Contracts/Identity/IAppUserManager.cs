@@ -16,5 +16,7 @@ namespace Application.Contracts.Identity
        Task<User> GetUserByPhoneNumber(string phoneNumber);
        Task<SignInResult> AdminLogin(User user,string password);
        Task<User> GetByUserName(string userName);
+
+       Task<List<User>> GetAllUsersAsync();
    }
 }

@@ -21,7 +21,7 @@ using WebFramework.Filters;
 using WebFramework.ServiceConfiguration;
 using WebFramework.Swagger;
 
-var builder= WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog(LoggingConfiguration.ConfigureLogger);
 
@@ -31,7 +31,7 @@ Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
 builder.Services.Configure<IdentitySettings>(configuration.GetSection(nameof(IdentitySettings)));
 
-var identitySettings = configuration.GetSection(nameof(IdentitySettings)).Get<IdentitySettings>(); 
+var identitySettings = configuration.GetSection(nameof(IdentitySettings)).Get<IdentitySettings>();
 
 builder.Services.AddControllers(options =>
 {
@@ -49,7 +49,7 @@ builder.Services.AddSwagger();
 builder.Services.AddApplicationServices().RegisterIdentityServices(identitySettings)
     .AddPersistenceServices(configuration).AddWebFrameworkServices();
 
-builder.Services.AddAutoMapper(typeof(User),typeof(JwtService),typeof(UserController));
+builder.Services.AddAutoMapper(typeof(User), typeof(JwtService), typeof(UserController));
 
 var app = builder.Build();
 
@@ -58,15 +58,13 @@ var app = builder.Build();
 
 await using (var scope = app.Services.CreateAsyncScope())
 {
-    var context=scope.ServiceProvider.GetService<ApplicationDbContext>();
+    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
     if (context is null)
         throw new Exception("Database Context Not Found");
 
-    if (!((RelationalDatabaseCreator)context.Database.GetService<IDatabaseCreator>()).Exists())
-    {
-        await context.Database.MigrateAsync();
-    }
+    await context.Database.MigrateAsync();
+
 
     var seedService = scope.ServiceProvider.GetRequiredService<ISeedDataBase>();
     await seedService.Seed();
@@ -89,10 +87,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.MapControllers();
 
 await app.RunAsync();
 #endregion

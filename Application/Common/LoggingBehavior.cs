@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Common
 {
-    public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse:class
+    public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse:class where TRequest: IRequest<TResponse>
     {
         private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger;
 
@@ -14,10 +14,8 @@ namespace Application.Common
         }
 
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            
-
             try
             {
                 var response = await next();
@@ -25,19 +23,17 @@ namespace Application.Common
             }
             catch (Exception e)
             {
-               _logger.LogError(e,e.Message);
+                _logger.LogError(e, e.Message);
 
-               if (typeof(TResponse).GetGenericTypeDefinition() == typeof(OperationResult<>))
-               {
-                   var response=new OperationResult<TResponse>{IsException = true};
-                   
-                   return response as TResponse; 
-               }
+                if (typeof(TResponse).GetGenericTypeDefinition() == typeof(OperationResult<>))
+                {
+                    var response = new OperationResult<TResponse> { IsException = true };
 
-               return default;
+                    return response as TResponse;
+                }
+
+                return default;
             }
-
-          
         }
     }
 }
