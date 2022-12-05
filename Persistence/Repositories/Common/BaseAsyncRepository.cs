@@ -8,7 +8,7 @@ namespace Persistence.Repositories.Common
         public readonly ApplicationDbContext DbContext;
         protected DbSet<T> Entities { get; }
         protected virtual IQueryable<T> Table => Entities;
-        protected virtual IQueryable<T> TableNoTracking => Entities.AsNoTracking();
+        protected virtual IQueryable<T> TableNoTracking => Entities.AsNoTrackingWithIdentityResolution();
 
         protected BaseAsyncRepository(ApplicationDbContext dbContext)
         {

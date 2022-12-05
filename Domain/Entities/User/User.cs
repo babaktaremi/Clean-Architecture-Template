@@ -22,6 +22,7 @@ namespace Domain.Entities.User
 
         #region Navigation Properties
 
+        public IList<Order.Order> Orders { get; set; }
 
         #endregion
 

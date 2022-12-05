@@ -73,6 +73,11 @@ namespace Identity.UserManager
             return _userManager.FindByNameAsync(userName);
         }
 
+        public async Task<User> GetUserByIdAsync(int userId)
+        {
+            return await _userManager.FindByIdAsync(userId.ToString());
+        }
+
         public async Task<List<User>> GetAllUsersAsync()
         {
             return await _userManager.Users.AsNoTracking().ToListAsync();

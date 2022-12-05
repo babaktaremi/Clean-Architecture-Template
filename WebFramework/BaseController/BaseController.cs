@@ -28,7 +28,7 @@ namespace WebFramework.BaseController
         protected IActionResult OperationResult(dynamic result)
         {
             if (result is null)
-                return new ServerErrorResult("مشکلی به وجود آمده است");
+                return new ServerErrorResult("Server Error");
 
             if (!((object)result).IsAssignableFromBaseTypeGeneric(typeof(OperationResult<>)))
             {
@@ -39,10 +39,20 @@ namespace WebFramework.BaseController
             if (result.IsSuccess) return result.Result is bool ? Ok() : Ok(result.Result);
 
             if (result.IsNotFound)
-                return NotFound(result.ErrorMessage);
+            {
+
+                ModelState.AddModelError("GeneralError", result.ErrorMessage);
+
+                var notFoundErrors = new ValidationProblemDetails(ModelState);
+
+                return NotFound(notFoundErrors.Errors);
+            }
 
             ModelState.AddModelError("GeneralError", result.ErrorMessage);
-            return BadRequest(ModelState);
+
+            var badRequestErrors = new ValidationProblemDetails(ModelState);
+
+            return BadRequest(badRequestErrors.Errors);
 
         }
     }

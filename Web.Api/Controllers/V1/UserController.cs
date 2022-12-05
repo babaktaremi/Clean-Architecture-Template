@@ -26,12 +26,7 @@ namespace Web.Api.Controllers.V1
         {
             var command = await _mediator.Send(model);
 
-            if (command.IsSuccess)
-            {
-                return Ok(command.Result);
-            }
-
-            return BadRequest(command.ErrorMessage);
+            return base.OperationResult(command);
         }
 
         [HttpPost("ConfirmPhoneNumber")]
@@ -39,12 +34,7 @@ namespace Web.Api.Controllers.V1
         {
             var command = await _mediator.Send(model);
 
-            if (command.IsSuccess)
-            {
-                return Ok(command.Result);
-            }
-
-            return BadRequest(command.ErrorMessage);
+            return base.OperationResult(command);
         }
 
         [HttpPost("TokenRequest")]

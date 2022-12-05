@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Utils;
 
 namespace Application.Models.ApiResult
@@ -9,7 +8,6 @@ namespace Application.Models.ApiResult
         public bool IsSuccess { get; set; }
         public ApiResultStatusCode StatusCode { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Message { get; set; }
 
         public ApiResult(bool isSuccess, ApiResultStatusCode statusCode, string message = null)
@@ -62,7 +60,6 @@ namespace Application.Models.ApiResult
     public class ApiResult<TData> : ApiResult
         where TData : class
     {
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public TData Data { get; set; }
 
         public ApiResult(bool isSuccess, ApiResultStatusCode statusCode, TData data, string message = null)
