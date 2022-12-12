@@ -1,14 +1,13 @@
 ﻿using System.Security.Claims;
-using Application.Models.Jwt;
-using Domain.Entities.User;
+using CleanArc.Application.Models.Jwt;
+using CleanArc.Domain.Entities.User;
 
-namespace Application.Contracts
+namespace CleanArc.Application.Contracts;
+
+public interface IJwtService
 {
-    public interface IJwtService
-    {
-        Task<AccessToken> GenerateAsync(User user);
-        Task<ClaimsPrincipal> GetPrincipalFromExpiredToken(string token);
-        Task<AccessToken> GenerateByPhoneNumberAsync(string phoneNumber);
-        Task<AccessToken> RefreshToken(string refreshTokenId);
-    }
+    Task<AccessToken> GenerateAsync(User user);
+    Task<ClaimsPrincipal> GetPrincipalFromExpiredToken(string token);
+    Task<AccessToken> GenerateByPhoneNumberAsync(string phoneNumber);
+    Task<AccessToken> RefreshToken(string refreshTokenId);
 }

@@ -1,18 +1,16 @@
-﻿using Domain.Common;
+﻿using CleanArc.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Entities.User
+namespace CleanArc.Domain.Entities.User;
+
+public class RoleClaim:IdentityRoleClaim<int>,IEntity
 {
-    public class RoleClaim:IdentityRoleClaim<int>,IEntity
+    public RoleClaim()
     {
-        public RoleClaim()
-        {
-            CreatedClaim=DateTime.Now;
-        }
-
-        public DateTime CreatedClaim { get; set; }
-        public Role Role { get; set; }
-
+        CreatedClaim=DateTime.Now;
     }
-  
+
+    public DateTime CreatedClaim { get; set; }
+    public Role Role { get; set; }
+
 }

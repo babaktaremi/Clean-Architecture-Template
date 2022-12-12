@@ -1,11 +1,10 @@
-﻿using Application.Profiles;
-using Domain.Entities.User;
+﻿using CleanArc.Application.Profiles;
+using CleanArc.Domain.Entities.User;
 
-namespace Application.Models.Identity
+namespace CleanArc.Application.Models.Identity;
+
+public class GetRolesDto:ICreateMapper<Role>
 {
-   public class GetRolesDto:ICreateMapper<Role>
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+    public string Id { get; set; }
+    public string Name { get; set; }
 }

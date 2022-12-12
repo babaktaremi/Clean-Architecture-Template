@@ -1,64 +1,63 @@
-﻿using Application.Features.Admin.Queries.GetToken;
-using Application.Features.Users.Commands.ConfirmPhoneNumber;
-using Application.Features.Users.Commands.Create;
-using Application.Features.Users.Queries.GenerateUserToken.Model;
-using Application.Features.Users.Queries.TokenRequest;
+﻿using CleanArc.Application.Features.Admin.Queries.GetToken;
+using CleanArc.Application.Features.Users.Commands.ConfirmPhoneNumber;
+using CleanArc.Application.Features.Users.Commands.Create;
+using CleanArc.Application.Features.Users.Queries.GenerateUserToken.Model;
+using CleanArc.Application.Features.Users.Queries.TokenRequest;
+using CleanArc.WebFramework.BaseController;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using WebFramework.BaseController;
 
-namespace Web.Api.Controllers.V1
+namespace CleanArc.Web.Api.Controllers.V1;
+
+[ApiVersion("1")]
+[ApiController]
+[Route("api/v{version:apiVersion}/User")]
+public class UserController : BaseController
 {
-    [ApiVersion("1")]
-    [ApiController]
-    [Route("api/v{version:apiVersion}/User")]
-    public class UserController : BaseController
+    private readonly IMediator _mediator;
+
+    public UserController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public UserController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    [HttpPost("CreateUser")]
+    public async Task<IActionResult> CreateUser(UserCreateCommand model)
+    {
+        var command = await _mediator.Send(model);
 
-        [HttpPost("CreateUser")]
-        public async Task<IActionResult> CreateUser(UserCreateCommand model)
-        {
-            var command = await _mediator.Send(model);
+        return base.OperationResult(command);
+    }
 
-            return base.OperationResult(command);
-        }
+    [HttpPost("ConfirmPhoneNumber")]
+    public async Task<IActionResult> ConfirmPhoneNumber(ConfirmPhoneNumberCommand model)
+    {
+        var command = await _mediator.Send(model);
 
-        [HttpPost("ConfirmPhoneNumber")]
-        public async Task<IActionResult> ConfirmPhoneNumber(ConfirmPhoneNumberCommand model)
-        {
-            var command = await _mediator.Send(model);
+        return base.OperationResult(command);
+    }
 
-            return base.OperationResult(command);
-        }
+    [HttpPost("TokenRequest")]
+    public async Task<IActionResult> TokenRequest(UserTokenRequestQuery model)
+    {
+        var query = await _mediator.Send(model);
 
-        [HttpPost("TokenRequest")]
-        public async Task<IActionResult> TokenRequest(UserTokenRequestQuery model)
-        {
-            var query = await _mediator.Send(model);
+        return base.OperationResult(query);
+    }
 
-            return base.OperationResult(query);
-        }
+    [HttpPost("GetToken")]
+    public async Task<IActionResult> ValidateUser(GenerateUserTokenQuery model)
+    {
+        var result = await _mediator.Send(model);
 
-        [HttpPost("GetToken")]
-        public async Task<IActionResult> ValidateUser(GenerateUserTokenQuery model)
-        {
-            var result = await _mediator.Send(model);
+        return base.OperationResult(result);
+    }
 
-            return base.OperationResult(result);
-        }
+    [HttpPost("AdminLogin")]
+    public async Task<IActionResult> AdminLogin(AdminGetTokenQuery model)
+    {
+        var query = await _mediator.Send(model);
 
-        [HttpPost("AdminLogin")]
-        public async Task<IActionResult> AdminLogin(AdminGetTokenQuery model)
-        {
-            var query = await _mediator.Send(model);
-
-            return base.OperationResult(query);
-        }
+        return base.OperationResult(query);
     }
 }

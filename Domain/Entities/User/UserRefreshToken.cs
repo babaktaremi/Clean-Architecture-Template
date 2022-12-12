@@ -1,17 +1,16 @@
-﻿using Domain.Common;
+﻿using CleanArc.Domain.Common;
 
-namespace Domain.Entities.User
+namespace CleanArc.Domain.Entities.User;
+
+public class UserRefreshToken:BaseEntity<Guid>
 {
-   public class UserRefreshToken:BaseEntity<Guid>
+    public UserRefreshToken()
     {
-        public UserRefreshToken()
-        {
-            CreatedAt=DateTime.Now;
-        }
-
-        public int UserId { get; set; }
-        public User User { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public bool IsValid { get; set; }
+        CreatedAt=DateTime.Now;
     }
+
+    public int UserId { get; set; }
+    public User User { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public bool IsValid { get; set; }
 }

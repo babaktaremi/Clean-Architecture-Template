@@ -8,6 +8,6 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Utils\Utils.csproj" />
+    <ProjectReference Include="..\Utils\CleanArc.Utils.csproj" />
   </ItemGroup>
 </Project>

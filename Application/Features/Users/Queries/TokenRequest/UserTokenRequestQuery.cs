@@ -1,10 +1,9 @@
-﻿using Application.Models.Common;
+﻿using CleanArc.Application.Models.Common;
 using MediatR;
 
-namespace Application.Features.Users.Queries.TokenRequest
+namespace CleanArc.Application.Features.Users.Queries.TokenRequest;
+
+public class UserTokenRequestQuery:IRequest<OperationResult<UserTokenRequestQueryResult>>
 {
-   public class UserTokenRequestQuery:IRequest<OperationResult<UserTokenRequestQueryResult>>
-    {
-        public string UserPhoneNumber { get; set; }
-    }
+    public string UserPhoneNumber { get; set; }
 }

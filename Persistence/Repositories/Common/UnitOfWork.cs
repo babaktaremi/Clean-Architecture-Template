@@ -1,29 +1,28 @@
-﻿using Application.Contracts.Persistence;
+﻿using CleanArc.Application.Contracts.Persistence;
 
-namespace Persistence.Repositories.Common
+namespace CleanArc.Infrastructure.Persistence.Repositories.Common;
+
+public class UnitOfWork : IUnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
-    {
-        private readonly ApplicationDbContext _db;
+    private readonly ApplicationDbContext _db;
        
-        public IUserRefreshTokenRepository UserRefreshTokenRepository { get; }
-        public IOrderRepository OrderRepository { get; }
+    public IUserRefreshTokenRepository UserRefreshTokenRepository { get; }
+    public IOrderRepository OrderRepository { get; }
 
-        public UnitOfWork(ApplicationDbContext db)
-       {
-           _db = db;
-           UserRefreshTokenRepository = new UserRefreshTokenRepository(_db);
-           OrderRepository= new OrderRepository(_db);
-       }
+    public UnitOfWork(ApplicationDbContext db)
+    {
+        _db = db;
+        UserRefreshTokenRepository = new UserRefreshTokenRepository(_db);
+        OrderRepository= new OrderRepository(_db);
+    }
 
-        public  Task CommitAsync()
-        {
-            return _db.SaveChangesAsync();
-        }
+    public  Task CommitAsync()
+    {
+        return _db.SaveChangesAsync();
+    }
 
-        public ValueTask RollBackAsync()
-        {
-            return _db.DisposeAsync();
-        }
-   }
+    public ValueTask RollBackAsync()
+    {
+        return _db.DisposeAsync();
+    }
 }

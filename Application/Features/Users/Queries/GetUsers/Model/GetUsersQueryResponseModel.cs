@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Profiles;
-using Domain.Entities.User;
-using MediatR;
+﻿using CleanArc.Application.Profiles;
+using CleanArc.Domain.Entities.User;
 
-namespace Application.Features.Users.Queries.GetUsers.Model
+namespace CleanArc.Application.Features.Users.Queries.GetUsers.Model;
+
+public record GetUsersQueryResponseModel : ICreateMapper<User>
 {
-    public record GetUsersQueryResponseModel : ICreateMapper<User>
-    {
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public int UserId { get; set; }
-    }
+    public string UserName { get; set; }
+    public string Email { get; set; }
+    public int UserId { get; set; }
 }

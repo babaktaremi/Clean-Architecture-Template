@@ -1,39 +1,38 @@
-﻿using Application.Models.Common;
+﻿using CleanArc.Application.Models.Common;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Application.Common
+namespace CleanArc.Application.Common;
+
+public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse:class where TRequest: IRequest<TResponse>
 {
-    public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse:class where TRequest: IRequest<TResponse>
+    private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger;
+
+    public LoggingBehavior(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
     {
-        private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger;
+        _logger = logger;
+    }
 
-        public LoggingBehavior(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
+
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    {
+        try
         {
-            _logger = logger;
+            var response = await next();
+            return response;
         }
-
-
-        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        catch (Exception e)
         {
-            try
+            _logger.LogError(e, e.Message);
+
+            if (typeof(TResponse).GetGenericTypeDefinition() == typeof(OperationResult<>))
             {
-                var response = await next();
-                return response;
+                var response = new OperationResult<TResponse> { IsException = true };
+
+                return response as TResponse;
             }
-            catch (Exception e)
-            {
-                _logger.LogError(e, e.Message);
 
-                if (typeof(TResponse).GetGenericTypeDefinition() == typeof(OperationResult<>))
-                {
-                    var response = new OperationResult<TResponse> { IsException = true };
-
-                    return response as TResponse;
-                }
-
-                return default;
-            }
+            return default;
         }
     }
 }

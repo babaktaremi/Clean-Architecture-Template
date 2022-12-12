@@ -13,7 +13,7 @@
      <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="8.4.1" />  
 </ItemGroup>
 <ItemGroup>
-  <ProjectReference Include="..\Identity\Identity.csproj" />
-  <ProjectReference Include="..\Persistence\Persistence.csproj" />
+  <ProjectReference Include="..\Identity\CleanArc.Infrastructure.Identity.csproj" />
+  <ProjectReference Include="..\Persistence\CleanArc.Infrastructure.Persistence.csproj" />
 </ItemGroup>
 </Project>

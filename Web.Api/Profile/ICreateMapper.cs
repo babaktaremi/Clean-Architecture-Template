@@ -1,10 +1,9 @@
-﻿namespace Web.Api.Profile
+﻿namespace CleanArc.Web.Api.Profile;
+
+public interface ICreateMapper<TSource>
 {
-   public interface ICreateMapper<TSource>
+    void Map(AutoMapper.Profile profile)
     {
-        void Map(AutoMapper.Profile profile)
-        {
-            profile.CreateMap(typeof(TSource), GetType()).ReverseMap();
-        }
+        profile.CreateMap(typeof(TSource), GetType()).ReverseMap();
     }
 }

@@ -1,14 +1,13 @@
-﻿using Domain.Entities.User;
+﻿using CleanArc.Domain.Entities.User;
+using CleanArc.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Persistence;
 
-namespace Identity.Identity.Store
+namespace CleanArc.Infrastructure.Identity.Identity.Store;
+
+public class RoleStore:RoleStore<Role,ApplicationDbContext,int,UserRole,RoleClaim>
 {
-    public class RoleStore:RoleStore<Role,ApplicationDbContext,int,UserRole,RoleClaim>
+    public RoleStore(ApplicationDbContext context, IdentityErrorDescriber describer = null) : base(context, describer)
     {
-        public RoleStore(ApplicationDbContext context, IdentityErrorDescriber describer = null) : base(context, describer)
-        {
-        }
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace Application.Models.Identity
+﻿namespace CleanArc.Application.Models.Identity;
+
+public class CreateRoleDto
 {
-   public class CreateRoleDto
-    {
-        public string RoleName { get; set; }
-    }
+    public string RoleName { get; set; }
 }

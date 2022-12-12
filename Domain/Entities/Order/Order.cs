@@ -1,16 +1,15 @@
-﻿using Domain.Common;
+﻿using CleanArc.Domain.Common;
 
-namespace Domain.Entities.Order
+namespace CleanArc.Domain.Entities.Order;
+
+public class Order:BaseEntity
 {
-   public class Order:BaseEntity
-    {
-        public string OrderName { get; set; }
+    public string OrderName { get; set; }
 
-        #region Navigation Properties
+    #region Navigation Properties
 
-        public User.User User { get; set; }
-        public int UserId { get; set; }
+    public User.User User { get; set; }
+    public int UserId { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

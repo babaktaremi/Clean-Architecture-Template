@@ -1,10 +1,9 @@
-﻿namespace Application.Contracts.Persistence
+﻿namespace CleanArc.Application.Contracts.Persistence;
+
+public interface IUnitOfWork
 {
-   public interface IUnitOfWork
-   {
-       public IUserRefreshTokenRepository UserRefreshTokenRepository { get; }
-       public IOrderRepository OrderRepository { get; }
-       Task CommitAsync();
-       ValueTask RollBackAsync();
-   }
+    public IUserRefreshTokenRepository UserRefreshTokenRepository { get; }
+    public IOrderRepository OrderRepository { get; }
+    Task CommitAsync();
+    ValueTask RollBackAsync();
 }

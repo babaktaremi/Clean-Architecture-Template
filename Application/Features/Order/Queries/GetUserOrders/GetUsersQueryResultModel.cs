@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CleanArc.Application.Features.Order.Queries.GetUserOrders;
 
-namespace Application.Features.Order.Queries.GetUserOrders
-{
-    public record GetUsersQueryResultModel(int OrderId, string OrderName);
-}
+public record GetUsersQueryResultModel(int OrderId, string OrderName);

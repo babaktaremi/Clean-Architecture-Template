@@ -1,25 +1,23 @@
-﻿using Application.Contracts.Persistence;
+﻿using CleanArc.Application.Contracts.Persistence;
+using CleanArc.Infrastructure.Persistence.Repositories.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Repositories;
-using Persistence.Repositories.Common;
 
-namespace Persistence.ServiceConfiguration
+namespace CleanArc.Infrastructure.Persistence.ServiceConfiguration;
+
+public static class ServiceCollectionExtensions
 {
-   public static class ServiceCollectionExtensions
+    public static IServiceCollection AddPersistenceServices(this IServiceCollection services,IConfiguration configuration)
     {
-        public static IServiceCollection AddPersistenceServices(this IServiceCollection services,IConfiguration configuration)
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        services.AddDbContext<ApplicationDbContext>(options =>
         {
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            options
+                .UseSqlServer(configuration.GetConnectionString("SqlServer"));
+        });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options
-                    .UseSqlServer(configuration.GetConnectionString("SqlServer"));
-            });
-
-            return services;
-        }
+        return services;
     }
 }

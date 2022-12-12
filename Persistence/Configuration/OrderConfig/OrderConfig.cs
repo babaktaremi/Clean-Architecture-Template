@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities.Order;
+﻿using CleanArc.Domain.Entities.Order;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Configuration.OrderConfig
+namespace CleanArc.Infrastructure.Persistence.Configuration.OrderConfig;
+
+internal class OrderConfig:IEntityTypeConfiguration<Order>
 {
-    internal class OrderConfig:IEntityTypeConfiguration<Order>
+    public void Configure(EntityTypeBuilder<Order> builder)
     {
-        public void Configure(EntityTypeBuilder<Order> builder)
-        {
-            builder.HasOne(c => c.User).WithMany(c => c.Orders).HasForeignKey(c => c.UserId);
-        }
+        builder.HasOne(c => c.User).WithMany(c => c.Orders).HasForeignKey(c => c.UserId);
     }
 }

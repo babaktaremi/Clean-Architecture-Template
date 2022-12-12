@@ -1,22 +1,21 @@
-﻿using Domain.Entities.User;
+﻿using CleanArc.Domain.Entities.User;
 using Microsoft.AspNetCore.Identity;
 
-namespace Identity.Identity.validator
+namespace CleanArc.Infrastructure.Identity.Identity.validator;
+
+public class AppUserValidator:UserValidator<User>
 {
-    public class AppUserValidator:UserValidator<User>
+    public AppUserValidator(IdentityErrorDescriber errors):base(errors)
     {
-        public AppUserValidator(IdentityErrorDescriber errors):base(errors)
-        {
             
-        }
+    }
 
-        public override async Task<IdentityResult> ValidateAsync(UserManager<User> manager, User user)
-        {
-            var result=await base.ValidateAsync(manager, user);
+    public override async Task<IdentityResult> ValidateAsync(UserManager<User> manager, User user)
+    {
+        var result=await base.ValidateAsync(manager, user);
 
-            return result;
-        }
+        return result;
+    }
 
         
-    }
 }

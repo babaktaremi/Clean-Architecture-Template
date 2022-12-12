@@ -1,25 +1,23 @@
 using System.Diagnostics;
 using System.Reflection;
-using Application.Contracts;
-using Application.ServiceConfiguration;
-using Domain.Entities.User;
-using Identity.Identity.Dtos;
-using Identity.Identity.SeedDatabaseService;
-using Identity.Jwt;
-using Identity.ServiceConfiguration;
-using InfrastructureServices.Logging;
+using CleanArc.Application.ServiceConfiguration;
+using CleanArc.Domain.Entities.User;
+using CleanArc.Infrastructure.CrossCutting.Logging;
+using CleanArc.Infrastructure.Identity.Identity.Dtos;
+using CleanArc.Infrastructure.Identity.Identity.SeedDatabaseService;
+using CleanArc.Infrastructure.Identity.Jwt;
+using CleanArc.Infrastructure.Identity.ServiceConfiguration;
+using CleanArc.Infrastructure.Persistence;
+using CleanArc.Infrastructure.Persistence.ServiceConfiguration;
+using CleanArc.Web.Api.Controllers.V1;
+using CleanArc.WebFramework.Filters;
+using CleanArc.WebFramework.ServiceConfiguration;
+using CleanArc.WebFramework.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Persistence;
-using Persistence.Repositories;
-using Persistence.ServiceConfiguration;
 using Serilog;
-using Web.Api.Controllers;
-using Web.Api.Controllers.V1;
-using WebFramework.Filters;
-using WebFramework.ServiceConfiguration;
-using WebFramework.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 

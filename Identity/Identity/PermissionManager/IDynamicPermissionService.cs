@@ -1,9 +1,8 @@
 ﻿using System.Security.Claims;
 
-namespace Identity.Identity.PermissionManager
+namespace CleanArc.Infrastructure.Identity.Identity.PermissionManager;
+
+public interface IDynamicPermissionService
 {
-    public interface IDynamicPermissionService
-    {
-        bool CanAccess(ClaimsPrincipal user, string area, string controller, string action);
-    }
-}   
+    bool CanAccess(ClaimsPrincipal user, string area, string controller, string action);
+}

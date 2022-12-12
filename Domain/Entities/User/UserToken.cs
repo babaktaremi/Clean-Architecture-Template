@@ -1,17 +1,16 @@
-﻿using Domain.Common;
+﻿using CleanArc.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Entities.User
+namespace CleanArc.Domain.Entities.User;
+
+public class UserToken:IdentityUserToken<int>,IEntity
 {
-    public class UserToken:IdentityUserToken<int>,IEntity
+    public UserToken()
     {
-        public UserToken()
-        {
-            GeneratedTime=DateTime.Now;
-        }
-
-        public User User { get; set; }
-        public DateTime GeneratedTime { get; set; }
-
+        GeneratedTime=DateTime.Now;
     }
+
+    public User User { get; set; }
+    public DateTime GeneratedTime { get; set; }
+
 }

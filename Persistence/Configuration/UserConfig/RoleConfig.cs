@@ -1,14 +1,13 @@
-﻿using Domain.Entities.User;
+﻿using CleanArc.Domain.Entities.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Configuration.UserConfig
+namespace CleanArc.Infrastructure.Persistence.Configuration.UserConfig;
+
+internal class RoleConfig:IEntityTypeConfiguration<Role>
 {
-    internal class RoleConfig:IEntityTypeConfiguration<Role>
+    public void Configure(EntityTypeBuilder<Role> builder)
     {
-        public void Configure(EntityTypeBuilder<Role> builder)
-        {
-            builder.ToTable("Roles","usr");
-        }
+        builder.ToTable("Roles","usr");
     }
 }

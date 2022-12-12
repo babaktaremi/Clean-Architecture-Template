@@ -1,37 +1,36 @@
-﻿using Application.Features.Users.Queries.GetUsers.Model;
-using Microsoft.AspNetCore.Mvc;
-using Identity.Identity.PermissionManager;
+﻿using CleanArc.Application.Features.Users.Queries.GetUsers.Model;
+using CleanArc.Infrastructure.Identity.Identity.PermissionManager;
+using CleanArc.WebFramework.BaseController;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using WebFramework.BaseController;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Api.Controllers
+namespace CleanArc.Web.Api.Controllers;
+
+[ApiVersion("1")]
+[ApiController]
+[Route("api/v{version:apiVersion}/Secure")]
+[Authorize(policy: nameof(ConstantPolicies.DynamicPermission))]
+public class SecureController : BaseController
 {
-    [ApiVersion("1")]
-    [ApiController]
-    [Route("api/v{version:apiVersion}/Secure")]
-    [Authorize(policy: nameof(ConstantPolicies.DynamicPermission))]
-    public class SecureController : BaseController
+    private readonly ISender _sender;
+
+    public SecureController(ISender sender)
     {
-        private readonly ISender _sender;
+        _sender = sender;
+    }
 
-        public SecureController(ISender sender)
-        {
-            _sender = sender;
-        }
+    [HttpGet("Secure")]
+    public IActionResult Secure()
+    {
+        return Ok();
+    }
 
-        [HttpGet("Secure")]
-        public IActionResult Secure()
-        {
-            return Ok();
-        }
+    [HttpGet("AllUsers")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var result = await _sender.Send(new GetUsersQueryModel());
 
-        [HttpGet("AllUsers")]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var result = await _sender.Send(new GetUsersQueryModel());
-
-            return base.OperationResult(result);
-        }
+        return base.OperationResult(result);
     }
 }

@@ -1,7 +1,6 @@
-﻿namespace Application.Features.Users.Commands.Create
+﻿namespace CleanArc.Application.Features.Users.Commands.Create;
+
+public class UserCreateCommandResult
 {
-   public class UserCreateCommandResult
-    {
-        public string UserGeneratedKey { get; set; }
-    }
+    public string UserGeneratedKey { get; set; }
 }

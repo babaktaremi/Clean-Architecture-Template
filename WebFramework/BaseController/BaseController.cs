@@ -1,59 +1,58 @@
 ﻿using System.Security.Claims;
-using Application.Models.Common;
+using CleanArc.Application.Models.Common;
+using CleanArc.Utils;
+using CleanArc.WebFramework.Filters;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Utils;
-using WebFramework.Filters;
 
-namespace WebFramework.BaseController
+namespace CleanArc.WebFramework.BaseController;
+
+public class BaseController : ControllerBase
 {
-    public class BaseController : ControllerBase
+    protected string UserName => User.Identity.Name;
+    protected int UserId => int.Parse(User.Identity.GetUserId());
+    protected string UserEmail => User.Identity.FindFirstValue(ClaimTypes.Email);
+    protected string UserRole => User.Identity.FindFirstValue(ClaimTypes.Role);
+
+    protected string UserKey => User.FindFirstValue(ClaimTypes.UserData);
+
+    //public UserRepository UserRepository { get; set; } => property injection
+    protected void AddErrors(IdentityResult result)
     {
-        protected string UserName => User.Identity.Name;
-        protected int UserId => int.Parse(User.Identity.GetUserId());
-        protected string UserEmail => User.Identity.FindFirstValue(ClaimTypes.Email);
-        protected string UserRole => User.Identity.FindFirstValue(ClaimTypes.Role);
-
-        protected string UserKey => User.FindFirstValue(ClaimTypes.UserData);
-
-        //public UserRepository UserRepository { get; set; } => property injection
-        protected void AddErrors(IdentityResult result)
+        foreach (var error in result.Errors)
         {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+    }
+
+    protected IActionResult OperationResult(dynamic result)
+    {
+        if (result is null)
+            return new ServerErrorResult("Server Error");
+
+        if (!((object)result).IsAssignableFromBaseTypeGeneric(typeof(OperationResult<>)))
+        {
+            throw new InvalidCastException("Given Type is not an OperationResult<T>");
         }
 
-        protected IActionResult OperationResult(dynamic result)
+
+        if (result.IsSuccess) return result.Result is bool ? Ok() : Ok(result.Result);
+
+        if (result.IsNotFound)
         {
-            if (result is null)
-                return new ServerErrorResult("Server Error");
-
-            if (!((object)result).IsAssignableFromBaseTypeGeneric(typeof(OperationResult<>)))
-            {
-                throw new InvalidCastException("Given Type is not an OperationResult<T>");
-            }
-
-
-            if (result.IsSuccess) return result.Result is bool ? Ok() : Ok(result.Result);
-
-            if (result.IsNotFound)
-            {
-
-                ModelState.AddModelError("GeneralError", result.ErrorMessage);
-
-                var notFoundErrors = new ValidationProblemDetails(ModelState);
-
-                return NotFound(notFoundErrors.Errors);
-            }
 
             ModelState.AddModelError("GeneralError", result.ErrorMessage);
 
-            var badRequestErrors = new ValidationProblemDetails(ModelState);
+            var notFoundErrors = new ValidationProblemDetails(ModelState);
 
-            return BadRequest(badRequestErrors.Errors);
-
+            return NotFound(notFoundErrors.Errors);
         }
+
+        ModelState.AddModelError("GeneralError", result.ErrorMessage);
+
+        var badRequestErrors = new ValidationProblemDetails(ModelState);
+
+        return BadRequest(badRequestErrors.Errors);
+
     }
 }
