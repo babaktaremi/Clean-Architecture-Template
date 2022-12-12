@@ -17,9 +17,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Application\CleanArc.Application.csproj" />
-    <ProjectReference Include="..\Domain\CleanArc.Domain.csproj" />
-    <ProjectReference Include="..\Persistence\CleanArc.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\CleanArc.Application\CleanArc.Application.csproj" />
+    <ProjectReference Include="..\CleanArc.Domain\CleanArc.Domain.csproj" />
+    <ProjectReference Include="..\CleanArc.Infrastructure.Persistence\CleanArc.Infrastructure.Persistence.csproj" />
   </ItemGroup>
 
 

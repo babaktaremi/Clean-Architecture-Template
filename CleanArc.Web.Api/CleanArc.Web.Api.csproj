@@ -24,10 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Identity\CleanArc.Infrastructure.Identity.csproj" />
-    <ProjectReference Include="..\InfrastructureServices\CleanArc.Infrastructure.CrossCutting.csproj" />
-    <ProjectReference Include="..\Persistence\CleanArc.Infrastructure.Persistence.csproj" />
-    <ProjectReference Include="..\WebFramework\CleanArc.WebFramework.csproj" />
+    <ProjectReference Include="..\CleanArc.Infrastructure.Identity\CleanArc.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\CleanArc.Infrastructure.CrossCutting\CleanArc.Infrastructure.CrossCutting.csproj" />
+    <ProjectReference Include="..\CleanArc.Infrastructure.Persistence\CleanArc.Infrastructure.Persistence.csproj" />
+    <ProjectReference Include="..\CleanArc.WebFramework\CleanArc.WebFramework.csproj" />
   </ItemGroup>
 
 </Project>

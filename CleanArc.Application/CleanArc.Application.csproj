@@ -12,7 +12,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\CleanArc.Domain.csproj" />
+    <ProjectReference Include="..\CleanArc.Domain\CleanArc.Domain.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
