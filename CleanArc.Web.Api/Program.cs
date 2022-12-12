@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Reflection;
 using CleanArc.Application.ServiceConfiguration;
 using CleanArc.Domain.Entities.User;
 using CleanArc.Infrastructure.CrossCutting.Logging;
@@ -14,9 +13,6 @@ using CleanArc.WebFramework.Filters;
 using CleanArc.WebFramework.ServiceConfiguration;
 using CleanArc.WebFramework.Swagger;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-using Persistence;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
