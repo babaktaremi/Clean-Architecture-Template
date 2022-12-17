@@ -4,8 +4,4 @@ using MediatR;
 
 namespace CleanArc.Application.Features.Users.Queries.GenerateUserToken.Model;
 
-public class GenerateUserTokenQuery:IRequest<OperationResult<AccessToken>>
-{
-    public string UserKey { get; set; }
-    public string Code { get; set; }
-}
+public record GenerateUserTokenQuery(string UserKey,string Code):IRequest<OperationResult<AccessToken>>;

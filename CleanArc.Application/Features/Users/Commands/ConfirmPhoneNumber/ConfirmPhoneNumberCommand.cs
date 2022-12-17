@@ -4,8 +4,4 @@ using MediatR;
 
 namespace CleanArc.Application.Features.Users.Commands.ConfirmPhoneNumber;
 
-public class ConfirmPhoneNumberCommand:IRequest<OperationResult<AccessToken>>
-{
-    public string UserKey { get; set; }
-    public string Code { get; set; }
-}
+public record ConfirmPhoneNumberCommand(string UserKey, string Code) : IRequest<OperationResult<AccessToken>>;

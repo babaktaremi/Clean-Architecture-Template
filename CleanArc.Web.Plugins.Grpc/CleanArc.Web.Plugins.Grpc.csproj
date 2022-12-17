@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.50.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.50.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArc.Application\CleanArc.Application.csproj" />
+    <ProjectReference Include="..\CleanArc.Web.Plugins.Common\CleanArc.Web.Plugins.Common.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Protobuf Include="ProtoModels\UserGrpcServiceModels.proto" GrpcServices="Server" />
+		<Protobuf Include="ProtoModels\OrderGrpcServiceModels.proto" GrpcServices="Server" />
+	</ItemGroup>
+
+</Project>

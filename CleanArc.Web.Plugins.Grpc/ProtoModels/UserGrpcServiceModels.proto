@@ -1,0 +1,44 @@
+﻿
+syntax = "proto3";
+
+option csharp_namespace = "CleanArc.Web.Plugins.Grpc.ProtoModels";
+
+package GrpcUserController;
+
+service UserServices {
+	rpc TokenRequest(UserTokenRequest) returns (TokenRequestResult);
+	rpc GetUserToken(GetUserTokenRequestModel) returns (GetUserTokenRequestResult);
+}
+
+message UserTokenRequest{
+	string PhoneNumber=1;
+}
+
+message TokenRequestResult{
+	string Message=1;
+	bool IsSuccess=2;
+ 	TokenRequestResultModel UserTokenRequestResult=3;
+}
+
+message TokenRequestResultModel{
+	string UserKey=1;
+}
+
+message GetUserTokenRequestModel
+{
+	string UserKey=1;
+	string Code=2;
+}
+
+message GetUserTokenRequestResult{
+	string Message=1;
+	bool IsSuccess=2;
+	UserToken Token=3;
+}
+
+message UserToken{
+	string AccessToken=1;
+	string RefreshToken=2;
+	string TokenType=3;
+	int32 ExpiresIn=4;
+}

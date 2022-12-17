@@ -3,6 +3,7 @@ using CleanArc.Application.Features.Users.Commands.ConfirmPhoneNumber;
 using CleanArc.Application.Features.Users.Commands.Create;
 using CleanArc.Application.Features.Users.Queries.GenerateUserToken.Model;
 using CleanArc.Application.Features.Users.Queries.TokenRequest;
+using CleanArc.Web.Api.ApiModels.User;
 using CleanArc.WebFramework.BaseController;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,41 +23,41 @@ public class UserController : BaseController
     }
 
     [HttpPost("CreateUser")]
-    public async Task<IActionResult> CreateUser(UserCreateCommand model)
+    public async Task<IActionResult> CreateUser(CreateUserViewModel model)
     {
-        var command = await _mediator.Send(model);
+        var command = await _mediator.Send(new UserCreateCommand(model.UserName,model.FirstName,model.LastName,model.PhoneNumber));
 
         return base.OperationResult(command);
     }
 
     [HttpPost("ConfirmPhoneNumber")]
-    public async Task<IActionResult> ConfirmPhoneNumber(ConfirmPhoneNumberCommand model)
+    public async Task<IActionResult> ConfirmPhoneNumber(ConfirmUserPhoneNumberViewModel model)
     {
-        var command = await _mediator.Send(model);
+        var command = await _mediator.Send(new ConfirmPhoneNumberCommand(model.UserKey,model.Code));
 
         return base.OperationResult(command);
     }
 
     [HttpPost("TokenRequest")]
-    public async Task<IActionResult> TokenRequest(UserTokenRequestQuery model)
+    public async Task<IActionResult> TokenRequest(UserTokenRequestViewModel model)
     {
-        var query = await _mediator.Send(model);
+        var query = await _mediator.Send(new UserTokenRequestQuery(model.UserPhoneNumber));
 
         return base.OperationResult(query);
     }
 
     [HttpPost("GetToken")]
-    public async Task<IActionResult> ValidateUser(GenerateUserTokenQuery model)
+    public async Task<IActionResult> ValidateUser(GenerateUserTokenViewModel model)
     {
-        var result = await _mediator.Send(model);
+        var result = await _mediator.Send(new GenerateUserTokenQuery(model.UserKey,model.Code));
 
         return base.OperationResult(result);
     }
 
     [HttpPost("AdminLogin")]
-    public async Task<IActionResult> AdminLogin(AdminGetTokenQuery model)
+    public async Task<IActionResult> AdminLogin(AdminTokenRequestViewModel model)
     {
-        var query = await _mediator.Send(model);
+        var query = await _mediator.Send(new AdminGetTokenQuery(model.UserName,model.Password));
 
         return base.OperationResult(query);
     }

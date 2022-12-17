@@ -10,6 +10,7 @@ using CleanArc.Infrastructure.Persistence;
 using CleanArc.Infrastructure.Persistence.ServiceConfiguration;
 using CleanArc.Web.Api.Controllers.V1;
 using CleanArc.WebFramework.Filters;
+using CleanArc.WebFramework.Middlewares;
 using CleanArc.WebFramework.ServiceConfiguration;
 using CleanArc.WebFramework.Swagger;
 using Microsoft.EntityFrameworkCore;
@@ -35,13 +36,13 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(typeof(ModelStateValidationAttribute));
     options.Filters.Add(typeof(BadRequestResultFilterAttribute));
 
-}).ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; });
+}).ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; }).PartManager.AddPluginParts();
 //.AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<UserCreateCommand>(); }); //Uncomment for FluentValidation in Application Layer
 
 builder.Services.AddSwagger();
 
 builder.Services.AddApplicationServices().RegisterIdentityServices(identitySettings)
-    .AddPersistenceServices(configuration).AddWebFrameworkServices();
+    .AddPersistenceServices(configuration).AddWebFrameworkServices().AddPluginServices();
 
 builder.Services.AddAutoMapper(typeof(User), typeof(JwtService), typeof(UserController));
 
@@ -80,8 +81,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
 app.MapControllers();
+
+app.ConfigurePluginsPipelines();
 
 await app.RunAsync();
 #endregion

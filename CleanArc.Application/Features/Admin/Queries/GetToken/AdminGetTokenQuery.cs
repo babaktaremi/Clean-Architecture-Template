@@ -4,8 +4,4 @@ using MediatR;
 
 namespace CleanArc.Application.Features.Admin.Queries.GetToken;
 
-public class AdminGetTokenQuery:IRequest<OperationResult<AccessToken>>
-{
-    public string UserName { get; set; }
-    public string Password { get; set; }
-}
+public record AdminGetTokenQuery(string UserName,string Password):IRequest<OperationResult<AccessToken>>;

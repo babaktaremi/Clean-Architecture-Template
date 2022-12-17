@@ -3,7 +3,4 @@ using MediatR;
 
 namespace CleanArc.Application.Features.Users.Queries.TokenRequest;
 
-public class UserTokenRequestQuery:IRequest<OperationResult<UserTokenRequestQueryResult>>
-{
-    public string UserPhoneNumber { get; set; }
-}
+public record UserTokenRequestQuery(string UserPhoneNumber):IRequest<OperationResult<UserTokenRequestQueryResult>>;

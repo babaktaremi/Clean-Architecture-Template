@@ -1,0 +1,17 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CleanArc.Web.Plugins.Grpc.ProtoModels";
+import "google/protobuf/empty.proto";
+
+package GrpcOrderController;
+
+
+service OrderServices {
+	rpc GetUserOrders(google.protobuf.Empty) returns (stream GetUserOrdersModel);
+}
+
+message GetUserOrdersModel{
+	int32 OrderId=1;
+	string OrderName=2;
+}
+
