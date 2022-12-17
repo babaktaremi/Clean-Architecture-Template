@@ -40,13 +40,11 @@ namespace CleanArc.Web.Plugins.Grpc.Services
 
             foreach (var getUsersQueryResultModel in query.Result)
             {
-                for (int i = 0; i < 1000; i++)
-                {
                     await responseStream.WriteAsync(new GetUserOrdersModel()
                         { OrderId = getUsersQueryResultModel.OrderId, OrderName = getUsersQueryResultModel.OrderName });
 
                     await Task.Delay(400);
-                }
+                
             }
 
         }
