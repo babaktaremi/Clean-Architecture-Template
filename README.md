@@ -89,3 +89,8 @@ For writting new plugins, All you need to do is to create a new "Class Library" 
 Personally I love this framework and use it in many of my personal projects and it hasn't let me down yet. I casually update this repo (whether it's a package update, code refactor or adding new features). So feel free to create issues or create pull requests. I will check them.
 
 If you like this framework , just give it a star. Your star keeps me motivated to maintain this repo and develop new open source and exciting packages for it. Thanks in advance!
+
+## Code Inspirations
+
+[ MJ Ebrahimi Complete Web API Repo](https://github.com/mjebrahimi/AspNetCore-WebApi-Course)
+[ Clean Arc By Jason Taylor](https://github.com/jasontaylordev/CleanArchitecture)
