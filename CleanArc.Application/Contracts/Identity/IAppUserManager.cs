@@ -21,5 +21,6 @@ public interface IAppUserManager
     Task<IdentityResult> CreateUserWithPasswordAsync(User user,string password);
     Task<IdentityResult> AddUserToRoleAsync(User user, Role role);
     Task<IdentityResult> IncrementAccessFailedCountAsync(User user);
-    Task<IdentityResult> ResetUserLockoutAsync(User user);
+    Task<bool> IsUserLockedOutAsync(User user);
+    Task ResetUserLockoutAsync(User user);
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CleanArc.Infrastructure.Identity.UserManager;
 
-public class AppUserManagerImplementation:IAppUserManager
+public class AppUserManagerImplementation : IAppUserManager
 {
     private readonly AppUserManager _userManager;
     public AppUserManagerImplementation(AppUserManager userManager)
@@ -46,7 +46,7 @@ public class AppUserManagerImplementation:IAppUserManager
 
     public async Task<IdentityResult> VerifyUserCode(User user, string code)
     {
-        var confirmationResult=await _userManager.VerifyUserTokenAsync(
+        var confirmationResult = await _userManager.VerifyUserTokenAsync(
             user, "PasswordlessLoginTotpProvider", "passwordless-auth", code);
 
 
@@ -68,7 +68,7 @@ public class AppUserManagerImplementation:IAppUserManager
 
     public async Task<SignInResult> AdminLogin(User user, string password)
     {
-        return await _userManager.CheckPasswordAsync(user, password)?SignInResult.Failed : SignInResult.Success;
+        return await _userManager.CheckPasswordAsync(user, password) ? SignInResult.Success : SignInResult.Failed;
     }
 
     public Task<User> GetByUserName(string userName)
@@ -93,19 +93,29 @@ public class AppUserManagerImplementation:IAppUserManager
 
     public async Task<IdentityResult> AddUserToRoleAsync(User user, Role role)
     {
-        ArgumentNullException.ThrowIfNull(role,nameof(role));
-        ArgumentNullException.ThrowIfNull(role.Name,nameof(role.Name));
+        ArgumentNullException.ThrowIfNull(role, nameof(role));
+        ArgumentNullException.ThrowIfNull(role.Name, nameof(role.Name));
 
         return await _userManager.AddToRoleAsync(user, role.Name);
     }
 
     public async Task<IdentityResult> IncrementAccessFailedCountAsync(User user)
     {
+       
+
         return await _userManager.AccessFailedAsync(user);
     }
 
-    public async Task<IdentityResult> ResetUserLockoutAsync(User user)
+    public async Task<bool> IsUserLockedOutAsync(User user)
     {
-        return await _userManager.ResetAccessFailedCountAsync(user);
+        var lockoutEndDate = await _userManager.GetLockoutEndDateAsync(user);
+
+        return (lockoutEndDate.HasValue && lockoutEndDate.Value > DateTimeOffset.Now);
+    }
+
+    public async Task ResetUserLockoutAsync(User user)
+    {
+        await _userManager.SetLockoutEndDateAsync(user, null);
+         await _userManager.ResetAccessFailedCountAsync(user);
     }
 }

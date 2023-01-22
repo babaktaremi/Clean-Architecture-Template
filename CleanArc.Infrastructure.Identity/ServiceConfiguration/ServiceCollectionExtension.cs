@@ -62,7 +62,6 @@ public static class ServiceCollectionExtension
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = false;
-
                 options.User.RequireUniqueEmail = false;
 
                 //options.Stores.ProtectPersonalData = true;

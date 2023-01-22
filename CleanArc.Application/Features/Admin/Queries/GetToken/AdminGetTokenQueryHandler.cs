@@ -23,15 +23,22 @@ public class AdminGetTokenQueryHandler:IRequestHandler<AdminGetTokenQuery,Operat
         if(user is null)
             return OperationResult<AccessToken>.FailureResult("User not found");
 
-        var passwordValidator = await _userManager.AdminLogin(user, request.Password);
+        var isUserLockedOut = await _userManager.IsUserLockedOutAsync(user);
 
-        if (passwordValidator.IsLockedOut)
+        if(isUserLockedOut)
             if (user.LockoutEnd != null)
                 return OperationResult<AccessToken>.FailureResult(
-                    $"User is locked out. Try in {(DateTimeOffset.Now - user.LockoutEnd).Value.Minutes} Minutes");
+                    $"User is locked out. Try in {(user.LockoutEnd-DateTimeOffset.Now).Value.Minutes} Minutes");
+
+        var passwordValidator = await _userManager.AdminLogin(user, request.Password);
+
 
         if (!passwordValidator.Succeeded)
+        {
+          var lockoutIncrementResult= await _userManager.IncrementAccessFailedCountAsync(user);
+
             return OperationResult<AccessToken>.FailureResult("Password is not correct");
+        }
 
         var token= await _jwtService.GenerateAsync(user);
 
