@@ -9,11 +9,9 @@ namespace CleanArc.Infrastructure.Identity.UserManager;
 public class AppUserManagerImplementation:IAppUserManager
 {
     private readonly AppUserManager _userManager;
-    private readonly AppSignInManager _signInManager;
-    public AppUserManagerImplementation(AppUserManager userManager, AppSignInManager signInManager)
+    public AppUserManagerImplementation(AppUserManager userManager)
     {
         _userManager = userManager;
-        _signInManager = signInManager;
     }
 
     public Task<IdentityResult> CreateUser(User user)
@@ -68,9 +66,9 @@ public class AppUserManagerImplementation:IAppUserManager
         return _userManager.Users.FirstOrDefaultAsync(c => c.PhoneNumber.Equals(phoneNumber));
     }
 
-    public Task<SignInResult> AdminLogin(User user, string password)
+    public async Task<SignInResult> AdminLogin(User user, string password)
     {
-        return _signInManager.PasswordSignInAsync(user, password, true, true);
+        return await _userManager.CheckPasswordAsync(user, password)?SignInResult.Failed : SignInResult.Success;
     }
 
     public Task<User> GetByUserName(string userName)
@@ -99,5 +97,15 @@ public class AppUserManagerImplementation:IAppUserManager
         ArgumentNullException.ThrowIfNull(role.Name,nameof(role.Name));
 
         return await _userManager.AddToRoleAsync(user, role.Name);
+    }
+
+    public async Task<IdentityResult> IncrementAccessFailedCountAsync(User user)
+    {
+        return await _userManager.AccessFailedAsync(user);
+    }
+
+    public async Task<IdentityResult> ResetUserLockoutAsync(User user)
+    {
+        return await _userManager.ResetAccessFailedCountAsync(user);
     }
 }
