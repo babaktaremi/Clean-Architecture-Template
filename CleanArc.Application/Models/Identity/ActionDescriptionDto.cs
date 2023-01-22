@@ -12,4 +12,5 @@ public class ActionDescriptionDto
     public string ActionName { get; set; }
 
     public string ActionDisplayName { get; set; }
+    public string ControllerDescription { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿using CleanArc.Application.Models.Common;
 using CleanArc.Application.Models.Jwt;
-using MediatR;
+using Mediator;
 
 namespace CleanArc.Application.Features.Users.Queries.GenerateUserToken.Model;
 

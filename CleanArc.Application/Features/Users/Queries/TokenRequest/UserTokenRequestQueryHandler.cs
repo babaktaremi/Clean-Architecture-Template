@@ -1,6 +1,6 @@
 ﻿using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Models.Common;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArc.Application.Features.Users.Queries.TokenRequest;
@@ -19,14 +19,14 @@ public class UserTokenRequestQueryHandler:IRequestHandler<UserTokenRequestQuery,
     }
 
 
-    public async Task<OperationResult<UserTokenRequestQueryResult>> Handle(UserTokenRequestQuery request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<UserTokenRequestQueryResult>> Handle(UserTokenRequestQuery request, CancellationToken cancellationToken)
     {
         var user = await _userManager.GetUserByPhoneNumber(request.UserPhoneNumber);
 
         if(user is null)
-            return OperationResult<UserTokenRequestQueryResult>.NotFoundResult("کاربر یافت نشد");
+            return OperationResult<UserTokenRequestQueryResult>.NotFoundResult("User Not found");
 
-        var code = await _userManager.GenerateOtpCode(user);
+        var code = user.PhoneNumberConfirmed? await _userManager.GenerateOtpCode(user) : await _userManager.GeneratePhoneNumberConfirmationToken(user,user.PhoneNumber);
 
         _logger.LogWarning($"Generated Code for user Id {user.Id} is {code}");
 

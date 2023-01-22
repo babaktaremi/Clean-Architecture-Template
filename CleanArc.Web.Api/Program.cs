@@ -8,7 +8,7 @@ using CleanArc.Infrastructure.Identity.Jwt;
 using CleanArc.Infrastructure.Identity.ServiceConfiguration;
 using CleanArc.Infrastructure.Persistence;
 using CleanArc.Infrastructure.Persistence.ServiceConfiguration;
-using CleanArc.Web.Api.Controllers.V1;
+using CleanArc.Web.Api.Controllers.V1.UserManagement;
 using CleanArc.WebFramework.Filters;
 using CleanArc.WebFramework.Middlewares;
 using CleanArc.WebFramework.ServiceConfiguration;

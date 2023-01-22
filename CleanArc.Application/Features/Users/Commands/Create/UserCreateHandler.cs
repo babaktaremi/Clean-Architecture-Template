@@ -1,7 +1,7 @@
 ﻿using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Models.Common;
 using CleanArc.Domain.Entities.User;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArc.Application.Features.Users.Commands.Create;
@@ -9,38 +9,38 @@ namespace CleanArc.Application.Features.Users.Commands.Create;
 public class UserCreateHandler : IRequestHandler<UserCreateCommand, OperationResult<UserCreateCommandResult>>
 {
 
-    private readonly IAppUserManager _userRepository;
+    private readonly IAppUserManager _userManager;
     private readonly IMediator _mediator;
     private readonly ILogger<UserCreateHandler> _logger;
     public UserCreateHandler(IAppUserManager userRepository, IMediator mediator, ILogger<UserCreateHandler> logger)
     {
-        _userRepository = userRepository;
+        _userManager = userRepository;
         _mediator = mediator;
         _logger = logger;
     }
 
-    public async Task<OperationResult<UserCreateCommandResult>> Handle(UserCreateCommand request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<UserCreateCommandResult>> Handle(UserCreateCommand request, CancellationToken cancellationToken)
     {
-        var userNameExist = await _userRepository.IsExistUser(request.PhoneNumber);
+        var userNameExist = await _userManager.IsExistUser(request.PhoneNumber);
 
         if (userNameExist)
             return OperationResult<UserCreateCommandResult>.FailureResult("این شماره تلفن وجود دارد");
 
-        var phoneNumberExist = await _userRepository.IsExistUserName(request.UserName);
+        var phoneNumberExist = await _userManager.IsExistUserName(request.UserName);
 
         if (phoneNumberExist)
             return OperationResult<UserCreateCommandResult>.FailureResult("این نام کاربری دارد");
 
-        var user = new User { UserName = request.UserName, Name = request.FirstName, FamilyName = request.LastName, PhoneNumber = request.PhoneNumber, PhoneNumberConfirmed = true };
+        var user = new User { UserName = request.UserName, Name = request.FirstName, FamilyName = request.LastName, PhoneNumber = request.PhoneNumber };
 
-        var createResult = await _userRepository.CreateUser(user);
+        var createResult = await _userManager.CreateUser(user);
 
         if (!createResult.Succeeded)
         {
             return OperationResult<UserCreateCommandResult>.FailureResult(string.Join(",", createResult.Errors.Select(c => c.Description)));
         }
 
-        var code = await _userRepository.GeneratePhoneNumberToken(user, user.PhoneNumber);
+        var code = await _userManager.GeneratePhoneNumberConfirmationToken(user, user.PhoneNumber);
 
 
         _logger.LogWarning($"Generated Code for User ID {user.Id} is {code}");

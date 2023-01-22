@@ -22,10 +22,6 @@ internal class UserRefreshTokenRepository : BaseAsyncRepository<UserRefreshToken
     {
         var token = await base.Table.Where(t => t.IsValid && t.Id.Equals(id)).FirstOrDefaultAsync();
 
-        if (token == null) return null;
-        token.IsValid = false;
-        await base.UpdateAsync(token);
-
         return token;
     }
 

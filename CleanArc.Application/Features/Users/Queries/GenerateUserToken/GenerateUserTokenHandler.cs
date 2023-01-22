@@ -3,7 +3,8 @@ using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Features.Users.Queries.GenerateUserToken.Model;
 using CleanArc.Application.Models.Common;
 using CleanArc.Application.Models.Jwt;
-using MediatR;
+using CleanArc.SharedKernel.Extensions;
+using Mediator;
 
 namespace CleanArc.Application.Features.Users.Queries.GenerateUserToken;
 
@@ -19,19 +20,19 @@ public class GenerateUserTokenHandler : IRequestHandler<GenerateUserTokenQuery, 
         _userManager = userManager;
     }
 
-    public async Task<OperationResult<AccessToken>> Handle(GenerateUserTokenQuery request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<AccessToken>> Handle(GenerateUserTokenQuery request, CancellationToken cancellationToken)
     {
         var user = await _userManager.GetUserByCode(request.UserKey);
 
         if (user is null)
-            return OperationResult<AccessToken>.FailureResult("کاربر یافت نشد");
+            return OperationResult<AccessToken>.FailureResult("User Not found");
 
-        var result = await _userManager.VerifyUserCode(
-            user,request.Code);
+        var result = user.PhoneNumberConfirmed? await _userManager.VerifyUserCode(
+            user, request.Code):await _userManager.ChangePhoneNumber(user,user.PhoneNumber,request.Code);
 
 
-        if (!result)
-            return OperationResult<AccessToken>.FailureResult("کد وارد شده صحیح نیست");
+        if (!result.Succeeded)
+            return OperationResult<AccessToken>.FailureResult(result.Errors.StringifyIdentityResultErrors());
 
 
         var token = await _jwtService.GenerateAsync(user);

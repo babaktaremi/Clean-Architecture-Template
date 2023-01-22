@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using FluentValidation;
-using MediatR;
+using Mediator;
 
 namespace CleanArc.Application.Common;
 
@@ -13,10 +13,11 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         _validators = validators;
     }
 
-    public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+
+    public ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
         var errors = _validators
-            .Select(v => v.Validate(request))
+            .Select(v => v.Validate(message))
             .SelectMany(result => result.Errors)
             .Where(error => error != null)
             .ToList();
@@ -36,6 +37,6 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
 
         }
 
-        return next();
+        return next(message,cancellationToken);
     }
 }

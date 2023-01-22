@@ -31,9 +31,9 @@ public class AppUserManagerImplementation:IAppUserManager
         return _userManager.Users.AnyAsync(c => c.UserName.Equals(userName));
     }
 
-    public Task<string> GeneratePhoneNumberToken(User user, string phoneNumber)
+    public async Task<string> GeneratePhoneNumberConfirmationToken(User user, string phoneNumber)
     {
-        return _userManager.GenerateChangePhoneNumberTokenAsync(user, user.PhoneNumber);
+        return await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
     }
 
     public Task<User> GetUserByCode(string code)
@@ -41,15 +41,20 @@ public class AppUserManagerImplementation:IAppUserManager
         return _userManager.Users.FirstOrDefaultAsync(c => c.GeneratedCode.Equals(code));
     }
 
-    public Task<IdentityResult> ChangePhoneNumber(User user, string phoneNumber, string code)
+    public async Task<IdentityResult> ChangePhoneNumber(User user, string phoneNumber, string code)
     {
-        return _userManager.ChangePhoneNumberAsync(user, phoneNumber, code);
+        return await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code);
     }
 
-    public Task<bool> VerifyUserCode(User user, string code)
+    public async Task<IdentityResult> VerifyUserCode(User user, string code)
     {
-        return _userManager.VerifyUserTokenAsync(
+        var confirmationResult=await _userManager.VerifyUserTokenAsync(
             user, "PasswordlessLoginTotpProvider", "passwordless-auth", code);
+
+
+        return confirmationResult
+            ? IdentityResult.Success
+            : IdentityResult.Failed(new IdentityError() { Description = "Incorrect Code" });
     }
 
     public Task<string> GenerateOtpCode(User user)
@@ -81,5 +86,18 @@ public class AppUserManagerImplementation:IAppUserManager
     public async Task<List<User>> GetAllUsersAsync()
     {
         return await _userManager.Users.AsNoTracking().ToListAsync();
+    }
+
+    public async Task<IdentityResult> CreateUserWithPasswordAsync(User user, string password)
+    {
+        return await _userManager.CreateAsync(user, password);
+    }
+
+    public async Task<IdentityResult> AddUserToRoleAsync(User user, Role role)
+    {
+        ArgumentNullException.ThrowIfNull(role,nameof(role));
+        ArgumentNullException.ThrowIfNull(role.Name,nameof(role.Name));
+
+        return await _userManager.AddToRoleAsync(user, role.Name);
     }
 }

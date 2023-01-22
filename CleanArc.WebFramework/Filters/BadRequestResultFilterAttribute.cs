@@ -1,5 +1,5 @@
 ﻿using CleanArc.Application.Models.ApiResult;
-using CleanArc.Utils;
+using CleanArc.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

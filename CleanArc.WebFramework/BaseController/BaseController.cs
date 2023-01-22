@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using CleanArc.Application.Models.Common;
-using CleanArc.Utils;
+using CleanArc.SharedKernel.Extensions;
 using CleanArc.WebFramework.Filters;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ namespace CleanArc.WebFramework.BaseController;
 
 public class BaseController : ControllerBase
 {
-    protected string UserName => User.Identity.Name;
+    protected string UserName => User.Identity?.Name;
     protected int UserId => int.Parse(User.Identity.GetUserId());
     protected string UserEmail => User.Identity.FindFirstValue(ClaimTypes.Email);
     protected string UserRole => User.Identity.FindFirstValue(ClaimTypes.Role);

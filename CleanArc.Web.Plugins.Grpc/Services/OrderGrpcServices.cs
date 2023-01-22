@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using CleanArc.Application.Features.Order.Queries.GetUserOrders;
-using CleanArc.Utils;
+﻿using CleanArc.Application.Features.Order.Queries.GetUserOrders;
+using CleanArc.SharedKernel.Extensions;
 using CleanArc.Web.Plugins.Grpc.ProtoModels;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using MediatR;
+using Mediator;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CleanArc.Web.Plugins.Grpc.Services

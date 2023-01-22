@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using CleanArc.Utils;
+using CleanArc.SharedKernel.Extensions;
 using CleanArc.Web.Plugins.Common;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;

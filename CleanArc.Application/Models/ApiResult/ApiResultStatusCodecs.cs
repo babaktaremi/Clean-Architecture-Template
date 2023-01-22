@@ -16,14 +16,15 @@ public enum ApiResultStatusCode
     [Display(Name = "Not Found")]
     NotFound = 404,
 
-    [Display(Name = "Empty Error")]
-    ListEmpty = 404,
 
     [Display(Name = "Process Error")]
     LogicError = 500,
 
     [Display(Name = "Authentication Error")]
     UnAuthorized = 401,
+
+    [Display(Name = "Authorization Error")]
+    Forbidden = 403,
 
     [Display(Name = "Not Acceptable")]
     NotAcceptable = 406,

@@ -16,10 +16,9 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanArc.Infrastructure.Identity.Identity.PermissionManager;
 
-public class RoleManagerService : IRoleManagerService
+internal class RoleManagerService : IRoleManagerService
 {
     private readonly AppRoleManager _roleManger;
-    // private readonly RoleStore _roleStore;
     private readonly IMapper _mapper;
     private readonly IActionDescriptorCollectionProvider _actionDescriptor;
     private readonly AppUserManager _userManager;
@@ -36,13 +35,13 @@ public class RoleManagerService : IRoleManagerService
         _db = db;
     }
 
-    public async Task<List<GetRolesDto>> GetRoles()
+    public async Task<List<GetRolesDto>> GetRolesAsync()
     {
         var result = await _roleManger.Roles.Where(c => !c.Name.Equals("admin")).Select(r => _mapper.Map<Role, GetRolesDto>(r)).ToListAsync();
         return result;
     }
 
-    public async Task<IdentityResult> CreateRole(CreateRoleDto model)
+    public async Task<IdentityResult> CreateRoleAsync(CreateRoleDto model)
     {
         var role = new Role
         {
@@ -54,7 +53,7 @@ public class RoleManagerService : IRoleManagerService
         return result;
     }
 
-    public async Task<bool> DeleteRole(int roleId)
+    public async Task<bool> DeleteRoleAsync(int roleId)
     {
         var role = await _roleManger.Roles.Include(r => r.Claims)
             .Include(r => r.Users).FirstOrDefaultAsync(r => r.Id == roleId);
@@ -76,41 +75,9 @@ public class RoleManagerService : IRoleManagerService
         await _db.SaveChangesAsync();
 
         return true;
-        //var userRoles = role.Claims.ToList();
-
-        //var claims = role.Claims.ToList();
-
-        //var users = await _userManager.GetUsersInRoleAsync(role.Name);
-
-        //foreach (var user in users)
-        //{
-        //    await _userManager.RemoveFromRoleAsync(user, role.Name);
-        //    await _userManager.UpdateSecurityStampAsync(user);
-        //}
-
-
-        ////if (userRoles.Any())
-        ////{
-        ////    foreach (var roleClaim in userRoles)
-        ////    {
-        ////        await _roleManger.RemoveClaimAsync(role,roleClaim)
-        ////    }
-        ////}
-
-        //if (claims.Any())
-        //{
-        //    foreach (var claim in claims)
-        //    {
-        //        await _roleManger.RemoveClaimAsync(role, claim);
-        //    }
-        //}
-
-        //var result = await _roleManger.DeleteAsync(role);
-
-        //return result.Succeeded;
     }
 
-    public Task<List<ActionDescriptionDto>> GetPermissionActions()
+    public Task<List<ActionDescriptionDto>> GetPermissionActionsAsync()
     {
         var actions = new List<ActionDescriptionDto>();
 
@@ -138,7 +105,9 @@ public class RoleManagerService : IRoleManagerService
                         ActionDisplayName = descriptor.MethodInfo.GetCustomAttribute<DisplayAttribute>()?.Name,
                         AreaName = descriptor.ControllerTypeInfo.GetCustomAttribute<AreaAttribute>()?.RouteValue,
                         ControllerDisplayName = descriptor.ControllerTypeInfo.GetCustomAttribute<DisplayAttribute>()
-                            ?.Name
+                            ?.Name,
+                        ControllerDescription = descriptor.ControllerTypeInfo.GetCustomAttribute<DisplayAttribute>()
+                            ?.Description
                     });
                     controllerName = descriptor.ControllerName;
                 }
@@ -152,7 +121,7 @@ public class RoleManagerService : IRoleManagerService
         return Task.FromResult(actions);
     }
 
-    public async Task<RolePermissionDto> GetRolePermissions(int roleId)
+    public async Task<RolePermissionDto> GetRolePermissionsAsync(int roleId)
     {
         var role = await _roleManger.Roles
             .Include(x => x.Claims)
@@ -161,7 +130,7 @@ public class RoleManagerService : IRoleManagerService
         if (role == null)
             return null;
 
-        var dynamicActions = await this.GetPermissionActions();
+        var dynamicActions = await this.GetPermissionActionsAsync();
         return new RolePermissionDto
         {
             Role = role,
@@ -169,7 +138,7 @@ public class RoleManagerService : IRoleManagerService
         };
     }
 
-    public async Task<bool> ChangeRolePermissions(EditRolePermissionsDto model)
+    public async Task<bool> ChangeRolePermissionsAsync(EditRolePermissionsDto model)
     {
         var role = await _roleManger.Roles
             .Include(x => x.Claims)
@@ -226,12 +195,16 @@ public class RoleManagerService : IRoleManagerService
             foreach (var user in users)
             {
                 await _userManager.UpdateSecurityStampAsync(user);
-                //await _signInManager.RefreshSignInAsync(user);
             }
 
             return true;
         }
 
         return false;
+    }
+
+    public async Task<Role> GetRoleByIdAsync(int roleId)
+    {
+        return await _roleManger.FindByIdAsync(roleId.ToString());
     }
 }

@@ -3,7 +3,7 @@ using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Features.Users.Queries.GetUsers.Model;
 using CleanArc.Application.Models.Common;
 using CleanArc.Domain.Entities.User;
-using MediatR;
+using Mediator;
 
 namespace CleanArc.Application.Features.Users.Queries.GetUsers;
 
@@ -18,7 +18,7 @@ internal class GetUsersQueryHandler : IRequestHandler<GetUsersQueryModel, Operat
         _mapper = mapper;
     }
 
-    public async Task<OperationResult<List<GetUsersQueryResponseModel>>> Handle(GetUsersQueryModel request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<List<GetUsersQueryResponseModel>>> Handle(GetUsersQueryModel request, CancellationToken cancellationToken)
     {
         var usersModel =
             (await _userManager.GetAllUsersAsync()).Select(_mapper.Map<User, GetUsersQueryResponseModel>).ToList();

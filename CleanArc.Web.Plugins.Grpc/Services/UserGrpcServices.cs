@@ -2,8 +2,7 @@
 using CleanArc.Application.Features.Users.Queries.TokenRequest;
 using CleanArc.Web.Plugins.Grpc.ProtoModels;
 using Grpc.Core;
-using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Mediator;
 
 namespace CleanArc.Web.Plugins.Grpc.Services;
 

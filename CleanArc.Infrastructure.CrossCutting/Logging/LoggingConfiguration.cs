@@ -38,13 +38,14 @@ public static class LoggingConfiguration
             configuration.WriteTo
                 .MSSqlServer(
                     connectionString: context.Configuration.GetConnectionString("SqlServer"),
-                    sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents" ,AutoCreateSqlTable = true,SchemaName = "log"})
+                    sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents", AutoCreateSqlTable = true, SchemaName = "log" })
                 .MinimumLevel.Warning();
 
             configuration.WriteTo.File("log.txt", rollingInterval: RollingInterval.Day);
         }
 
-        configuration.WriteTo.Console().MinimumLevel.Information();
+        else
+            configuration.WriteTo.Console().MinimumLevel.Information();
 
         #region ElasticSearch Configuration. UnComment if Needed 
 

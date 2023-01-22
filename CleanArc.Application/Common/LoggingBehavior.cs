@@ -1,5 +1,5 @@
 ﻿using CleanArc.Application.Models.Common;
-using MediatR;
+using Mediator;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArc.Application.Common;
@@ -14,11 +14,12 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     }
 
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+
+    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
         try
         {
-            var response = await next();
+            var response = await next(message,cancellationToken);
             return response;
         }
         catch (Exception e)

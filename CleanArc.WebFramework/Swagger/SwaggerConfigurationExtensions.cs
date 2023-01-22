@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using CleanArc.Utils;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,7 @@ public static class SwaggerConfigurationExtensions
 {
     public static void AddSwagger(this IServiceCollection services)
     {
-        Assert.NotNull(services, nameof(services));
+        ArgumentNullException.ThrowIfNull(services, nameof(services));
 
         //More info : https://github.com/mattfrear/Swashbuckle.AspNetCore.Filters
 
@@ -67,7 +67,6 @@ public static class SwaggerConfigurationExtensions
 
             #region Add UnAuthorized to Response
             //Add 401 response and security requirements (Lock icon) to actions that need authorization
-            options.OperationFilter<UnauthorizedResponsesOperationFilter>(true, "OAuth2");
             #endregion
 
             #region Add Jwt Authentication
@@ -87,13 +86,16 @@ public static class SwaggerConfigurationExtensions
 
             options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
-                Description = "Standard Authorization header using the Bearer scheme. Example: \"bearer {token}\"",
+                Description = "Standard Authorization header using the Bearer scheme. Example: \" {token}\"",
                 In =ParameterLocation.Header,
                 Name = "Authorization",
-                Type = SecuritySchemeType.ApiKey,
+                Type = SecuritySchemeType.Http,
+                Scheme = JwtBearerDefaults.AuthenticationScheme
             });
 
             options.OperationFilter<SecurityRequirementsOperationFilter>();
+            options.OperationFilter<CustomTokenRequiredOperationFilter>();
+
 
             //OAuth2Scheme
             //options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme());
@@ -127,7 +129,7 @@ public static class SwaggerConfigurationExtensions
 
     public static void UseSwaggerAndUI(this IApplicationBuilder app)
     {
-        Assert.NotNull(app, nameof(app));
+        ArgumentNullException.ThrowIfNull(app, nameof(app));
 
         //More info : https://github.com/domaindrivendev/Swashbuckle.AspNetCore
 

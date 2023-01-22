@@ -1,7 +1,7 @@
 ﻿using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Contracts.Persistence;
 using CleanArc.Application.Models.Common;
-using MediatR;
+using Mediator;
 
 namespace CleanArc.Application.Features.Order.Commands;
 
@@ -16,7 +16,7 @@ internal class AddOrderCommandHandler:IRequestHandler<AddOrderCommand,OperationR
         _userManager = userManager;
     }
 
-    public async Task<OperationResult<bool>> Handle(AddOrderCommand request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<bool>> Handle(AddOrderCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.GetUserByIdAsync(request.UserId);
 

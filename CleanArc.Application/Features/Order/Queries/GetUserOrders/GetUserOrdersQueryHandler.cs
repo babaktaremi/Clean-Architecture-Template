@@ -1,6 +1,6 @@
 ﻿using CleanArc.Application.Contracts.Persistence;
 using CleanArc.Application.Models.Common;
-using MediatR;
+using Mediator;
 
 namespace CleanArc.Application.Features.Order.Queries.GetUserOrders;
 
@@ -12,7 +12,7 @@ internal class GetUserOrdersQueryHandler:IRequestHandler<GetUserOrdersQueryModel
     {
         _unitOfWork = unitOfWork;
     }
-    public async Task<OperationResult<List<GetUsersQueryResultModel>>> Handle(GetUserOrdersQueryModel request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<List<GetUsersQueryResultModel>>> Handle(GetUserOrdersQueryModel request, CancellationToken cancellationToken)
     {
         var orders = await _unitOfWork.OrderRepository.GetAllUserOrdersAsync(request.UserId);
 

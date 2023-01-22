@@ -1,13 +1,8 @@
-﻿using CleanArc.Application.Models.ApiResult;
-using CleanArc.Utils;
-using CleanArc.Web.Plugins.Common;
+﻿using CleanArc.Web.Plugins.Common;
 using CleanArc.WebFramework.ServiceConfiguration;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System.Reflection;
+using CleanArc.SharedKernel.Extensions;
 
 namespace CleanArc.WebFramework.Middlewares;
 

@@ -1,9 +1,7 @@
 ﻿using CleanArc.Web.Plugins.Common;
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using CleanArc.Web.Plugins.Grpc.Services;
 
 namespace CleanArc.Web.Plugins.Grpc;
@@ -12,7 +10,13 @@ public class PluginStartup:IPluginStartup
 {
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddMediatR(Assembly.GetExecutingAssembly());
+        //services.AddMediator(options =>
+        //{
+        //    options.ServiceLifetime = ServiceLifetime.Transient;
+        //    options.Namespace = "CleanArc.Plugins.GRPC.Mediator";
+        //});
+
+        //services.AddMediator(Assembly.GetExecutingAssembly());
         
         services.AddGrpc();
         services.AddGrpcReflection();

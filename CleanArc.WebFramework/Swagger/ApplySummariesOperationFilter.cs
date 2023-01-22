@@ -1,4 +1,4 @@
-﻿using CleanArc.Utils;
+﻿using CleanArc.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Pluralize.NET;

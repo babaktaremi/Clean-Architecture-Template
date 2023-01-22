@@ -1,5 +1,5 @@
 ﻿using CleanArc.Application.Models.Common;
-using MediatR;
+using Mediator;
 
 namespace CleanArc.Application.Features.Users.Commands.Create;
 

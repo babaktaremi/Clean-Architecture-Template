@@ -3,7 +3,6 @@ using System.Text;
 using CleanArc.Application.Contracts;
 using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Models.ApiResult;
-using CleanArc.Application.Models.Jwt;
 using CleanArc.Domain.Entities.User;
 using CleanArc.Infrastructure.Identity.Identity;
 using CleanArc.Infrastructure.Identity.Identity.Dtos;
@@ -15,13 +14,12 @@ using CleanArc.Infrastructure.Identity.Identity.Store;
 using CleanArc.Infrastructure.Identity.Identity.validator;
 using CleanArc.Infrastructure.Identity.Jwt;
 using CleanArc.Infrastructure.Identity.UserManager;
-using CleanArc.Utils;
+using CleanArc.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CleanArc.Infrastructure.Identity.ServiceConfiguration;
@@ -46,6 +44,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IDynamicPermissionService, DynamicPermissionService>();
         services.AddScoped<IRoleStore<Role>, RoleStore>();
         services.AddScoped<IUserStore<User>, AppUserStore>();
+        services.AddScoped<IRoleManagerService, RoleManagerService>();
+
 
         services.AddIdentity<User, Role>(options =>
             {
@@ -151,7 +151,8 @@ public static class ServiceCollectionExtension
                     if (claimsIdentity.Claims?.Any() != true)
                         context.Fail("This token has no claims.");
 
-                    var securityStamp = claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
+                    var securityStamp =
+                        claimsIdentity.FindFirstValue(new ClaimsIdentityOptions().SecurityStampClaimType);
                     if (!securityStamp.HasValue())
                         context.Fail("This token has no secuirty stamp");
 
@@ -175,37 +176,10 @@ public static class ServiceCollectionExtension
                     {
                         context.HandleResponse();
 
-                        var jwtService = context.HttpContext.RequestServices.GetRequiredService<IJwtService>();
-
-                        StringValues refreshToken;
-                        context.HttpContext.Request.Headers.TryGetValue("refresh_Token", out refreshToken);
-
-                        if (!refreshToken.Any())
-                        {
-                            var response = new ApiResult(false,
-                                ApiResultStatusCode.UnAuthorized, "Refresh Token Not Found");
-                            context.Response.StatusCode = StatusCodes.Status424FailedDependency;
-                            await context.Response.WriteAsJsonAsync(response);
-                        }
-                        else
-                        {
-                            var newToken = await jwtService.RefreshToken(refreshToken.ToString());
-
-
-                            if (newToken is null)
-                            {
-                                var failedResponse = new ApiResult(false,
-                                    ApiResultStatusCode.UnAuthorized, "Refresh Token Not Valid");
-                                context.Response.StatusCode = StatusCodes.Status424FailedDependency;
-                                await context.Response.WriteAsJsonAsync(failedResponse);
-
-                            }
-
-                            var response = new ApiResult<AccessToken>(true, ApiResultStatusCode.NotAcceptable, newToken);
-
-                            context.Response.StatusCode = StatusCodes.Status406NotAcceptable;
-                            await context.Response.WriteAsJsonAsync(response);
-                        }
+                        var response = new ApiResult(false,
+                            ApiResultStatusCode.UnAuthorized, "Token is expired. refresh your token");
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        await context.Response.WriteAsJsonAsync(response);
                     }
 
                     else if (context.AuthenticateFailure != null)
@@ -219,6 +193,12 @@ public static class ServiceCollectionExtension
 
                     }
 
+                },
+                OnForbidden =async context =>
+                {
+                    context.Response.StatusCode = (int)StatusCodes.Status403Forbidden;
+                   await context.Response.WriteAsJsonAsync(new ApiResult(false,
+                        ApiResultStatusCode.Forbidden, ApiResultStatusCode.Forbidden.ToDisplay()));
                 }
             };
         });

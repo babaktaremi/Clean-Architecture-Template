@@ -9,7 +9,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = "DefaultError",
-            Description = "خطایی رخ داده است"
+            Description = "There was an error"
         };
     }
 
@@ -18,7 +18,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = nameof(DuplicateEmail),
-            Description = "ایمیل وارد شده تکراری است"
+            Description = "Specified email already exists"
         };
     }
 
@@ -27,7 +27,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = nameof(DuplicateUserName),
-            Description = "نام کاربری وارد شده تکراری است"
+            Description = "specified username already exists"
         };
     }
 
@@ -36,7 +36,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = nameof(PasswordMismatch),
-            Description = "پسوورد وارد شده صحیح نیست"
+            Description = "Incorrect password"
         };
     }
 
@@ -45,7 +45,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = nameof(PasswordTooShort),
-            Description = "پسوورد کوتاه است"
+            Description = "Invalid password. Password is to short"
         };
     }
 
@@ -54,7 +54,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = nameof(InvalidUserName),
-            Description = "نام کاربری نامعتبر است"
+            Description = "Invalid username"
         };
     }
 
@@ -63,7 +63,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = nameof(InvalidEmail),
-            Description = "ایمیل وارد شده نامعتبر است"
+            Description = "Invalid email"
         };
     }
 
@@ -73,7 +73,7 @@ public class AppErrorDescriber:IdentityErrorDescriber
         return new IdentityError
         {
             Code = nameof(InvalidToken),
-            Description = "کد وارد شده معتبر نیست"
+            Description = "Invalid given code. Please try again"
         };
     }
 

@@ -2,7 +2,7 @@
 using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Models.Common;
 using CleanArc.Application.Models.Jwt;
-using MediatR;
+using Mediator;
 
 namespace CleanArc.Application.Features.Admin.Queries.GetToken;
 
@@ -16,20 +16,22 @@ public class AdminGetTokenQueryHandler:IRequestHandler<AdminGetTokenQuery,Operat
         _jwtService = jwtService;
     }
 
-    public async Task<OperationResult<AccessToken>> Handle(AdminGetTokenQuery request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<AccessToken>> Handle(AdminGetTokenQuery request, CancellationToken cancellationToken)
     {
         var user = await _userManager.GetByUserName(request.UserName);
 
         if(user is null)
-            return OperationResult<AccessToken>.FailureResult("کاربر یافت نشد");
+            return OperationResult<AccessToken>.FailureResult("User not found");
 
         var passwordValidator = await _userManager.AdminLogin(user, request.Password);
 
         if (passwordValidator.IsLockedOut)
-            return OperationResult<AccessToken>.FailureResult("کاربر قفل شده است 5 دقیقه بعد تلاش نمایید");
+            if (user.LockoutEnd != null)
+                return OperationResult<AccessToken>.FailureResult(
+                    $"User is locked out. Try in {(DateTimeOffset.Now - user.LockoutEnd).Value.Minutes} Minutes");
 
         if (!passwordValidator.Succeeded)
-            return OperationResult<AccessToken>.FailureResult("نام کاربری یا رمز عبور صحیح نیست");
+            return OperationResult<AccessToken>.FailureResult("Password is not correct");
 
         var token= await _jwtService.GenerateAsync(user);
 

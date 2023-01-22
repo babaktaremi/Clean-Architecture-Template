@@ -8,14 +8,16 @@ public interface IAppUserManager
     Task<IdentityResult> CreateUser(User user);
     Task<bool> IsExistUser(string phoneNumber);
     Task<bool> IsExistUserName(string userName);
-    Task<string> GeneratePhoneNumberToken(User user, string phoneNumber);
+    Task<string> GeneratePhoneNumberConfirmationToken(User user, string phoneNumber);
     Task<User> GetUserByCode(string code);
     Task<IdentityResult> ChangePhoneNumber(User user, string phoneNumber, string code);
-    Task<bool> VerifyUserCode(User user,string code);
+    Task<IdentityResult> VerifyUserCode(User user,string code);
     Task<string> GenerateOtpCode(User user);
     Task<User> GetUserByPhoneNumber(string phoneNumber);
     Task<SignInResult> AdminLogin(User user,string password);
     Task<User> GetByUserName(string userName);
     Task<User> GetUserByIdAsync(int userId);
     Task<List<User>> GetAllUsersAsync();
+    Task<IdentityResult> CreateUserWithPasswordAsync(User user,string password);
+    Task<IdentityResult> AddUserToRoleAsync(User user, Role role);
 }

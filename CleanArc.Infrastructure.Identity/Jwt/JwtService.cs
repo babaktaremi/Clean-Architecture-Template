@@ -100,6 +100,8 @@ public class JwtService : IJwtService
         if (refreshToken is null)
             return null;
 
+        refreshToken.IsValid = false;
+
         await _unitOfWork.CommitAsync();
 
         var user = await _unitOfWork.UserRefreshTokenRepository.GetUserByRefreshToken(Guid.Parse(refreshTokenId));

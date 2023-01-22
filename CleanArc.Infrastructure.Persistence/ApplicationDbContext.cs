@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using CleanArc.Domain.Common;
 using CleanArc.Domain.Entities.User;
-using CleanArc.Utils;
+using CleanArc.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

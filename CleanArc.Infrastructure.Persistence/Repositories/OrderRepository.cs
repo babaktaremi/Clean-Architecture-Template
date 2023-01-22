@@ -20,4 +20,11 @@ internal class OrderRepository:BaseAsyncRepository<Order>,IOrderRepository
     {
         return await base.TableNoTracking.Where(c => c.UserId == userId).ToListAsync();
     }
+
+    public async Task<List<Order>> GetAllOrdersWithRelatedUserAsync()
+    {
+        var orders = await base.TableNoTracking.Include(c => c.User).ToListAsync();
+
+        return orders;
+    }
 }

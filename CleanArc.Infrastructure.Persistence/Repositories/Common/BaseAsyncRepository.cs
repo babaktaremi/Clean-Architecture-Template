@@ -1,41 +1,42 @@
-﻿using CleanArc.Domain.Common;
+﻿using System.Linq.Expressions;
+using CleanArc.Domain.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace CleanArc.Infrastructure.Persistence.Repositories.Common;
 
-internal abstract class BaseAsyncRepository<T> where T:class,IEntity
+internal abstract class BaseAsyncRepository<TEntity> where TEntity:class,IEntity
 {
     public readonly ApplicationDbContext DbContext;
-    protected DbSet<T> Entities { get; }
-    protected virtual IQueryable<T> Table => Entities;
-    protected virtual IQueryable<T> TableNoTracking => Entities.AsNoTrackingWithIdentityResolution();
+    protected DbSet<TEntity> Entities { get; }
+    protected virtual IQueryable<TEntity> Table => Entities;
+    protected virtual IQueryable<TEntity> TableNoTracking => Entities.AsNoTrackingWithIdentityResolution();
 
     protected BaseAsyncRepository(ApplicationDbContext dbContext)
     {
         DbContext = dbContext;
-        Entities = DbContext.Set<T>(); // City => Cities
+        Entities = DbContext.Set<TEntity>(); // City => Cities
     }
 
-    public Task<List<T>> ListAllAsync()
+    protected virtual async Task<List<TEntity>> ListAllAsync()
     {
-        return Entities.ToListAsync();
+        return await Entities.ToListAsync();
     }
 
-    public async Task AddAsync(T entity)
+    protected virtual async Task AddAsync(TEntity entity)
     { 
         await Entities.AddAsync(entity);
            
     }
 
-    public Task UpdateAsync(T entity)
+    protected virtual async Task UpdateAsync(
+        Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> updateExpression)
     {
-        Entities.Update(entity);
-        return Task.CompletedTask;
+        await Entities.ExecuteUpdateAsync(updateExpression);
     }
 
-    public Task DeleteAsync(T entity)
+    protected virtual async Task DeleteAsync(Expression<Func<TEntity,bool>> deleteExpression)
     {
-        Entities.Remove(entity);
-        return Task.CompletedTask;
+        await Entities.Where(deleteExpression).ExecuteDeleteAsync();
     }
 }
