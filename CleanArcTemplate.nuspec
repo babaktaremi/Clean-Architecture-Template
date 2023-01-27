@@ -5,7 +5,7 @@
     <id>Bobby.CleanArcTemplate</id>
     <version>1.0.0</version>
     <title>Clean Architecture Solution Template</title>
-    <authors>JasonTaylorDev</authors>
+    <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
     <summary>
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
@@ -13,7 +13,6 @@
   
 
     <projectUrl>https://github.com/babaktaremi/Clean-Architecture-Template</projectUrl>
-    <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
 
     <license type="expression">MIT</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
