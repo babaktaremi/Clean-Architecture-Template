@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\CleanArc.SharedKernel\CleanArc.SharedKernel.csproj" />
+	  <ProjectReference Include="..\..\..\Shared\CleanArc.SharedKernel\CleanArc.SharedKernel.csproj" />
 	</ItemGroup>
 
 </Project>

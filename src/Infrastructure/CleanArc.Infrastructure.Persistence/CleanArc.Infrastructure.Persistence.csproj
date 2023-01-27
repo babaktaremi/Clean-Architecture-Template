@@ -6,16 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArc.Application\CleanArc.Application.csproj" />
-    <ProjectReference Include="..\CleanArc.Domain\CleanArc.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\CleanArc.Application\CleanArc.Application.csproj" />
+    <ProjectReference Include="..\..\Core\CleanArc.Domain\CleanArc.Domain.csproj" />
   </ItemGroup>
 
 </Project>

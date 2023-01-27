@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CleanArc.Application\CleanArc.Application.csproj" />
+    <ProjectReference Include="..\..\..\Core\CleanArc.Application\CleanArc.Application.csproj" />
     <ProjectReference Include="..\CleanArc.Web.Plugins.Common\CleanArc.Web.Plugins.Common.csproj" />
   </ItemGroup>
 
