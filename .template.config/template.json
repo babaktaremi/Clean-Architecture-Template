@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "BabakTaremi",
+  "classifications": [
+    "Web",
+    "API",
+    "ASP.NET",
+    "ASP.NET CORE",
+    "Clean Architecture",
+    "Clean Architecture Solution"
+  ],
+  "name": "Clean Architecture Solution",
+  "description":  "Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box",
+  "identity": "Bobby.CleanArcTemplate.CSharp",
+  "groupIdentity": "Bobby.CleanArcTemplate.Solution",
+  "shortName": "ca-template",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "CleanArcTemplate",
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "exclude": [
+        "README.md",
+        "**/[Bb]in/**",
+        "**/[Oo]bj/**",
+        ".template.config/**/*",
+        ".vs/**/*",
+        "**/*.filelist",
+        "**/*.user",
+        "**/*.lock.json",
+        "**/.git/**",
+        "*.nuspec",
+        "**/node_modules/**"
+      ]
+    }
+  ]
+}
