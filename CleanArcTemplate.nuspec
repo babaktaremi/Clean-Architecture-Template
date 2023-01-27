@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+
+    <id>Bobby.CleanArcTemplate</id>
+    <version>1.0.0</version>
+    <title>Clean Architecture Solution Template</title>
+    <authors>JasonTaylorDev</authors>
+    <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
+    <summary>
+     Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
+    </summary>
+  
+
+    <projectUrl>https://github.com/babaktaremi/Clean-Architecture-Template</projectUrl>
+    <repository type="git" url="https://github.com/JasonTaylorDev/CleanArchitecture.git" branch="main" />
+
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>clean-architecture project template csharp dotnet Identity JWE Identity-OTP CQRS Plugin-based</tags>
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+
+  </metadata>
+
+  <files>
+    <file src=".template.config\icon.png" />
+    <file src="README.md" />
+    <file src=".\**" target="content" exclude="**\node_modules\**;**\bin\**;**\obj\**;**\.vs\**;**\.vscode\**;**\ClientApp\dist\**;**\wwwroot\dist\**;content\Directory.Build.*;**\.git\**;**\.github\**;**\CODE_OF_CONDUCT.md;**\LICENSE;**\README.md;" />
+  </files>
+
+</package>
