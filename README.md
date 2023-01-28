@@ -1,9 +1,30 @@
 
+[![NuGet Badge](https://buildstats.info/nuget/Bobby.CleanArcTemplate)](https://www.nuget.org/packages/Bobby.CleanArcTemplate)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
+
+
 # ASP NET Core 7 Clean architecture boiler plate. Everything that you need to start an enterprise project!
 
 Personally I've seen a lot of ASP NET Core based clean architecture templates, but most of them are not usable in production and you face problems created by the framework itself rather than the actual domain problems. I've worked for about 5 years in different startups and companies so trust me when I say this framework was built upon actual real-world challenges rather than reading a book and convert its every paragraph to code.
 
 So let's get started!
+
+# Quick and easy installation
+
+Open powershell or command prompt and execute the following command:
+
+ ```
+dotnet new install Bobby.CleanArcTemplate::2.1.1
+ ```
+ 
+ Create an empty folder. Navigate to it via Powershell or CMD and then execute the following command:
+ 
+  ```
+dotnet new ca-template
+ ```
+ 
+Your project is created and ready to code! 
+
 ## Clean Architecture. Our Expectations
 When you search the **"Clean Architecture"** keyword on google, the first thing that comes in search results is the graph below. But what does it say exactly?
 
