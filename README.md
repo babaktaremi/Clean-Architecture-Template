@@ -83,7 +83,6 @@ You might have heard something called **"Application Parts"** in ASP NET Core. I
 It is very important and sensitive part of whole ASP NET Core configuration. If you don't be careful enough, you can mess up the whole project in a heartbeat. 
 But you don't need to worry about any of it. I've done the most work for you! (Take a look at **CleanArc.Web.Plugins.Grpc** class library). 
 
-For writting new plugins, All you need to do is to create a new "Class Library" and add **"CleanArc.Web.Plugins.Common"** project reference to it. There is an interface that **you have to implement** called `IPluginStartup`. Finally reference your new plugin in `CleanArc.Web.Api` and you are good to go!
 ## Final Words
 
 Personally I love this framework and use it in many of my personal projects and it hasn't let me down yet. I casually update this repo (whether it's a package update, code refactor or adding new features). So feel free to create issues or create pull requests. I will check them.
