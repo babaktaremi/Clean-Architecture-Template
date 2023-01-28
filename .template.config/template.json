@@ -35,7 +35,8 @@
         "**/*.lock.json",
         "**/.git/**",
         "*.nuspec",
-        "**/node_modules/**"
+        "**/node_modules/**",
+        "nuget.exe"
       ]
     }
   ]
