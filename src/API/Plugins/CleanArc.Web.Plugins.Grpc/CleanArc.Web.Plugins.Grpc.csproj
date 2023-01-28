@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\CleanArc.Application\CleanArc.Application.csproj" />
-    <ProjectReference Include="..\CleanArc.Web.Plugins.Common\CleanArc.Web.Plugins.Common.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -20,4 +19,8 @@
 		<Protobuf Include="ProtoModels\OrderGrpcServiceModels.proto" GrpcServices="Server" />
 	</ItemGroup>
 
+	
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>	
 </Project>

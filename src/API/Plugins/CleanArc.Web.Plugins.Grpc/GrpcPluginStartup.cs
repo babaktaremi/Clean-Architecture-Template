@@ -1,28 +1,23 @@
-﻿using CleanArc.Web.Plugins.Common;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using CleanArc.Web.Plugins.Grpc.Services;
 
 namespace CleanArc.Web.Plugins.Grpc;
 
-public class PluginStartup:IPluginStartup
+public static class GrpcPluginStartup
 {
-    public void ConfigureServices(IServiceCollection services)
+    public static IServiceCollection ConfigureGrpcPluginServices(this IServiceCollection services)
     {
-        //services.AddMediator(options =>
-        //{
-        //    options.ServiceLifetime = ServiceLifetime.Transient;
-        //    options.Namespace = "CleanArc.Plugins.GRPC.Mediator";
-        //});
-
-        //services.AddMediator(Assembly.GetExecutingAssembly());
+     
         
         services.AddGrpc();
         services.AddGrpcReflection();
+
+        return services;
     }
 
-    public void ConfigurePipeline(WebApplication app)
+    public static void ConfigureGrpcPipeline(this WebApplication app)
     {
 
         app.MapGrpcService<UserGrpcServices>();

@@ -18,7 +18,6 @@
     <ProjectReference Include="..\..\Infrastructure\CleanArc.Infrastructure.CrossCutting\CleanArc.Infrastructure.CrossCutting.csproj" />
     <ProjectReference Include="..\..\Infrastructure\CleanArc.Infrastructure.Identity\CleanArc.Infrastructure.Identity.csproj" />
     <ProjectReference Include="..\..\Infrastructure\CleanArc.Infrastructure.Persistence\CleanArc.Infrastructure.Persistence.csproj" />
-    <ProjectReference Include="..\Plugins\CleanArc.Web.Plugins.Common\CleanArc.Web.Plugins.Common.csproj" />
   </ItemGroup>
 
 </Project>

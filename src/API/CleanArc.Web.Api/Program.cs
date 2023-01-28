@@ -9,6 +9,7 @@ using CleanArc.Infrastructure.Identity.ServiceConfiguration;
 using CleanArc.Infrastructure.Persistence;
 using CleanArc.Infrastructure.Persistence.ServiceConfiguration;
 using CleanArc.Web.Api.Controllers.V1.UserManagement;
+using CleanArc.Web.Plugins.Grpc;
 using CleanArc.WebFramework.Filters;
 using CleanArc.WebFramework.Middlewares;
 using CleanArc.WebFramework.ServiceConfiguration;
@@ -36,13 +37,19 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(typeof(ModelStateValidationAttribute));
     options.Filters.Add(typeof(BadRequestResultFilterAttribute));
 
-}).ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; }).PartManager.AddPluginParts();
+}).ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; });
 //.AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<UserCreateCommand>(); }); //Uncomment for FluentValidation in Application Layer
 
 builder.Services.AddSwagger();
 
 builder.Services.AddApplicationServices().RegisterIdentityServices(identitySettings)
-    .AddPersistenceServices(configuration).AddWebFrameworkServices().AddPluginServices();
+    .AddPersistenceServices(configuration).AddWebFrameworkServices();
+
+#region Plugin Services Configuration
+
+builder.Services.ConfigureGrpcPluginServices();
+
+#endregion
 
 builder.Services.AddAutoMapper(typeof(User), typeof(JwtService), typeof(UserController));
 
@@ -83,7 +90,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.ConfigurePluginsPipelines();
+app.ConfigureGrpcPipeline();
 
 await app.RunAsync();
 #endregion
