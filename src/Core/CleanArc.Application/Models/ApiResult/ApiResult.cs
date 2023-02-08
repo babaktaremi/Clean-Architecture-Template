@@ -1,4 +1,5 @@
-﻿using CleanArc.SharedKernel.Extensions;
+﻿using System.Diagnostics;
+using CleanArc.SharedKernel.Extensions;
 
 namespace CleanArc.Application.Models.ApiResult;
 
@@ -8,12 +9,14 @@ public class ApiResult
     public ApiResultStatusCode StatusCode { get; set; }
 
     public string Message { get; set; }
+    public string RequestId { get;  }
 
     public ApiResult(bool isSuccess, ApiResultStatusCode statusCode, string message = null)
     {
         IsSuccess = isSuccess;
         StatusCode = statusCode;
         Message = message ?? statusCode.ToDisplay();
+        RequestId = Activity.Current.Id;
     }
 
     

@@ -2,6 +2,7 @@
 using CleanArc.Application.Features.Order.Queries.GetUserOrders;
 using CleanArc.Web.Api.ApiModels.Order;
 using CleanArc.WebFramework.BaseController;
+using CleanArc.WebFramework.WebExtensions;
 using Mediator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ public class OrderController : BaseController
     {
         var command = await _sender.Send(new AddOrderCommand(UserId, model.OrderName));
 
-        return OperationResult(command);
+        return base.OperationResult(command);
     }
 
     [HttpGet("GetUserOrders")]
@@ -34,6 +35,6 @@ public class OrderController : BaseController
     {
         var query = await _sender.Send(new GetUserOrdersQueryModel(UserId));
 
-        return OperationResult(query);
+        return base.OperationResult(query);
     }
 }

@@ -23,4 +23,6 @@ public interface IAppUserManager
     Task<IdentityResult> IncrementAccessFailedCountAsync(User user);
     Task<bool> IsUserLockedOutAsync(User user);
     Task ResetUserLockoutAsync(User user);
+    Task UpdateUserAsync(User user);
+    Task UpdateSecurityStampAsync(User user);
 }

@@ -1,13 +1,16 @@
 ﻿using CleanArc.Application.Features.Users.Commands.Create;
 using CleanArc.Application.Features.Users.Commands.RefreshUserTokenCommand;
+using CleanArc.Application.Features.Users.Commands.RequestLogout;
 using CleanArc.Application.Features.Users.Queries.GenerateUserToken.Model;
 using CleanArc.Application.Features.Users.Queries.TokenRequest;
 using CleanArc.Web.Api.ApiModels.User;
 using CleanArc.WebFramework.BaseController;
 using CleanArc.WebFramework.Swagger;
+using CleanArc.WebFramework.WebExtensions;
 using Mediator;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArc.Web.Api.Controllers.V1.UserManagement;
@@ -29,7 +32,7 @@ public class UserController : BaseController
     {
         var command = await _mediator.Send(new UserCreateCommand(model.UserName, model.FirstName, model.LastName, model.PhoneNumber));
 
-        return OperationResult(command);
+        return base.OperationResult(command);
     }
 
     //[HttpPost("ConfirmPhoneNumber")]
@@ -45,7 +48,7 @@ public class UserController : BaseController
     {
         var query = await _mediator.Send(new UserTokenRequestQuery(model.UserPhoneNumber));
 
-        return OperationResult(query);
+        return base.OperationResult(query);
     }
 
     [HttpPost("LoginConfirmation")]
@@ -53,7 +56,7 @@ public class UserController : BaseController
     {
         var result = await _mediator.Send(new GenerateUserTokenQuery(model.UserKey, model.Code));
 
-        return OperationResult(result);
+        return base.OperationResult(result);
     }
 
     [HttpPost("RefreshSignIn")]
@@ -67,6 +70,15 @@ public class UserController : BaseController
 
         var newTokenResult = await _mediator.Send(new RefreshUserTokenCommand(model.RefreshToken.ToString()));
 
-        return OperationResult(newTokenResult);
+        return base.OperationResult(newTokenResult);
+    }
+
+    [HttpPost("Logout")]
+    [Authorize]
+    public async Task<IActionResult> RequestLogout()
+    {
+        var commandResult = await _mediator.Send(new RequestLogoutCommandModel(base.UserId));
+
+        return base.OperationResult(commandResult);
     }
 }

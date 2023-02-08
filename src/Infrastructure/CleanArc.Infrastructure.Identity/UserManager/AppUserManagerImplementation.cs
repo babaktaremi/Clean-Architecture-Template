@@ -1,5 +1,6 @@
 ﻿using CleanArc.Application.Contracts.Identity;
 using CleanArc.Domain.Entities.User;
+using CleanArc.Infrastructure.Identity.Identity.Dtos;
 using CleanArc.Infrastructure.Identity.Identity.Manager;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -47,8 +48,10 @@ public class AppUserManagerImplementation : IAppUserManager
     public async Task<IdentityResult> VerifyUserCode(User user, string code)
     {
         var confirmationResult = await _userManager.VerifyUserTokenAsync(
-            user, "PasswordlessLoginTotpProvider", "passwordless-auth", code);
+            user, CustomIdentityConstants.OtpPasswordLessLoginProvider, CustomIdentityConstants.OtpPasswordLessLoginPurpose, code);
 
+        if (confirmationResult)
+            await _userManager.UpdateSecurityStampAsync(user);
 
         return confirmationResult
             ? IdentityResult.Success
@@ -58,7 +61,7 @@ public class AppUserManagerImplementation : IAppUserManager
     public Task<string> GenerateOtpCode(User user)
     {
         return _userManager.GenerateUserTokenAsync(
-            user, "PasswordlessLoginTotpProvider", "passwordless-auth");
+            user, CustomIdentityConstants.OtpPasswordLessLoginProvider, CustomIdentityConstants.OtpPasswordLessLoginPurpose);
     }
 
     public Task<User> GetUserByPhoneNumber(string phoneNumber)
@@ -117,5 +120,15 @@ public class AppUserManagerImplementation : IAppUserManager
     {
         await _userManager.SetLockoutEndDateAsync(user, null);
          await _userManager.ResetAccessFailedCountAsync(user);
+    }
+
+    public async Task UpdateUserAsync(User user)
+    {
+        await _userManager.UpdateAsync(user);
+    }
+
+    public async Task UpdateSecurityStampAsync(User user)
+    {
+        await _userManager.UpdateSecurityStampAsync(user);
     }
 }

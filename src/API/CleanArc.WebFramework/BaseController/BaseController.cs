@@ -25,15 +25,10 @@ public class BaseController : ControllerBase
         }
     }
 
-    protected IActionResult OperationResult(dynamic result)
+    protected IActionResult OperationResult<TModel>(OperationResult<TModel> result)
     {
         if (result is null)
             return new ServerErrorResult("Server Error");
-
-        if (!((object)result).IsAssignableFromBaseTypeGeneric(typeof(OperationResult<>)))
-        {
-            throw new InvalidCastException("Given Type is not an OperationResult<T>");
-        }
 
 
         if (result.IsSuccess) return result.Result is bool ? Ok() : Ok(result.Result);

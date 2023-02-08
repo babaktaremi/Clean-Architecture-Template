@@ -37,7 +37,11 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(typeof(ModelStateValidationAttribute));
     options.Filters.Add(typeof(BadRequestResultFilterAttribute));
 
-}).ConfigureApiBehaviorOptions(options => { options.SuppressModelStateInvalidFilter = true; });
+}).ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+    options.SuppressMapClientErrors = true;
+});
 //.AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<UserCreateCommand>(); }); //Uncomment for FluentValidation in Application Layer
 
 builder.Services.AddSwagger();

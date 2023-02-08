@@ -3,6 +3,7 @@ using CleanArc.Application.Features.Admin.Queries.GetToken;
 using CleanArc.Web.Api.ApiModels.Admin;
 using CleanArc.Web.Api.ApiModels.Admin.AdminManagement;
 using CleanArc.WebFramework.BaseController;
+using CleanArc.WebFramework.WebExtensions;
 using Mediator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         {
             var query = await _sender.Send(new AdminGetTokenQuery(model.UserName, model.Password));
 
-            return OperationResult(query);
+            return base.OperationResult(query);
         }
 
         [Authorize(Roles = "admin")]
@@ -36,7 +37,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
             var commandResult = await _sender.Send(new AddAdminCommandModel(model.AdminUserName, model.AdminEmail,
                 model.AdminPassword, model.RoleId));
 
-            return OperationResult(commandResult);
+            return base.OperationResult(commandResult);
         }
     }
 }

@@ -34,6 +34,7 @@ public class GenerateUserTokenHandler : IRequestHandler<GenerateUserTokenQuery, 
         if (!result.Succeeded)
             return OperationResult<AccessToken>.FailureResult(result.Errors.StringifyIdentityResultErrors());
 
+        await _userManager.UpdateUserAsync(user);
 
         var token = await _jwtService.GenerateAsync(user);
 

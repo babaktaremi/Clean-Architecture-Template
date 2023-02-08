@@ -6,6 +6,7 @@ using CleanArc.Application.Features.Role.Queries.GetAuthorizableRoutesQuery;
 using CleanArc.Infrastructure.Identity.Identity.PermissionManager;
 using CleanArc.Web.Api.ApiModels.Admin.Role;
 using CleanArc.WebFramework.BaseController;
+using CleanArc.WebFramework.WebExtensions;
 using Mediator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         {
             var commandResult = await _sender.Send(new AddRoleCommandModel(model.RoleName));
 
-            return OperationResult(commandResult);
+            return base.OperationResult(commandResult);
         }
 
     }
