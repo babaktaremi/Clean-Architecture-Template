@@ -1,7 +1,7 @@
 
 [![NuGet Badge](https://buildstats.info/nuget/Bobby.CleanArcTemplate)](https://www.nuget.org/packages/Bobby.CleanArcTemplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
-
+![Twitter Follow](https://img.shields.io/twitter/url?label=Follow&style=social&url=https%3A%2F%2Ftwitter.com%2FBabakTaremi)
 
 # ASP NET Core 7 Clean architecture boiler plate. Everything that you need to start an enterprise project!
 
@@ -14,7 +14,7 @@ So let's get started!
 Open powershell or command prompt and execute the following command:
 
  ```
-dotnet new install Bobby.CleanArcTemplate::2.2.0
+dotnet new install Bobby.CleanArcTemplate::2.5.0
  ```
  
  Create an empty folder. Navigate to it via Powershell or CMD and then execute the following command:
