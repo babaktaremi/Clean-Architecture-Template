@@ -14,7 +14,7 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
     }
 
 
-    public ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
+    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
         var errors = _validators
             .Select(v => v.Validate(message))
@@ -37,6 +37,6 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
 
         }
 
-        return next(message,cancellationToken);
+        return await next(message,cancellationToken);
     }
 }
