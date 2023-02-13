@@ -14,7 +14,7 @@ So let's get started!
 Open powershell or command prompt and execute the following command:
 
  ```
-dotnet new install Bobby.CleanArcTemplate::2.5.0
+dotnet new install Bobby.CleanArcTemplate
  ```
  
  Create an empty folder. Navigate to it via Powershell or CMD and then execute the following command:
