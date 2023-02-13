@@ -42,7 +42,6 @@ builder.Services.AddControllers(options =>
     options.SuppressModelStateInvalidFilter = true;
     options.SuppressMapClientErrors = true;
 });
-//.AddFluentValidation(cfg => { cfg.RegisterValidatorsFromAssemblyContaining<UserCreateCommand>(); }); //Uncomment for FluentValidation in Application Layer
 
 builder.Services.AddSwagger();
 
@@ -84,6 +83,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+
+app.UseCustomExceptionHandler();
+
 
 app.UseSwaggerAndUI();
 

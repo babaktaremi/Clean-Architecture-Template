@@ -17,8 +17,8 @@ public enum ApiResultStatusCode
     NotFound = 404,
 
 
-    [Display(Name = "Process Error")]
-    LogicError = 500,
+    [Display(Name = "Request Process Error")]
+    EntityProcessError = 422,
 
     [Display(Name = "Authentication Error")]
     UnAuthorized = 401,

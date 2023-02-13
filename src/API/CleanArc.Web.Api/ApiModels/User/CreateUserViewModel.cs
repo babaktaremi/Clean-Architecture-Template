@@ -17,7 +17,7 @@ public class CreateUserViewModel: IValidatableViewModel
     {
         var validationModel = new ValidationModelBase<CreateUserViewModel>();
 
-        validationModel.RuleFor(c => c.FirstName)
+        validationModel.RuleFor(c => c.UserName)
             .NotNull()
             .NotEmpty()
             .WithMessage("Username is required")
@@ -28,7 +28,7 @@ public class CreateUserViewModel: IValidatableViewModel
             .NotNull().WithMessage("Phone Number is required.")
             .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
             .MaximumLength(20).WithMessage("PhoneNumber must not exceed 50 characters.")
-            .Matches(new Regex(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}")).WithMessage("PhoneNumber not valid");
+            .Matches(new Regex(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")).WithMessage("PhoneNumber not valid");
 
         return validationModel.Validate(new ValidationContext<CreateUserViewModel>(this));
     }

@@ -24,12 +24,12 @@ public class UserCreateHandler : IRequestHandler<UserCreateCommand, OperationRes
         var userNameExist = await _userManager.IsExistUser(request.PhoneNumber);
 
         if (userNameExist)
-            return OperationResult<UserCreateCommandResult>.FailureResult("این شماره تلفن وجود دارد");
+            return OperationResult<UserCreateCommandResult>.FailureResult("Phone number already exists");
 
         var phoneNumberExist = await _userManager.IsExistUserName(request.UserName);
 
         if (phoneNumberExist)
-            return OperationResult<UserCreateCommandResult>.FailureResult("این نام کاربری دارد");
+            return OperationResult<UserCreateCommandResult>.FailureResult("Username already exists");
 
         var user = new User { UserName = request.UserName, Name = request.FirstName, FamilyName = request.LastName, PhoneNumber = request.PhoneNumber };
 

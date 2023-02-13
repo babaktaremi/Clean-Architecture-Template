@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using CleanArc.Application.Models.Common;
 using FluentValidation;
 using Mediator;
 
@@ -8,13 +9,13 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
 {
     private readonly IList<IValidator<TRequest>> _validators;
 
-    public ValidateCommandBehavior(IList<IValidator<TRequest>> validators)
+    public ValidateCommandBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
-        _validators = validators;
+        _validators = validators.ToList();
     }
 
 
-    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
+    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest,TResponse> next)
     {
         var errors = _validators
             .Select(v => v.Validate(message))
@@ -22,21 +23,9 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
             .Where(error => error != null)
             .ToList();
 
-        if (errors.Any())
-        {
-            var errorBuilder = new StringBuilder();
+        if (!errors.Any())
+            return await next(message, cancellationToken);
 
-            errorBuilder.AppendLine("Invalid command, reason: ");
-
-            foreach (var error in errors)
-            {
-                errorBuilder.AppendLine(error.ErrorMessage);
-            }
-
-            throw new Exception(errorBuilder.ToString());
-
-        }
-
-        return await next(message,cancellationToken);
+        throw new ValidationException(errors);
     }
 }
