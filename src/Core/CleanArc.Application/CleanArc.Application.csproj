@@ -12,8 +12,5 @@
     </PackageReference>
     <PackageReference Include="Mediator.Abstractions" Version="2.0.*" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\ValidationBase\Contracts\" />
-  </ItemGroup>
 
 </Project>

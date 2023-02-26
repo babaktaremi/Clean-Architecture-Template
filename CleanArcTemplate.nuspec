@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>3.0.0</version>
+    <version>3.5.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
@@ -11,9 +11,7 @@
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
      <releaseNotes>
-     Added Auto Application Model Validation With Fluent Validation
-     Added Validation Exception Handler
-     Added Validate Application Request Model Pipeline Validator
+     Auto Model Validation API was a bit messy. I got it cleaned up and made it more general for usage. Also Validators are now configured in related ASP NET Core DI container
     </releaseNotes>
   
 

@@ -1,6 +1,6 @@
 ﻿using CleanArc.Application.Models.ApiResult;
 using CleanArc.SharedKernel.Extensions;
-using CleanArc.WebFramework.Validations.Contracts;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using StatusCodes = Microsoft.AspNetCore.Http.StatusCodes;
@@ -12,11 +12,15 @@ public class ModelStateValidationAttribute : ActionFilterAttribute
     public override void OnActionExecuting(ActionExecutingContext context)
     {
 
-        foreach (var contextActionArgument in context.ActionArguments)
+        foreach (var contextActionArgument in context.ActionArguments.Values)
         {
-            if (contextActionArgument.Value is IValidatableViewModel validatableViewModel)
+            var viewModelValidator =
+                context.HttpContext.RequestServices.GetService(
+                    typeof(IValidator<>).MakeGenericType(contextActionArgument.GetType()));
+
+            if (viewModelValidator is IValidator validator)
             {
-                var validationResult = validatableViewModel.ValidateRules();
+                var validationResult = validator.Validate(new ValidationContext<object>(contextActionArgument));
 
                 if (!validationResult.IsValid)
                 {
@@ -32,7 +36,6 @@ public class ModelStateValidationAttribute : ActionFilterAttribute
 
         if (!modelState.IsValid)
         {
-            var controller = context.Controller as Controller;
 
             var model = context.ActionArguments.FirstOrDefault().Value;
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArc.WebFramework.ServiceConfiguration;
@@ -34,5 +35,7 @@ public static class ServiceCollectionExtension
         });
 
         return services;
+
+
     }
 }

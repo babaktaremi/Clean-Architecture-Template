@@ -1,10 +1,12 @@
 ﻿using System.Reflection;
+using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
@@ -121,9 +123,13 @@ public static class SwaggerConfigurationExtensions
             });
             #endregion
 
-            //If use FluentValidation then must be use this package to show validation in swagger (MicroElements.Swashbuckle.FluentValidation)
-            //options.AddFluentValidationRules();
             #endregion
+        });
+
+        services.AddFluentValidationRulesToSwagger(options =>
+        {
+            options.SetFluentValidationCompatibility();
+            options.SetNotNullableIfMinLengthGreaterThenZero = true;
         });
     }
 

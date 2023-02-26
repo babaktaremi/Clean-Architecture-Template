@@ -8,6 +8,7 @@ using CleanArc.Infrastructure.Identity.Jwt;
 using CleanArc.Infrastructure.Identity.ServiceConfiguration;
 using CleanArc.Infrastructure.Persistence;
 using CleanArc.Infrastructure.Persistence.ServiceConfiguration;
+using CleanArc.SharedKernel.Extensions;
 using CleanArc.Web.Api.Controllers.V1.UserManagement;
 using CleanArc.Web.Plugins.Grpc;
 using CleanArc.WebFramework.Filters;
@@ -45,8 +46,12 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddSwagger();
 
-builder.Services.AddApplicationServices().RegisterIdentityServices(identitySettings)
-    .AddPersistenceServices(configuration).AddWebFrameworkServices();
+builder.Services.AddApplicationServices()
+    .RegisterIdentityServices(identitySettings)
+    .AddPersistenceServices(configuration)
+    .AddWebFrameworkServices();
+
+builder.Services.RegisterValidatorsAsServices();
 
 #region Plugin Services Configuration
 

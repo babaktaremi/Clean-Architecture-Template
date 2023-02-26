@@ -1,35 +1,29 @@
-﻿using CleanArc.Application.Common.ValidationBase;
-using CleanArc.Application.Common.ValidationBase.Contracts;
-using CleanArc.Application.Models.Common;
+﻿using CleanArc.Application.Models.Common;
+using CleanArc.SharedKernel.ValidationBase;
+using CleanArc.SharedKernel.ValidationBase.Contracts;
 using FluentValidation;
 using Mediator;
 
 namespace CleanArc.Application.Features.Users.Commands.Create;
 
 public record UserCreateCommand
-    (string UserName, string FirstName, string LastName, string PhoneNumber) : IRequest<OperationResult<UserCreateCommandResult>>,IValidatableApplicationModel<UserCreateCommand>
+    (string UserName, string FirstName, string LastName, string PhoneNumber) : IRequest<OperationResult<UserCreateCommandResult>>,IValidatableModel<UserCreateCommand>
 {
-    public UserCreateCommand() : this(string.Empty,string.Empty,string.Empty,string.Empty)
-    {
-        
-    }
 
-    public IValidator<UserCreateCommand> ValidateApplicationModel()
+    public IValidator<UserCreateCommand> ValidateApplicationModel(ApplicationBaseValidationModel<UserCreateCommand> validator)
     {
-        var userCreationValidation = new ApplicationBaseValidationModel<UserCreateCommand>();
-
-        userCreationValidation
+        validator
             .RuleFor(c => c.FirstName)
             .NotEmpty()
             .NotNull()
             .WithMessage("User must have first name");
 
-        userCreationValidation
+        validator
             .RuleFor(c => c.LastName)
             .NotEmpty()
             .NotNull()
-            .WithMessage("User must have first name");
+            .WithMessage("User must have last name");
 
-        return userCreationValidation;
+        return validator;
     }
 }
