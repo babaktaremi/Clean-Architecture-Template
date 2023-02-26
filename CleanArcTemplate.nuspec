@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>3.5.0</version>
+    <version>3.6.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
@@ -12,6 +12,7 @@
     </summary>
      <releaseNotes>
      Auto Model Validation API was a bit messy. I got it cleaned up and made it more general for usage. Also Validators are now configured in related ASP NET Core DI container
+     I also added MicroElements.Swashbuckle.FluentValidation for swagger auto model generation
     </releaseNotes>
   
 

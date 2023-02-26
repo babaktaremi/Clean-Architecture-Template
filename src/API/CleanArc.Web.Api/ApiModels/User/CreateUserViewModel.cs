@@ -23,8 +23,8 @@ public class CreateUserViewModel: IValidatableModel<CreateUserViewModel>
             .NotNull()
             .NotEmpty()
             .WithMessage("Username is required")
-            .MinimumLength(5)
-            .WithMessage("Minimum Length of user name must be 5 characters");
+            .MinimumLength(10)
+            .WithMessage("Minimum Length of user name must be 10 characters");
 
         validator
             .RuleFor(c => c.FirstName)
