@@ -15,12 +15,18 @@ public record UserCreateCommand
     public IValidator<UserCreateCommand> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserCreateCommand> validator)
     {
 
-
         validator
             .RuleFor(c => c.FirstName)
             .NotEmpty()
             .NotNull()
             .WithMessage("User must have first name");
+
+
+        var userManager = validator.ServiceProvider.ServiceProvider.GetRequiredService<IAppUserManager>();
+
+        validator.RuleFor(c => c.UserName)
+            .MustAsync(async (userName, _) => !await userManager.IsExistUserName(userName))
+            .WithMessage("Username is already taken. try another username");
 
 
         validator

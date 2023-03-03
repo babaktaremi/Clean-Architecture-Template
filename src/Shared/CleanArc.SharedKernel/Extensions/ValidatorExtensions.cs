@@ -41,17 +41,13 @@ namespace CleanArc.SharedKernel.Extensions
                     {
                         var interfaces = validator.GetType().GetInterfaces();
 
-                        services.AddSingleton(validator.GetType(),validator);
+                        //services.AddSingleton(validator.GetType(),validator);
 
                         var validatorInterface = interfaces
                             .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IValidator<>));
 
                         if (validatorInterface != null)
-                            services.AddScoped(validatorInterface, provider =>
-                            {
-                                var validatorModel = provider.GetRequiredService(validator.GetType());
-                                return validatorModel;
-                            });
+                            services.AddScoped(validatorInterface, _ => validator);
 
                     }
                 }
