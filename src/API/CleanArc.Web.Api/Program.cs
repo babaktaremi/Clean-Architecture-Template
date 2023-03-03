@@ -53,6 +53,7 @@ builder.Services.AddApplicationServices()
 
 builder.Services.RegisterValidatorsAsServices();
 
+
 #region Plugin Services Configuration
 
 builder.Services.ConfigureGrpcPluginServices();

@@ -17,7 +17,7 @@ public class CreateUserViewModel: IValidatableModel<CreateUserViewModel>
    
 
 
-    public IValidator<CreateUserViewModel> ValidateApplicationModel(ApplicationBaseValidationModel<CreateUserViewModel> validator)
+    public IValidator<CreateUserViewModel> ValidateApplicationModel(ApplicationBaseValidationModelProvider<CreateUserViewModel> validator)
     {
         validator.RuleFor(c => c.UserName)
             .NotNull()

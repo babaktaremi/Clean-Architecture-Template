@@ -21,6 +21,9 @@ namespace CleanArc.SharedKernel.Extensions
                     i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IValidatableModel<>)))
                 .ToList();
 
+            var serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions(){ValidateScopes = true}).CreateScope();
+
+
             foreach (var type in types)
             {
                 var typeConstructorArgumentLength = type.GetConstructors().First().GetParameters().Length;
@@ -28,27 +31,31 @@ namespace CleanArc.SharedKernel.Extensions
 
                 var methodInfo = type.GetMethod(nameof(IValidatableModel<object>.ValidateApplicationModel));
 
+
                 if (model != null)
                 {
-                    var methodArgument = Activator.CreateInstance(typeof(ApplicationBaseValidationModel<>).MakeGenericType(type));
+                    var methodArgument = Activator.CreateInstance(typeof(ApplicationBaseValidationModelProvider<>).MakeGenericType(type), serviceProvider);
                     var validator = methodInfo?.Invoke(model, new[] { methodArgument });
 
                     if (validator != null)
                     {
                         var interfaces = validator.GetType().GetInterfaces();
 
+                        services.AddSingleton(validator.GetType(),validator);
+
                         var validatorInterface = interfaces
                             .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IValidator<>));
 
                         if (validatorInterface != null)
-                            services.Add(new ServiceDescriptor(validatorInterface, validator));
+                            services.AddScoped(validatorInterface, provider =>
+                            {
+                                var validatorModel = provider.GetRequiredService(validator.GetType());
+                                return validatorModel;
+                            });
+
                     }
                 }
             }
-            // Needed Configuration for MicroElements.Swashbuckle.FluentValidation . But it will be obsolete in near future ...
-#pragma warning disable CS0618 // Type or member is obsolete
-            services.TryAddSingleton<IValidatorFactory, ServiceProviderValidatorFactory>();
-#pragma warning restore CS0618 // Type or member is obsolete
             return services;
         }
     }

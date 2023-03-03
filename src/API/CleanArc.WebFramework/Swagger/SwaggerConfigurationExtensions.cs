@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
@@ -124,12 +123,6 @@ public static class SwaggerConfigurationExtensions
             #endregion
 
             #endregion
-        });
-
-        services.AddFluentValidationRulesToSwagger(options =>
-        {
-            options.SetFluentValidationCompatibility();
-            options.SetNotNullableIfMinLengthGreaterThenZero = true;
         });
     }
 
