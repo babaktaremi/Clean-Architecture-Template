@@ -1,6 +1,5 @@
 ﻿using CleanArc.Application.Contracts;
 using CleanArc.Application.Contracts.Identity;
-using CleanArc.Application.Features.Users.Queries.GenerateUserToken.Model;
 using CleanArc.Application.Models.Common;
 using CleanArc.Application.Models.Jwt;
 using CleanArc.SharedKernel.Extensions;
@@ -8,13 +7,13 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Users.Queries.GenerateUserToken;
 
-public class GenerateUserTokenHandler : IRequestHandler<GenerateUserTokenQuery, OperationResult<AccessToken>>
+internal class GenerateUserTokenQueryHandler : IRequestHandler<GenerateUserTokenQuery, OperationResult<AccessToken>>
 {
     private readonly IJwtService _jwtService;
     private readonly IAppUserManager _userManager;
 
 
-    public GenerateUserTokenHandler(IJwtService jwtService, IAppUserManager userManager)
+    public GenerateUserTokenQueryHandler(IJwtService jwtService, IAppUserManager userManager)
     {
         _jwtService = jwtService;
         _userManager = userManager;

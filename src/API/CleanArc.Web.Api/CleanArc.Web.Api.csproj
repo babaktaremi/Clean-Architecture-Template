@@ -29,8 +29,4 @@
     <ProjectReference Include="..\Plugins\CleanArc.Web.Plugins.Grpc\CleanArc.Web.Plugins.Grpc.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ApiModels\Admin\AdminManagement\" />
-  </ItemGroup>
-
 </Project>

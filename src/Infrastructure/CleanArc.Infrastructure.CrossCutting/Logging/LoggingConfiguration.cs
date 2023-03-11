@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Enrichers.Span;
 using Serilog.Exceptions;
+using Serilog.Formatting.Json;
 using Serilog.Sinks.MSSqlServer;
 
 namespace CleanArc.Infrastructure.CrossCutting.Logging;
@@ -19,8 +21,9 @@ public static class LoggingConfiguration
         configuration.Enrich.FromLogContext()
             .Enrich.WithProperty("ApplicationName", env.ApplicationName)
             .Enrich.WithProperty("Environment", env.EnvironmentName)
+            .Enrich.WithSpan()
             .Enrich.WithExceptionDetails();
-
+            
 
 
         #endregion
@@ -41,11 +44,11 @@ public static class LoggingConfiguration
                     sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents", AutoCreateSqlTable = true, SchemaName = "log" })
                 .MinimumLevel.Warning();
 
-            configuration.WriteTo.File("log.txt", rollingInterval: RollingInterval.Day);
         }
 
-        else
+        else{
             configuration.WriteTo.Console().MinimumLevel.Information();
+        }
 
         #region ElasticSearch Configuration. UnComment if Needed 
 

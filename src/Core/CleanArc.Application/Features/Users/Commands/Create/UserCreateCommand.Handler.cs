@@ -6,16 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanArc.Application.Features.Users.Commands.Create;
 
-public class UserCreateHandler : IRequestHandler<UserCreateCommand, OperationResult<UserCreateCommandResult>>
+internal class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, OperationResult<UserCreateCommandResult>>
 {
 
     private readonly IAppUserManager _userManager;
-    private readonly IMediator _mediator;
-    private readonly ILogger<UserCreateHandler> _logger;
-    public UserCreateHandler(IAppUserManager userRepository, IMediator mediator, ILogger<UserCreateHandler> logger)
+    private readonly ILogger<UserCreateCommandHandler> _logger;
+    public UserCreateCommandHandler(IAppUserManager userRepository, ILogger<UserCreateCommandHandler> logger)
     {
         _userManager = userRepository;
-        _mediator = mediator;
         _logger = logger;
     }
 

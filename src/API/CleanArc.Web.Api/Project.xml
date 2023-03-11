@@ -4,7 +4,7 @@
         <name>CleanArc.Web.Api</name>
     </assembly>
     <members>
-        <member name="M:CleanArc.Web.Api.Controllers.V1.Admin.RoleManagerController.UpdateRolePermissions(CleanArc.Application.Features.Role.Commands.UpdateRoleClaimsCommand.UpdateRoleClaimsCommandModel)">
+        <member name="M:CleanArc.Web.Api.Controllers.V1.Admin.RoleManagerController.UpdateRolePermissions(CleanArc.Application.Features.Role.Commands.UpdateRoleClaimsCommand.UpdateRoleClaimsCommand)">
             <summary>
             Update a role permissions (claims) based on RouteKey received in AuthRoutes API
             </summary>

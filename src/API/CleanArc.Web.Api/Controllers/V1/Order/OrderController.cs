@@ -1,6 +1,5 @@
 ﻿using CleanArc.Application.Features.Order.Commands;
 using CleanArc.Application.Features.Order.Queries.GetUserOrders;
-using CleanArc.Web.Api.ApiModels.Order;
 using CleanArc.WebFramework.BaseController;
 using CleanArc.WebFramework.WebExtensions;
 using Mediator;
@@ -23,9 +22,10 @@ public class OrderController : BaseController
     }
 
     [HttpPost("CreateNewOrder")]
-    public async Task<IActionResult> CreateNewOrder(CreateOrderModel model)
+    public async Task<IActionResult> CreateNewOrder(AddOrderCommand model)
     {
-        var command = await _sender.Send(new AddOrderCommand(UserId, model.OrderName));
+        model.UserId = base.UserId;
+        var command = await _sender.Send(model);
 
         return base.OperationResult(command);
     }

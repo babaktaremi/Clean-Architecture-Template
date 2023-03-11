@@ -1,6 +1,6 @@
 ﻿namespace CleanArc.Application.Features.Users.Queries.TokenRequest;
 
-public class UserTokenRequestQueryResult
+public class UserTokenRequestQueryResponse
 {
     public string UserKey { get; set; }
 }

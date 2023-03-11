@@ -4,7 +4,6 @@ using CleanArc.Application.Features.Role.Commands.UpdateRoleClaimsCommand;
 using CleanArc.Application.Features.Role.Queries.GetAllRolesQuery;
 using CleanArc.Application.Features.Role.Queries.GetAuthorizableRoutesQuery;
 using CleanArc.Infrastructure.Identity.Identity.PermissionManager;
-using CleanArc.Web.Api.ApiModels.Admin.Role;
 using CleanArc.WebFramework.BaseController;
 using CleanArc.WebFramework.WebExtensions;
 using Mediator;
@@ -31,7 +30,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         [HttpGet("Roles")]
         public async Task<IActionResult> GetRoles()
         {
-            var queryResult = await _sender.Send(new GetAllRolesQueryModel());
+            var queryResult = await _sender.Send(new GetAllRolesQuery());
 
             return base.OperationResult(queryResult);
         }
@@ -39,7 +38,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         [HttpGet("AuthRoutes")]
         public async Task<IActionResult> GetAuthRoutes()
         {
-            var queryModel = await _sender.Send(new GetAuthorizableRoutesQueryModel());
+            var queryModel = await _sender.Send(new GetAuthorizableRoutesQuery());
 
             return base.OperationResult(queryModel);
         }
@@ -50,18 +49,18 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("UpdateRolePermissions")]
-        public async Task<IActionResult> UpdateRolePermissions(UpdateRoleClaimsCommandModel model)
+        public async Task<IActionResult> UpdateRolePermissions(UpdateRoleClaimsCommand model)
         {
             var commandResult =
-                await _sender.Send(new UpdateRoleClaimsCommandModel(model.RoleId, model.RoleClaimValue));
+                await _sender.Send(new UpdateRoleClaimsCommand(model.RoleId, model.RoleClaimValue));
 
             return base.OperationResult(commandResult);
         }
 
         [HttpPost("NewRole")]
-        public async Task<IActionResult> AddRole(AddRoleViewModel model)
+        public async Task<IActionResult> AddRole(AddRoleCommand model)
         {
-            var commandResult = await _sender.Send(new AddRoleCommandModel(model.RoleName));
+            var commandResult = await _sender.Send(model);
 
             return base.OperationResult(commandResult);
         }

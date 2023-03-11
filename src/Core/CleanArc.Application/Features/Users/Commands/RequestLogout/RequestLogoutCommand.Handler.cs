@@ -9,7 +9,7 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Users.Commands.RequestLogout
 {
-    internal class RequestLogoutCommandHandler:IRequestHandler<RequestLogoutCommandModel,OperationResult<bool>>
+    internal class RequestLogoutCommandHandler:IRequestHandler<RequestLogoutCommand,OperationResult<bool>>
     {
         private readonly IAppUserManager _userManager;
 
@@ -18,7 +18,7 @@ namespace CleanArc.Application.Features.Users.Commands.RequestLogout
             _userManager = userManager;
         }
 
-        public async ValueTask<OperationResult<bool>> Handle(RequestLogoutCommandModel request, CancellationToken cancellationToken)
+        public async ValueTask<OperationResult<bool>> Handle(RequestLogoutCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.GetUserByIdAsync(request.UserId);
 

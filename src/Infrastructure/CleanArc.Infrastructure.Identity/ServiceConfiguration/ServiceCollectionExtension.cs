@@ -192,6 +192,14 @@ public static class ServiceCollectionExtension
 
                     }
 
+                    else
+                    {
+                        context.HandleResponse();
+
+                        context.Response.StatusCode = (int)StatusCodes.Status401Unauthorized;
+                        await context.Response.WriteAsJsonAsync(new ApiResult(false, ApiResultStatusCode.UnAuthorized, "Invalid access token. Please login"));
+                    }
+
                 },
                 OnForbidden =async context =>
                 {

@@ -6,7 +6,7 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Admin.Commands.AddAdminCommand
 {
-    internal class AddAdminCommandHandler:IRequestHandler<AddAdminCommandModel,OperationResult<bool>>
+    internal class AddAdminCommandHandler:IRequestHandler<AddAdminCommand,OperationResult<bool>>
     {
         private readonly IAppUserManager _userManager;
         private readonly IRoleManagerService _roleManagerService;
@@ -17,7 +17,7 @@ namespace CleanArc.Application.Features.Admin.Commands.AddAdminCommand
             _roleManagerService = roleManagerService;
         }
 
-        public async ValueTask<OperationResult<bool>> Handle(AddAdminCommandModel request, CancellationToken cancellationToken)
+        public async ValueTask<OperationResult<bool>> Handle(AddAdminCommand request, CancellationToken cancellationToken)
         {
             var role = await _roleManagerService.GetRoleByIdAsync(request.RoleId);
 

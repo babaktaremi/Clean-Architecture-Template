@@ -4,4 +4,4 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Role.Commands.UpdateRoleClaimsCommand;
 
-public record UpdateRoleClaimsCommandModel( int RoleId, List<string> RoleClaimValue):IRequest<OperationResult<bool>>;
+public record UpdateRoleClaimsCommand( int RoleId, List<string> RoleClaimValue):IRequest<OperationResult<bool>>;

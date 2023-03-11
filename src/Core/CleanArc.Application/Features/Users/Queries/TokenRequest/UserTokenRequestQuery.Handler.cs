@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace CleanArc.Application.Features.Users.Queries.TokenRequest;
 
-public class UserTokenRequestQueryHandler:IRequestHandler<UserTokenRequestQuery,OperationResult<UserTokenRequestQueryResult>>
+public class UserTokenRequestQueryHandler:IRequestHandler<UserTokenRequestQuery,OperationResult<UserTokenRequestQueryResponse>>
 {
     private readonly IAppUserManager _userManager;
     private readonly IMediator _mediator;
@@ -19,12 +19,12 @@ public class UserTokenRequestQueryHandler:IRequestHandler<UserTokenRequestQuery,
     }
 
 
-    public async ValueTask<OperationResult<UserTokenRequestQueryResult>> Handle(UserTokenRequestQuery request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<UserTokenRequestQueryResponse>> Handle(UserTokenRequestQuery request, CancellationToken cancellationToken)
     {
         var user = await _userManager.GetUserByPhoneNumber(request.UserPhoneNumber);
 
         if(user is null)
-            return OperationResult<UserTokenRequestQueryResult>.NotFoundResult("User Not found");
+            return OperationResult<UserTokenRequestQueryResponse>.NotFoundResult("User Not found");
 
         var code = user.PhoneNumberConfirmed? await _userManager.GenerateOtpCode(user) : await _userManager.GeneratePhoneNumberConfirmationToken(user,user.PhoneNumber);
 
@@ -32,6 +32,6 @@ public class UserTokenRequestQueryHandler:IRequestHandler<UserTokenRequestQuery,
 
         //TODO Send Code Via Sms Provider
 
-        return OperationResult<UserTokenRequestQueryResult>.SuccessResult(new UserTokenRequestQueryResult{UserKey = user.GeneratedCode});
+        return OperationResult<UserTokenRequestQueryResponse>.SuccessResult(new UserTokenRequestQueryResponse {UserKey = user.GeneratedCode});
     }
 }

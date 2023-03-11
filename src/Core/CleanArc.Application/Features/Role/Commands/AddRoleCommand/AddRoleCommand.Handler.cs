@@ -5,7 +5,7 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Role.Commands.AddRoleCommand
 {
-    internal class AddRoleCommandHandler : IRequestHandler<AddRoleCommandModel, OperationResult<bool>>
+    internal class AddRoleCommandHandler : IRequestHandler<AddRoleCommand, OperationResult<bool>>
     {
         private readonly IRoleManagerService _roleManagerService;
 
@@ -14,7 +14,7 @@ namespace CleanArc.Application.Features.Role.Commands.AddRoleCommand
             _roleManagerService = roleManagerService;
         }
 
-        public async ValueTask<OperationResult<bool>> Handle(AddRoleCommandModel request, CancellationToken cancellationToken)
+        public async ValueTask<OperationResult<bool>> Handle(AddRoleCommand request, CancellationToken cancellationToken)
         {
             var addRoleResult =
                 await _roleManagerService.CreateRoleAsync(new CreateRoleDto() { RoleName = request.RoleName });

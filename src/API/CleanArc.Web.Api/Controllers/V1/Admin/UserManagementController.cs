@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
-using CleanArc.Application.Features.Users.Queries.GetUsers.Model;
+using CleanArc.Application.Features.Users.Queries.GetUsers;
 using CleanArc.WebFramework.BaseController;
 using CleanArc.WebFramework.WebExtensions;
 using Mediator;
@@ -26,7 +26,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         [HttpGet("CurrentUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var queryResult = await _sender.Send(new GetUsersQueryModel());
+            var queryResult = await _sender.Send(new GetUsersQuery());
 
             return base.OperationResult(queryResult);
         }

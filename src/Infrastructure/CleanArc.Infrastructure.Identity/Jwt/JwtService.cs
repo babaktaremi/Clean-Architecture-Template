@@ -93,9 +93,9 @@ public class JwtService : IJwtService
         return result;
     }
 
-    public async Task<AccessToken> RefreshToken(string refreshTokenId)
+    public async Task<AccessToken> RefreshToken(Guid refreshTokenId)
     {
-        var refreshToken = await _unitOfWork.UserRefreshTokenRepository.GetTokenWithInvalidation(Guid.Parse(refreshTokenId));
+        var refreshToken = await _unitOfWork.UserRefreshTokenRepository.GetTokenWithInvalidation(refreshTokenId);
             
         if (refreshToken is null)
             return null;
@@ -104,7 +104,7 @@ public class JwtService : IJwtService
 
         await _unitOfWork.CommitAsync();
 
-        var user = await _unitOfWork.UserRefreshTokenRepository.GetUserByRefreshToken(Guid.Parse(refreshTokenId));
+        var user = await _unitOfWork.UserRefreshTokenRepository.GetUserByRefreshToken(refreshTokenId);
 
         if (user is null)
             return null;

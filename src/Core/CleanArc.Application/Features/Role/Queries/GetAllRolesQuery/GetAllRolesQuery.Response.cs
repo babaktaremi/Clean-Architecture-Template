@@ -1,3 +1,3 @@
 ﻿namespace CleanArc.Application.Features.Role.Queries.GetAllRolesQuery;
 
-public record GetAllRolesQueryResult(int RoleId,string RoleName);
+public record GetAllRolesQueryResponse(int RoleId,string RoleName);

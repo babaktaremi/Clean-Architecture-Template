@@ -3,4 +3,4 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Role.Queries.GetAuthorizableRoutesQuery;
 
-public record GetAuthorizableRoutesQueryModel():IRequest<OperationResult<List<GetAuthorizableRouteQueryResult>>>;
+public record GetAuthorizableRoutesQuery():IRequest<OperationResult<List<GetAuthorizableRoutesQueryResponse>>>;

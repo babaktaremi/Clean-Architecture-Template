@@ -1,7 +1,5 @@
 ﻿using CleanArc.Application.Features.Admin.Commands.AddAdminCommand;
 using CleanArc.Application.Features.Admin.Queries.GetToken;
-using CleanArc.Web.Api.ApiModels.Admin;
-using CleanArc.Web.Api.ApiModels.Admin.AdminManagement;
 using CleanArc.WebFramework.BaseController;
 using CleanArc.WebFramework.WebExtensions;
 using Mediator;
@@ -23,19 +21,18 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> AdminLogin(AdminLoginViewModel model)
+        public async Task<IActionResult> AdminLogin(AdminGetTokenQuery model)
         {
-            var query = await _sender.Send(new AdminGetTokenQuery(model.UserName, model.Password));
+            var query = await _sender.Send(model);
 
             return base.OperationResult(query);
         }
 
         [Authorize(Roles = "admin")]
         [HttpPost("NewAdmin")]
-        public async Task<IActionResult> AddNewAdmin(AddAdminViewModel model)
+        public async Task<IActionResult> AddNewAdmin(AddAdminCommand model)
         {
-            var commandResult = await _sender.Send(new AddAdminCommandModel(model.AdminUserName, model.AdminEmail,
-                model.AdminPassword, model.RoleId));
+            var commandResult = await _sender.Send(model);
 
             return base.OperationResult(commandResult);
         }

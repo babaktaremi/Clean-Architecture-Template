@@ -5,11 +5,11 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Users.Commands.RefreshUserTokenCommand
 {
-    internal class RefreshTokenCommandHandler:IRequestHandler<RefreshUserTokenCommand,OperationResult<AccessToken>>
+    internal class RefreshUserTokenCommandHandler : IRequestHandler<RefreshUserTokenCommand,OperationResult<AccessToken>>
     {
         private readonly IJwtService _jwtService;
 
-        public RefreshTokenCommandHandler(IJwtService jwtService)
+        public RefreshUserTokenCommandHandler(IJwtService jwtService)
         {
             _jwtService = jwtService;
         }
