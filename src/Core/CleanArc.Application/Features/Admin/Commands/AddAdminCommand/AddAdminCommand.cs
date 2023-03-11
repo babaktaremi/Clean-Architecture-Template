@@ -10,7 +10,7 @@ public record AddAdminCommand
     (string UserName, string Email, string Password, int RoleId) : IRequest<OperationResult<bool>>,
         IValidatableModel<AddAdminCommand>
 {
-    public IValidator<AddAdminCommand> ValidateApplicationModel(ApplicationBaseValidationModel<AddAdminCommand> validator)
+    public IValidator<AddAdminCommand> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddAdminCommand> validator)
     {
         validator.RuleFor(c => c.Email)
             .EmailAddress()

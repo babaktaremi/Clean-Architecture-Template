@@ -10,7 +10,7 @@ namespace CleanArc.Application.Features.Users.Queries.TokenRequest;
 public record UserTokenRequestQuery(string UserPhoneNumber) : IRequest<OperationResult<UserTokenRequestQueryResponse>>,
     IValidatableModel<UserTokenRequestQuery>
 {
-    public IValidator<UserTokenRequestQuery> ValidateApplicationModel(ApplicationBaseValidationModel<UserTokenRequestQuery> validator)
+    public IValidator<UserTokenRequestQuery> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserTokenRequestQuery> validator)
     {
 
         validator.RuleFor(c => c.UserPhoneNumber).NotEmpty()

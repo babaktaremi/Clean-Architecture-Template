@@ -13,7 +13,7 @@ public record AddOrderCommand( string OrderName) : IRequest<OperationResult<bool
     [JsonIgnore]
     public int UserId { get; set; }
 
-    public IValidator<AddOrderCommand> ValidateApplicationModel(ApplicationBaseValidationModel<AddOrderCommand> validator)
+    public IValidator<AddOrderCommand> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AddOrderCommand> validator)
     {
         validator.RuleFor(c => c.OrderName)
             .NotEmpty()

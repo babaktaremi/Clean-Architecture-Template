@@ -10,7 +10,7 @@ namespace CleanArc.Application.Features.Users.Queries.GenerateUserToken;
 public record GenerateUserTokenQuery(string UserKey, string Code) : IRequest<OperationResult<AccessToken>>,
     IValidatableModel<GenerateUserTokenQuery>
 {
-    public IValidator<GenerateUserTokenQuery> ValidateApplicationModel(ApplicationBaseValidationModel<GenerateUserTokenQuery> validator)
+    public IValidator<GenerateUserTokenQuery> ValidateApplicationModel(ApplicationBaseValidationModelProvider<GenerateUserTokenQuery> validator)
     {
         validator.RuleFor(c => c.Code)
             .NotEmpty()

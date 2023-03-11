@@ -10,7 +10,7 @@ namespace CleanArc.Application.Features.Users.Commands.RefreshUserTokenCommand;
 public record RefreshUserTokenCommand(Guid RefreshToken) : IRequest<OperationResult<AccessToken>>,
     IValidatableModel<RefreshUserTokenCommand>
 {
-    public IValidator<RefreshUserTokenCommand> ValidateApplicationModel(ApplicationBaseValidationModel<RefreshUserTokenCommand> validator)
+    public IValidator<RefreshUserTokenCommand> ValidateApplicationModel(ApplicationBaseValidationModelProvider<RefreshUserTokenCommand> validator)
     {
         validator.RuleFor(c => c.RefreshToken)
             .NotEmpty()

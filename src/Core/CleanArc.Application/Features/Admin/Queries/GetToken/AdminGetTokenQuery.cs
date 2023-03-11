@@ -10,7 +10,7 @@ namespace CleanArc.Application.Features.Admin.Queries.GetToken;
 public record AdminGetTokenQuery(string UserName, string Password) : IRequest<OperationResult<AccessToken>>,
     IValidatableModel<AdminGetTokenQuery>
 {
-    public IValidator<AdminGetTokenQuery> ValidateApplicationModel(ApplicationBaseValidationModel<AdminGetTokenQuery> validator)
+    public IValidator<AdminGetTokenQuery> ValidateApplicationModel(ApplicationBaseValidationModelProvider<AdminGetTokenQuery> validator)
     {
         validator.RuleFor(c => c.UserName)
             .NotEmpty()
