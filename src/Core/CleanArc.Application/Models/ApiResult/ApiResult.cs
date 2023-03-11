@@ -16,7 +16,7 @@ public class ApiResult
         IsSuccess = isSuccess;
         StatusCode = statusCode;
         Message = message ?? statusCode.ToDisplay();
-        RequestId = Activity.Current?.SpanId.ToHexString() ?? string.Empty;
+        RequestId = Activity.Current?.TraceId.ToHexString() ?? string.Empty;
     }
 
     
