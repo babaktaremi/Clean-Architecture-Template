@@ -1,13 +1,31 @@
 
 [![NuGet Badge](https://buildstats.info/nuget/Bobby.CleanArcTemplate)](https://www.nuget.org/packages/Bobby.CleanArcTemplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 ![Twitter Follow](https://img.shields.io/twitter/url?label=Follow&style=social&url=https%3A%2F%2Ftwitter.com%2FBabakTaremi)
+
+ <a href="https://www.linkedin.com/in/babak-taremi/" alt="Connect on LinkedIn">
+   <img src="https://img.shields.io/badge/-Babak%20Taremi-0072b1?style=flat&logo=Linkedin&logoColor=white" />
+ </a>
+ 
+  <a href="mailto:babaktaremi@yahoo.com" alt="Email">
+  <img src="https://img.shields.io/badge/-Babak%20Taremi-0072b1?style=flat&logo=yahoo&logoColor=white&color=purple" />
+ </a>
+ 
+  <a href="https://t.me/BoB_Tm" alt="My Telegram">
+   <img src="https://img.shields.io/badge/-Babak%20Taremi-0072b1?style=flat&logo=telegram&logoColor=white&color=darkblue" />
+ </a>
 
 # ASP NET Core 7 Clean architecture boiler plate. Everything that you need to start an enterprise project!
 
 Personally I've seen a lot of ASP NET Core based clean architecture templates, but most of them are not usable in production and you face problems created by the framework itself rather than the actual domain problems. I've worked for about 5 years in different startups and companies so trust me when I say this framework was built upon actual real-world challenges rather than reading a book and convert its every paragraph to code.
 
 So let's get started!
+
+# Good to know
+
+Check [This link](https://learn.microsoft.com/en-us/visualstudio/ide/file-nesting-solution-explorer?view=vs-2022) for better and cleaner project solution view in Visual Studio!
+
 
 # Quick and easy installation
 
