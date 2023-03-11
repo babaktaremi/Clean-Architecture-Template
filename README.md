@@ -2,7 +2,7 @@
 [![NuGet Badge](https://buildstats.info/nuget/Bobby.CleanArcTemplate)](https://www.nuget.org/packages/Bobby.CleanArcTemplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
-![Twitter Follow](https://img.shields.io/twitter/url?label=Follow&style=social&url=https%3A%2F%2Ftwitter.com%2FBabakTaremi)
+
 
  <a href="https://www.linkedin.com/in/babak-taremi/" alt="Connect on LinkedIn">
    <img src="https://img.shields.io/badge/-Babak%20Taremi-0072b1?style=flat&logo=Linkedin&logoColor=white" />
