@@ -9,9 +9,8 @@ namespace CleanArc.WebFramework.Filters;
 
 public class ModelStateValidationAttribute : ActionFilterAttribute
 {
-    public override void OnActionExecuting(ActionExecutingContext context)
+    public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-
         foreach (var contextActionArgument in context.ActionArguments.Values)
         {
             var viewModelValidator =
@@ -20,13 +19,13 @@ public class ModelStateValidationAttribute : ActionFilterAttribute
 
             if (viewModelValidator is IValidator validator)
             {
-                var validationResult = validator.Validate(new ValidationContext<object>(contextActionArgument));
+                var validationResult =await validator.ValidateAsync(new ValidationContext<object>(contextActionArgument));
 
                 if (!validationResult.IsValid)
                 {
                     foreach (var validationResultError in validationResult.Errors)
                     {
-                        context.ModelState.AddModelError(validationResultError.PropertyName,validationResultError.ErrorMessage);
+                        context.ModelState.AddModelError(validationResultError.PropertyName, validationResultError.ErrorMessage);
                     }
                 }
             }
@@ -53,10 +52,11 @@ public class ModelStateValidationAttribute : ActionFilterAttribute
             else
             {
                 var apiResult = new ApiResult(false, ApiResultStatusCode.BadRequest);
-                context.Result = new JsonResult(apiResult) { StatusCode = 400};
+                context.Result = new JsonResult(apiResult) { StatusCode = 400 };
                 context.HttpContext.Response.StatusCode = 400;
             }
-            base.OnActionExecuting(context);
         }
+
+        await base.OnActionExecutionAsync(context, next);
     }
 }

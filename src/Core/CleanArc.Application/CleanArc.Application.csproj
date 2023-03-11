@@ -4,13 +4,20 @@
     <TargetFramework>net7.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Common\ValidationBase\**" />
+    <EmbeddedResource Remove="Common\ValidationBase\**" />
+    <None Remove="Common\ValidationBase\**" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CleanArc.Domain\CleanArc.Domain.csproj" />
-    <PackageReference Include="Mediator.SourceGenerator" Version="2.0.*">
+    <PackageReference Include="Mediator.SourceGenerator" Version="2.1.1">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Mediator.Abstractions" Version="2.0.*" />
+    <PackageReference Include="Mediator.Abstractions" Version="2.1.1" />
+    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
   </ItemGroup>
 
 </Project>

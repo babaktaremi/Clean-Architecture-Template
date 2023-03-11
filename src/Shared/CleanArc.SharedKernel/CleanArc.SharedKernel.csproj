@@ -5,16 +5,13 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-	  <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.3" />
 	  <PackageReference Include="Pluralize.NET" Version="1.0.2" />
-	  <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.2" />
+	  <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.3" />
 	  <PackageReference Include="AutoMapper" Version="12.0.1" />
 	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
-	  <PackageReference Include="FluentValidation" Version="11.4.0" />
-	  <!--<PackageReference Include="Mediator" Version="11.1.0" />
-	  <PackageReference Include="Mediator.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />-->
+	  <PackageReference Include="FluentValidation" Version="11.5.1" />
   </ItemGroup>
 
 
