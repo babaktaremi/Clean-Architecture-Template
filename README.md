@@ -72,7 +72,7 @@ this layer becomes our running instance of the project.
 
 Let's take a look at each layer and review its purpose.
 
-### Utils
+### SharedKernel
 
 This layer (or Class Library) is where we define our extension methods or other common userful methods which we may use in any other layer. So each layer must have a reference to it. 
 
