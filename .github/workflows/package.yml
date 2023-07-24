@@ -8,15 +8,18 @@ on:
 jobs:
 
   publish:
-
-    name: "Run the unit tests"
+  
+    name: Publish to NuGet.org
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: '6.x'
       
       - name: "run xUnit"
-        run: |
-            ls
-            dotnet test --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test --logger "trx;LogFileName=test-results.trx" || true
        
       - name: Test Report
         uses: dorny/test-reporter@v1
@@ -26,15 +29,6 @@ jobs:
          path: "**/test-results.trx"                            
          reporter: dotnet-trx
          fail-on-error: true
-
-    name: Publish to NuGet.org
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: nuget/setup-nuget@v1
-        with:
-          nuget-version: '6.x'
 
       - name: Create the package
         run: nuget pack CleanArcTemplate.nuspec -NoDefaultExcludes
