@@ -83,12 +83,13 @@ The core or the **"Brain"** of our project. Each Domain Entity can have their ow
 ### Application
 
 As said before, this layer is responsible for **request routing** and defining **contracts** (often as **"Interfaces"**) that our project needs. These contracts will be implemented in other levels.
+Because this layer handles request routing, this layer is also the best candidate to implement **"CQRS Pattern"**, and this can be achieved with the popular package that we all know of. **THE MEDIATR** !
 
 ### Unit Tests
 
 One of the core aspects of clean architecture is that each layer of solution should be testable. As you probably know , setting up test environment can be tiresome and repetitive task. this framework provides basic test setups needed to help you solely focus on writting unit tests. Also you are free to write unit tests for all the layers that you want
 
-Because this layer handles request routing, this layer is also the best candidate to implement **"CQRS Pattern"**, and this can be achieved with the popular package that we all know of. **THE MEDIATR** !
+
 
 We have a set of **"Features"** in this layer where we mostly act upon the result of "Domain Services". In order to follow CQRS best practices , we separate **"Command"** and **"Query"** models. MediatR will take care of the rest of the work for us and calls their related handlers automatically.
 
