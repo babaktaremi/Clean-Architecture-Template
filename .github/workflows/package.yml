@@ -6,6 +6,18 @@ on:
     paths:
       - 'CleanArcTemplate.nuspec'
 jobs:
+  Test:
+    name: "Run the unit tests"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "run xUnit"
+        run: |
+              cd src
+              cd test
+              cd CleanArc.Test.Infrastructure.Identity
+              dotnet test
+
+
   publish:
     name: Publish to NuGet.org
     runs-on: ubuntu-latest

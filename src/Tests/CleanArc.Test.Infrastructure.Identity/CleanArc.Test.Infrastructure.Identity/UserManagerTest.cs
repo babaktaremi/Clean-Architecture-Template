@@ -45,6 +45,7 @@ namespace CleanArc.Test.Infrastructure.Identity
 
             Assert.NotNull(otpCode);
             Assert.True(confirmPhoneNumberResult.Succeeded);
+            Assert.True(user.PhoneNumberConfirmed);
         }
 
         [Fact]
