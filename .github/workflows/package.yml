@@ -6,13 +6,17 @@ on:
     paths:
       - 'CleanArcTemplate.nuspec'
 jobs:
-  Test:
+
+  publish:
+
     name: "Run the unit tests"
     runs-on: ubuntu-latest
     steps:
       
       - name: "run xUnit"
-        run: dotnet test --logger "trx;LogFileName=test-results.trx" || true
+        run: |
+            ls
+            dotnet test --logger "trx;LogFileName=test-results.trx" || true
        
       - name: Test Report
         uses: dorny/test-reporter@v1
@@ -23,8 +27,6 @@ jobs:
          reporter: dotnet-trx
          fail-on-error: true
 
-
-  publish:
     name: Publish to NuGet.org
     runs-on: ubuntu-latest
     steps:
