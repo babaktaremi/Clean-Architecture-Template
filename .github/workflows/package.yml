@@ -12,6 +12,7 @@ jobs:
     steps:
       - name: "run xUnit"
         run: |
+              ls
               cd src
               cd test
               cd CleanArc.Test.Infrastructure.Identity
