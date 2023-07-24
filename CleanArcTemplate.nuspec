@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>3.9.1</version>
+    <version>4.0.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
@@ -11,11 +11,7 @@
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
      <releaseNotes>
- Solution Structure Got Cleaned Up For Better Project View
-API Models Got Removed Because they were Redundant. (Command And Query Models can be used as API model can be validatable Objects instead) 
-
-UnAuthorized API Response Added.
-Span Enricher added to Serilog and Request ID changed to hex (W3C logging model)
+ Unit Test Setups added. Also database is now easy to test with Sqlite in memory feature.
     </releaseNotes>
   
 
