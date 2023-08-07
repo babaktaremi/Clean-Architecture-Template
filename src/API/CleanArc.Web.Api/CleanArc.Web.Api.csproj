@@ -27,4 +27,10 @@
     <ProjectReference Include="..\Plugins\CleanArc.Web.Plugins.Grpc\CleanArc.Web.Plugins.Grpc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Project.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

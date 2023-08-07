@@ -1,0 +1,22 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web_api:
+    image: bobby-cleanarc
+    container_name: bobby-cleanarc-app
+    environment:      
+      "ASPNETCORE_URLS": "https://+;http://+"
+      "ASPNETCORE_Kestrel__Certificates__Default__Password": "Strong@Password"
+      "ASPNETCORE_Kestrel__Certificates__Default__Path": "/https/cleanarc.pfx"
+    ports:
+      - "5000:80"
+      - "5001:443"
+    volumes:
+      - ~/.aspnet/https:/https
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sql_server2022
+    ports: # not actually needed, because the two services are on the same network
+      - "1435:1433" 
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=A&VeryComplex123Password
