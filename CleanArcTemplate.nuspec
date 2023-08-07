@@ -32,8 +32,8 @@
   <files>
     <file src=".template.config\icon.png" />
     <file src="README.md" />
-     <file src="Dockerfile" target="content\Dockerfile" />
-      <file src="docker-compose.yml" target="content\docker-compose.yml" />
+    <file src="Dockerfile" />
+      <file src="docker-compose.yml" />
     <file src=".\**" target="content" exclude="**\node_modules\**;**\bin\**;**\obj\**;**\.vs\**;**\.vscode\**;**\ClientApp\dist\**;**\wwwroot\dist\**;content\Directory.Build.*;**\.git\**;**\.github\**;**\CODE_OF_CONDUCT.md;**\LICENSE;**\README.md;**\nuget.exe" />
   </files>
 
