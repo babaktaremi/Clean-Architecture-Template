@@ -41,8 +41,35 @@ dotnet new install Bobby.CleanArcTemplate
   ```
 dotnet new ca-template
  ```
- 
 Your project is created and ready to code! 
+
+
+# Using Docker File and docker compose
+
+First you need to generate a self-signed SSL certificate. Open Terminal and run the following command:
+
+```
+ dotnet dev-certs https -ep $env:USERPROFILE/.aspnet/https/cleanarc.pfx -p Strong@Password
+```
+
+Now for trusting the certificate , run the following command:
+
+```
+dotnet dev-certs https --trust
+```
+
+Navigate to the project directory and run the following command using your prefered terminal:
+
+```
+ docker build -t bobby-cleanarc -f dockerfile.
+```
+
+and lastly run the following command ( Note that this command will pull the latest SQL Server 2022 image from docker hub):
+
+```
+docker-compose up -d
+```
+
 
 ## Clean Architecture. Our Expectations
 When you search the **"Clean Architecture"** keyword on google, the first thing that comes in search results is the graph below. But what does it say exactly?
