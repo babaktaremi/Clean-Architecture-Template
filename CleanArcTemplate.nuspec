@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>4.1.2</version>
+    <version>4.2.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
@@ -11,7 +11,7 @@
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
      <releaseNotes>
- Docker file and docker-compose file added. know you can build image and run the project on docker container
+Removed Moq library and added NSubtitute.
     </releaseNotes>
   
 
