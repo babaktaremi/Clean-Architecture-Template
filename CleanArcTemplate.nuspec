@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>4.1.1</version>
+    <version>4.1.2</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
@@ -33,7 +33,7 @@
     <file src=".template.config\icon.png" />
     <file src="README.md" />
     <file src="Dockerfile" />
-      <file src="docker-compose.yml" />
+    <file src="docker-compose.yml" />
     <file src=".\**" target="content" exclude="**\node_modules\**;**\bin\**;**\obj\**;**\.vs\**;**\.vscode\**;**\ClientApp\dist\**;**\wwwroot\dist\**;content\Directory.Build.*;**\.git\**;**\.github\**;**\CODE_OF_CONDUCT.md;**\LICENSE;**\README.md;**\nuget.exe" />
   </files>
 

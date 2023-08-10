@@ -339,3 +339,4 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 /nuget.exe
+/src/API/CleanArc.Web.Api/logs/log.json

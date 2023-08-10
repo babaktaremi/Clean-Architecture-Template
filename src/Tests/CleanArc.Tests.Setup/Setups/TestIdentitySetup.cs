@@ -44,28 +44,27 @@ public abstract class TestIdentitySetup
 
 
         serviceCollection.AddIdentity<User, Role>(options =>
-            {
-                options.Stores.ProtectPersonalData = false;
+        {
+            options.Stores.ProtectPersonalData = false;
 
-                options.Password.RequireDigit = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredUniqueChars = 0;
-                options.Password.RequireUppercase = false;
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequiredUniqueChars = 0;
+            options.Password.RequireUppercase = false;
 
-                options.SignIn.RequireConfirmedEmail = false;
-                options.SignIn.RequireConfirmedPhoneNumber = true;
+            options.SignIn.RequireConfirmedEmail = false;
+            options.SignIn.RequireConfirmedPhoneNumber = true;
 
-                options.Lockout.MaxFailedAccessAttempts = 5;
-                options.Lockout.AllowedForNewUsers = false;
-                options.User.RequireUniqueEmail = false;
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.AllowedForNewUsers = false;
+            options.User.RequireUniqueEmail = false;
 
-            }).AddUserStore<AppUserStore>()
+        }).AddUserStore<AppUserStore>()
             .AddRoleStore<RoleStore>().
             AddUserManager<AppUserManager>().
             AddRoleManager<AppRoleManager>().
-            AddErrorDescriber<AppErrorDescriber>()
-            .AddDefaultTokenProviders().
+            AddDefaultTokenProviders().
             AddSignInManager<AppSignInManager>()
             .AddDefaultTokenProviders()
             .AddPasswordlessLoginTotpTokenProvider();
@@ -79,7 +78,7 @@ public abstract class TestIdentitySetup
             settings.SecretKey = "LongerThan-16Char-SecretKey";
             settings.Encryptkey = "16CharEncryptKey";
         });
-        
+
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         serviceCollection.AddScoped<IJwtService, JwtService>();
         serviceCollection.AddScoped<IAppUserManager, AppUserManagerImplementation>();

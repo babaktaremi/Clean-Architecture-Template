@@ -48,6 +48,7 @@ public static class LoggingConfiguration
 
         else{
             configuration.WriteTo.Console().MinimumLevel.Information();
+            configuration.WriteTo.File(new JsonFormatter(), "logs/log.json").MinimumLevel.Information();
         }
 
         #region ElasticSearch Configuration. UnComment if Needed 
