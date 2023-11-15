@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Asp.Versioning;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 

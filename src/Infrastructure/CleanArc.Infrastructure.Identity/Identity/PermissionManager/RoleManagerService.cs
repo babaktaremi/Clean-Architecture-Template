@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -21,11 +22,12 @@ internal class RoleManagerService : IRoleManagerService
     private readonly AppRoleManager _roleManger;
     private readonly IMapper _mapper;
     private readonly IActionDescriptorCollectionProvider _actionDescriptor;
+    private readonly EndpointDataSource _endpointDataSource;
     private readonly AppUserManager _userManager;
     private readonly ILogger<RoleManagerService> _logger;
     private readonly ApplicationDbContext _db;
 
-    public RoleManagerService(AppRoleManager roleManger, IMapper mapper, IActionDescriptorCollectionProvider actionDescriptor, AppUserManager userManager, ILogger<RoleManagerService> logger, ApplicationDbContext db)
+    public RoleManagerService(AppRoleManager roleManger, IMapper mapper, IActionDescriptorCollectionProvider actionDescriptor, AppUserManager userManager, ILogger<RoleManagerService> logger, ApplicationDbContext db, EndpointDataSource endpointDataSource)
     {
         _roleManger = roleManger;
         _mapper = mapper;
@@ -33,6 +35,7 @@ internal class RoleManagerService : IRoleManagerService
         _userManager = userManager;
         _logger = logger;
         _db = db;
+        _endpointDataSource = endpointDataSource;
     }
 
     public async Task<List<GetRolesDto>> GetRolesAsync()
@@ -79,6 +82,7 @@ internal class RoleManagerService : IRoleManagerService
 
     public Task<List<ActionDescriptionDto>> GetPermissionActionsAsync()
     {
+       
         var actions = new List<ActionDescriptionDto>();
 
         var actionDescriptors = _actionDescriptor.ActionDescriptors.Items;

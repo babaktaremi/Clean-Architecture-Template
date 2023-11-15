@@ -1,4 +1,5 @@
-﻿using CleanArc.Application.Features.Users.Commands.Create;
+﻿using Asp.Versioning;
+using CleanArc.Application.Features.Users.Commands.Create;
 using CleanArc.Application.Features.Users.Commands.RefreshUserTokenCommand;
 using CleanArc.Application.Features.Users.Commands.RequestLogout;
 using CleanArc.Application.Features.Users.Queries.GenerateUserToken;

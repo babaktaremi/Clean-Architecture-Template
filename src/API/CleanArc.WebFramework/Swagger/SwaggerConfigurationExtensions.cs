@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Asp.Versioning;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,7 @@ public static class SwaggerConfigurationExtensions
             //options.IgnoreObsoleteProperties();
 
             options.SwaggerDoc("v1", new OpenApiInfo { Version = "v1", Title = "API V1" });
+            options.SwaggerDoc("v1.1", new OpenApiInfo { Version = "v1.1", Title = "API V1.1 using minimal API endpoints" });
 
             #region Filters
             //Enable to use [SwaggerRequestExample] & [SwaggerResponseExample]
@@ -112,6 +114,17 @@ public static class SwaggerConfigurationExtensions
             //Seperate and categorize end-points by doc version
             options.DocInclusionPredicate((docName, apiDesc) =>
             {
+               
+                var endpointApiVersions = apiDesc.ActionDescriptor.EndpointMetadata.OfType<ApiVersionMetadata>();
+
+                foreach (var endpointApiVersion in endpointApiVersions)
+                {
+                    endpointApiVersion.Deconstruct(out _, out var endpointModel);
+
+                   return endpointModel.DeclaredApiVersions.Any(version => $"v{version.ToString()}" == docName);
+
+                }
+
                 if (!apiDesc.TryGetMethodInfo(out MethodInfo methodInfo)) return false;
 
                 var versions = methodInfo.DeclaringType
@@ -135,13 +148,14 @@ public static class SwaggerConfigurationExtensions
         //Swagger middleware for generate "Open API Documentation" in swagger.json
         app.UseSwagger(options =>
         {
-            //options.RouteTemplate = "api-docs/{documentName}/swagger.json";
+         //   options.RouteTemplate = "api-docs/{documentName}/swagger.json";
         });
 
         //Swagger middleware for generate UI from swagger.json
         app.UseSwaggerUI(options =>
         {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
+            options.SwaggerEndpoint("/swagger/v1.1/swagger.json", "V1.1 Docs Using Minimal Api Endpoints");
 
             #region Customizing
             //// Display

@@ -1,4 +1,5 @@
-﻿using CleanArc.Application.Features.Admin.Commands.AddAdminCommand;
+﻿using Asp.Versioning;
+using CleanArc.Application.Features.Admin.Commands.AddAdminCommand;
 using CleanArc.Application.Features.Admin.Queries.GetToken;
 using CleanArc.WebFramework.BaseController;
 using CleanArc.WebFramework.WebExtensions;
@@ -11,19 +12,12 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
     [ApiVersion("1")]
     [ApiController]
     [Route("api/v{version:apiVersion}/AdminManager")]
-    public class AdminManagerController : BaseController
+    public class AdminManagerController(ISender sender) : BaseController
     {
-        private readonly ISender _sender;
-
-        public AdminManagerController(ISender sender)
-        {
-            _sender = sender;
-        }
-
         [HttpPost("Login")]
         public async Task<IActionResult> AdminLogin(AdminGetTokenQuery model)
         {
-            var query = await _sender.Send(model);
+            var query = await sender.Send(model);
 
             return base.OperationResult(query);
         }
@@ -32,7 +26,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         [HttpPost("NewAdmin")]
         public async Task<IActionResult> AddNewAdmin(AddAdminCommand model)
         {
-            var commandResult = await _sender.Send(model);
+            var commandResult = await sender.Send(model);
 
             return base.OperationResult(commandResult);
         }

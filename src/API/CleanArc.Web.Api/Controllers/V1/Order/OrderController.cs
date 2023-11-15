@@ -1,4 +1,5 @@
-﻿using CleanArc.Application.Features.Order.Commands;
+﻿using Asp.Versioning;
+using CleanArc.Application.Features.Order.Commands;
 using CleanArc.Application.Features.Order.Queries.GetUserOrders;
 using CleanArc.WebFramework.BaseController;
 using CleanArc.WebFramework.WebExtensions;
@@ -12,20 +13,13 @@ namespace CleanArc.Web.Api.Controllers.V1.Order;
 [ApiController]
 [Route("api/v{version:apiVersion}/User")]
 [Authorize]
-public class OrderController : BaseController
+public class OrderController(ISender sender) : BaseController
 {
-    private readonly ISender _sender;
-
-    public OrderController(ISender sender)
-    {
-        _sender = sender;
-    }
-
     [HttpPost("CreateNewOrder")]
     public async Task<IActionResult> CreateNewOrder(AddOrderCommand model)
     {
         model.UserId = base.UserId;
-        var command = await _sender.Send(model);
+        var command = await sender.Send(model);
 
         return base.OperationResult(command);
     }
@@ -33,7 +27,7 @@ public class OrderController : BaseController
     [HttpGet("GetUserOrders")]
     public async Task<IActionResult> GetUserOrders()
     {
-        var query = await _sender.Send(new GetUserOrdersQueryModel(UserId));
+        var query = await sender.Send(new GetUserOrdersQueryModel(UserId));
 
         return base.OperationResult(query);
     }

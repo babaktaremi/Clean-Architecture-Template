@@ -17,6 +17,7 @@ using CleanArc.Infrastructure.Identity.UserManager;
 using CleanArc.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -211,5 +212,13 @@ public static class ServiceCollectionExtension
         });
 
         return services;
+    }
+
+    public static async Task SeedDefaultUsersAsync(this WebApplication app)
+    {
+        await using var scope = app.Services.CreateAsyncScope();
+
+        var seedService = scope.ServiceProvider.GetRequiredService<ISeedDataBase>();
+        await seedService.Seed();
     }
 }

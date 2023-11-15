@@ -16,17 +16,8 @@ public class DynamicPermissionService : IDynamicPermissionService
 
         var userClaims = user.FindAll(ConstantPolicies.DynamicPermission);
 
-        foreach (var item in userClaims)
-        {
-            if (item.Value.Equals(key,StringComparison.OrdinalIgnoreCase))
-                return true;
-            else
-            {
-                continue;
-            }
-               
-        }
-
-        return false;
+        return userClaims.Any(item => item.Value.Equals(key, StringComparison.OrdinalIgnoreCase));
     }
+
+  
 }
