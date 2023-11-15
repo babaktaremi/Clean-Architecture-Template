@@ -17,7 +17,7 @@
    <img src="https://img.shields.io/badge/-Babak%20Taremi-0072b1?style=flat&logo=telegram&logoColor=white&color=darkblue" />
  </a>
 
-# ASP NET Core 7 Clean architecture boiler plate. Everything that you need to start an enterprise project!
+# ASP NET Core 8 Clean architecture boiler plate. Everything that you need to start an enterprise project!
 
 Personally I've seen a lot of ASP NET Core based clean architecture templates, but most of them are not usable in production and you face problems created by the framework itself rather than the actual domain problems. I've worked for about 5 years in different startups and companies so trust me when I say this framework was built upon actual real-world challenges rather than reading a book and convert its every paragraph to code.
 
