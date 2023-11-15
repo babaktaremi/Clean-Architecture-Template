@@ -74,17 +74,17 @@ public abstract class TestIdentitySetup
             settings.ExpirationMinutes = 5;
             settings.Issuer = "CleanArc.Unit.Tests";
             settings.NotBeforeMinutes = 0;
-            settings.SecretKey = "LongerThan-16Char-SecretKey";
+            settings.SecretKey = "ShouldBe-LongerThan-16Char-SecretKey";
             settings.Encryptkey = "16CharEncryptKey";
         });
 
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>();
         serviceCollection.AddScoped<IJwtService, JwtService>();
         serviceCollection.AddScoped<IAppUserManager, AppUserManagerImplementation>();
-
-        TestAppUserManager = serviceCollection.BuildServiceProvider().GetRequiredService<IAppUserManager>();
-        TestAppRoleManager = serviceCollection.BuildServiceProvider().GetRequiredService<AppRoleManager>();
-        TestSignInManager = serviceCollection.BuildServiceProvider().GetRequiredService<AppSignInManager>();
-        JwtService = serviceCollection.BuildServiceProvider().GetRequiredService<IJwtService>();
+        var serviceProvider = serviceCollection.BuildServiceProvider();
+        TestAppUserManager = serviceProvider.GetRequiredService<IAppUserManager>();
+        TestAppRoleManager = serviceProvider.GetRequiredService<AppRoleManager>();
+        TestSignInManager = serviceProvider.GetRequiredService<AppSignInManager>();
+        JwtService = serviceProvider.GetRequiredService<IJwtService>();
     }
 }
