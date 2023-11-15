@@ -6,7 +6,7 @@
     <version>5.0.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
-    <description>Clean Architecture Solution Template for and .NET 7. With many features available out of the box</description>
+    <description>Clean Architecture Solution Template for and .NET 8. With many features available out of the box</description>
     <summary>
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
