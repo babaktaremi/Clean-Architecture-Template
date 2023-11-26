@@ -15,6 +15,9 @@ public class ExceptionHandler(ILogger<ExceptionHandler> logger,IWebHostEnvironme
     
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
     {
+        if (environment.IsDevelopment())
+            return false;
+
         if (exception is FluentValidation.ValidationException validationException)
         {
             context.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
@@ -41,9 +44,6 @@ public class ExceptionHandler(ILogger<ExceptionHandler> logger,IWebHostEnvironme
         logger.LogError(exception,"Error captured in global exception handler");
 
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-
-        if (environment.IsDevelopment())
-            return false;
 
         context.Response.ContentType = "application/problem+json";
         var response = new ApiResult(false,
