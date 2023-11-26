@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>5.0.0</version>
+    <version>5.0.1</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 8. With many features available out of the box</description>

@@ -63,6 +63,7 @@ builder.Services.AddApplicationServices()
     .AddWebFrameworkServices();
 
 builder.Services.RegisterValidatorsAsServices();
+builder.Services.AddExceptionHandler<ExceptionHandler>();
 
 
 #region Plugin Services Configuration
@@ -84,9 +85,7 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseCustomExceptionHandler();
-
-
+app.UseExceptionHandler(_=>{});
 app.UseSwaggerAndUI();
 
 app.MapCarter();
