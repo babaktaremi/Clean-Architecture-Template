@@ -35,6 +35,12 @@ internal abstract class BaseAsyncRepository<TEntity> where TEntity:class,IEntity
         await Entities.ExecuteUpdateAsync(updateExpression);
     }
 
+    protected virtual async Task UpdateAsync(
+        Expression<Func<TEntity,bool>> whereExpression,Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> updateExpression)
+    {
+        await Entities.Where(whereExpression).ExecuteUpdateAsync(updateExpression);
+    }
+
     protected virtual async Task DeleteAsync(Expression<Func<TEntity,bool>> deleteExpression)
     {
         await Entities.Where(deleteExpression).ExecuteDeleteAsync();

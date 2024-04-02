@@ -31,4 +31,18 @@ public class OrderController(ISender sender) : BaseController
 
         return base.OperationResult(query);
     }
+
+    [HttpPut("UpdateOrder")]
+    public async Task<IActionResult> UpdateOrder(UpdateUserOrderCommand model)
+    {
+        model.UserId=base.UserId;
+
+        var command = await sender.Send(model);
+
+        return base.OperationResult(command);
+    }
+
+    [HttpDelete("DeleteAllUserOrders")]
+    public async Task<IActionResult> DeleteAllUserOrders()
+        => base.OperationResult(await sender.Send(new DeleteUserOrdersCommand(base.UserId)));
 }

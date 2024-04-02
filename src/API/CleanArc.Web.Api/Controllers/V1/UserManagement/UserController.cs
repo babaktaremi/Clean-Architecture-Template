@@ -35,13 +35,6 @@ public class UserController : BaseController
         return base.OperationResult(command);
     }
 
-    //[HttpPost("ConfirmPhoneNumber")]
-    //public async Task<IActionResult> ConfirmPhoneNumber(ConfirmUserPhoneNumberViewModel model)
-    //{
-    //    var command = await _mediator.Send(new ConfirmPhoneNumberCommand(model.UserKey, model.Code));
-
-    //    return OperationResult(command);
-    //}
 
     [HttpPost("TokenRequest")]
     public async Task<IActionResult> TokenRequest(UserTokenRequestQuery model)
