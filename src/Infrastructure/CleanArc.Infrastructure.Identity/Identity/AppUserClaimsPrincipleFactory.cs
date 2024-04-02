@@ -18,9 +18,7 @@ public class AppUserClaimsPrincipleFactory:UserClaimsPrincipalFactory<User,Role>
         var userRoles = await UserManager.GetRolesAsync(user);
 
         var claimsIdentity = await base.GenerateClaimsAsync(user);
-        claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier,user.Id.ToString(),ClaimValueTypes.Integer));
         //claimsIdentity.AddClaim(new Claim(ClaimTypes.Email,user?.Email));
-        claimsIdentity.AddClaim(new Claim(ClaimTypes.Name,user.UserName));
         // claimsIdentity.AddClaim(new Claim(ClaimTypes.MobilePhone,user.PhoneNumber));
         claimsIdentity.AddClaim(new Claim(ClaimTypes.UserData,user.GeneratedCode));
 
@@ -30,7 +28,6 @@ public class AppUserClaimsPrincipleFactory:UserClaimsPrincipalFactory<User,Role>
         }
 
         //claimsIdentity.AddClaim(new Claim(ClaimTypes.Role,RoleManager.GetRoleNameAsync(user.Roles)));
-            
 
         return claimsIdentity;
     }
