@@ -18,7 +18,11 @@ public class RegisterMapper:Profile
 
         foreach (var type in types)
         {
-            var model = Activator.CreateInstance(type);
+            var typeConstructorArgumentLength = type.GetConstructors()
+                .OrderByDescending(c => c.GetParameters().Length)
+                .First().GetParameters().Length;
+
+            var model = Activator.CreateInstance(type, new object[typeConstructorArgumentLength]);
 
             var methodInfo = type.GetMethod("Map") //get the map method directly by the class
                              ?? type.GetInterface("ICreateMapper`1").GetMethod("Map"); //if null get the interface implementation

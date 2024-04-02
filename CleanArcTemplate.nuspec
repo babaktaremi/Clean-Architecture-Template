@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>5.1.0</version>
+    <version>5.2.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 8. With many features available out of the box</description>
@@ -11,7 +11,7 @@
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
      <releaseNotes>
-Fixed a minor bug where some identity claims got duplicated in AppUserClaimPrincipalFactory GenerateClaims method
+Package updates. Fix a bug in auto register Automapper profiles where class did not have default constructor 
     </releaseNotes>
   
 

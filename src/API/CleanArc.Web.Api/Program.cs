@@ -72,7 +72,10 @@ builder.Services.ConfigureGrpcPluginServices();
 
 #endregion
 
-builder.Services.AddAutoMapper(typeof(User), typeof(JwtService), typeof(UserController));
+builder.Services.AddAutoMapper(expression =>
+{
+    expression.AddMaps(typeof(User), typeof(JwtService), typeof(UserController));
+});
 
 var app = builder.Build();
 

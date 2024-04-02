@@ -18,7 +18,10 @@ public static class ServiceCollectionExtension
         });
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
         //services.AddMediator(Assembly.GetExecutingAssembly());
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(expression =>
+        {
+            expression.AddMaps(Assembly.GetExecutingAssembly());
+        });
 
 
         return services;

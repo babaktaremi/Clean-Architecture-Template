@@ -26,7 +26,7 @@ namespace CleanArc.SharedKernel.Extensions
 
             foreach (var type in types)
             {
-                var typeConstructorArgumentLength = type.GetConstructors().First().GetParameters().Length;
+                var typeConstructorArgumentLength = type.GetConstructors().OrderByDescending(c=>c.GetParameters().Length).First().GetParameters().Length;
                 var model = Activator.CreateInstance(type, new object[typeConstructorArgumentLength]);
 
                 var methodInfo = type.GetMethod(nameof(IValidatableModel<object>.ValidateApplicationModel));

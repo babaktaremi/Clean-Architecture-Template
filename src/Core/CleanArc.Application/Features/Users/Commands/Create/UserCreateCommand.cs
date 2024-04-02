@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using CleanArc.Application.Models.Common;
+using CleanArc.Application.Profiles;
+using CleanArc.Domain.Entities.User;
 using CleanArc.SharedKernel.ValidationBase;
 using CleanArc.SharedKernel.ValidationBase.Contracts;
 using FluentValidation;
@@ -9,14 +11,17 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CleanArc.Application.Features.Users.Commands.Create;
 
 public record UserCreateCommand
-    (string UserName, string FirstName, string LastName, string PhoneNumber) : IRequest<OperationResult<UserCreateCommandResult>>,IValidatableModel<UserCreateCommand>
+    (string UserName, string Name, string FamilyName, string PhoneNumber) 
+    : IRequest<OperationResult<UserCreateCommandResult>>
+        ,IValidatableModel<UserCreateCommand>
+,ICreateMapper<User>
 {
 
     public IValidator<UserCreateCommand> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserCreateCommand> validator)
     {
 
         validator
-            .RuleFor(c => c.FirstName)
+            .RuleFor(c => c.Name)
             .NotEmpty()
             .NotNull()
             .WithMessage("User must have first name");
@@ -27,7 +32,7 @@ public record UserCreateCommand
             .WithMessage("Please enter your username");
 
         validator
-            .RuleFor(c => c.LastName)
+            .RuleFor(c => c.FamilyName)
             .NotEmpty()
             .NotNull()
             .WithMessage("User must have last name");

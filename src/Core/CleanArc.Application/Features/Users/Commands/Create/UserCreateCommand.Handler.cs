@@ -1,4 +1,5 @@
-﻿using CleanArc.Application.Contracts.Identity;
+﻿using AutoMapper;
+using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Models.Common;
 using CleanArc.Domain.Entities.User;
 using Mediator;
@@ -11,10 +12,12 @@ internal class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, Ope
 
     private readonly IAppUserManager _userManager;
     private readonly ILogger<UserCreateCommandHandler> _logger;
-    public UserCreateCommandHandler(IAppUserManager userRepository, ILogger<UserCreateCommandHandler> logger)
+    private readonly IMapper _mapper;
+    public UserCreateCommandHandler(IAppUserManager userRepository, ILogger<UserCreateCommandHandler> logger, IMapper mapper)
     {
         _userManager = userRepository;
         _logger = logger;
+        _mapper = mapper;
     }
 
     public async ValueTask<OperationResult<UserCreateCommandResult>> Handle(UserCreateCommand request, CancellationToken cancellationToken)
@@ -29,7 +32,9 @@ internal class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, Ope
         if (phoneNumberExist)
             return OperationResult<UserCreateCommandResult>.FailureResult("Username already exists");
 
-        var user = new User { UserName = request.UserName, Name = request.FirstName, FamilyName = request.LastName, PhoneNumber = request.PhoneNumber };
+        //var user = new User { UserName = request.UserName, Name = request.FirstName, FamilyName = request.LastName, PhoneNumber = request.PhoneNumber };
+
+        var user = _mapper.Map<User>(request);
 
         var createResult = await _userManager.CreateUser(user);
 
