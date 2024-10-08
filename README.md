@@ -1,5 +1,5 @@
 
-[![NuGet Badge](https://buildstats.info/nuget/Bobby.CleanArcTemplate)](https://www.nuget.org/packages/Bobby.CleanArcTemplate)
+[![NuGet Badge](https://img.shields.io/nuget/dt/Bobby.CleanArcTemplate)](https://www.nuget.org/packages/Bobby.CleanArcTemplate)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 ![workflow](https://github.com/babaktaremi/Clean-Architecture-Template/actions/workflows/package.yml/badge.svg)
