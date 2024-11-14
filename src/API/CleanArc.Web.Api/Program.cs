@@ -1,29 +1,22 @@
 using System.Diagnostics;
-using Asp.Versioning.Builder;
 using Carter;
-using CleanArc.Application.Models.Common;
+using CleanArc.Application.Models.ApiResult;
 using CleanArc.Application.ServiceConfiguration;
 using CleanArc.Domain.Entities.User;
 using CleanArc.Infrastructure.CrossCutting.Logging;
 using CleanArc.Infrastructure.Identity.Identity.Dtos;
-using CleanArc.Infrastructure.Identity.Identity.SeedDatabaseService;
 using CleanArc.Infrastructure.Identity.Jwt;
 using CleanArc.Infrastructure.Identity.ServiceConfiguration;
-using CleanArc.Infrastructure.Persistence;
+using CleanArc.Infrastructure.Monitoring.Configurations;
 using CleanArc.Infrastructure.Persistence.ServiceConfiguration;
 using CleanArc.SharedKernel.Extensions;
-using CleanArc.SharedKernel.ValidationBase;
-using CleanArc.SharedKernel.ValidationBase.Contracts;
 using CleanArc.Web.Api.Controllers.V1.UserManagement;
 using CleanArc.Web.Plugins.Grpc;
-using CleanArc.WebFramework.EndpointFilters;
 using CleanArc.WebFramework.Filters;
 using CleanArc.WebFramework.Middlewares;
 using CleanArc.WebFramework.ServiceConfiguration;
 using CleanArc.WebFramework.Swagger;
-using CleanArc.WebFramework.WebExtensions;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +26,10 @@ builder.Host.UseSerilog(LoggingConfiguration.ConfigureLogger);
 var configuration = builder.Configuration;
 
 Activity.DefaultIdFormat = ActivityIdFormat.W3C;
+
+builder
+    .ConfigureHealthChecks()
+    .SetupOpenTelemetry();
 
 builder.Services.Configure<IdentitySettings>(configuration.GetSection(nameof(IdentitySettings)));
 
@@ -45,6 +42,14 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(typeof(ContentResultFilterAttribute));
     options.Filters.Add(typeof(ModelStateValidationAttribute));
     options.Filters.Add(typeof(BadRequestResultFilterAttribute));
+    options.Filters.Add(new ProducesResponseTypeAttribute(typeof(ApiResult<Dictionary<string, List<string>>>),
+        StatusCodes.Status400BadRequest));
+    options.Filters.Add(new ProducesResponseTypeAttribute(typeof(ApiResult),
+        StatusCodes.Status401Unauthorized));
+    options.Filters.Add(new ProducesResponseTypeAttribute(typeof(ApiResult),
+        StatusCodes.Status403Forbidden));
+    options.Filters.Add(new ProducesResponseTypeAttribute(typeof(ApiResult),
+        StatusCodes.Status500InternalServerError));
 
 }).ConfigureApiBehaviorOptions(options =>
 {
@@ -54,7 +59,7 @@ builder.Services.AddControllers(options =>
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwagger();
+builder.Services.AddSwagger("v1","v1.1");
 builder.Services.AddCarter(configurator: configurator => { configurator.WithEmptyValidators();});
 
 builder.Services.AddApplicationServices()
@@ -89,7 +94,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseExceptionHandler(_=>{});
-app.UseSwaggerAndUI();
+app.UseSwaggerAndUi();
 
 app.MapCarter();
 app.UseRouting();
@@ -97,6 +102,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+app.UseMetrics()
+    .UseHealthChecks();
 
 app.ConfigureGrpcPipeline();
 

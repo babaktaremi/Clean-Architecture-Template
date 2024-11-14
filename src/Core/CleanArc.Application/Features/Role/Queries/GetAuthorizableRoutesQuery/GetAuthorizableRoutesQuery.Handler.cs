@@ -4,18 +4,12 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Role.Queries.GetAuthorizableRoutesQuery
 {
-    internal class GetAuthorizableRoutesQueryHandler:IRequestHandler<GetAuthorizableRoutesQuery,OperationResult<List<GetAuthorizableRoutesQueryResponse>>>
+    internal class GetAuthorizableRoutesQueryHandler(IRoleManagerService roleManagerService)
+        : IRequestHandler<GetAuthorizableRoutesQuery, OperationResult<List<GetAuthorizableRoutesQueryResponse>>>
     {
-        private readonly IRoleManagerService _roleManagerService;
-
-        public GetAuthorizableRoutesQueryHandler(IRoleManagerService roleManagerService)
-        {
-            _roleManagerService = roleManagerService;
-        }
-
         public async ValueTask<OperationResult<List<GetAuthorizableRoutesQueryResponse>>> Handle(GetAuthorizableRoutesQuery request, CancellationToken cancellationToken)
         {
-            var authRoutes = await _roleManagerService.GetPermissionActionsAsync();
+            var authRoutes = await roleManagerService.GetPermissionActionsAsync();
 
             if(!authRoutes.Any())
                 return OperationResult<List<GetAuthorizableRoutesQueryResponse>>.NotFoundResult("No Special auth route found");

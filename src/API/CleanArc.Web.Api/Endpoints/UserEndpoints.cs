@@ -8,9 +8,6 @@ using CleanArc.Application.Features.Users.Queries.TokenRequest;
 using CleanArc.SharedKernel.Extensions;
 using CleanArc.WebFramework.WebExtensions;
 using Mediator;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CleanArc.Web.Api.Endpoints;
 

@@ -1,27 +1,21 @@
-﻿using System.Text;
-using CleanArc.Application.Models.Common;
+﻿using CleanArc.Application.Models.Common;
 using FluentValidation;
 using FluentValidation.Results;
 using Mediator;
 
 namespace CleanArc.Application.Common;
 
-public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TResponse : class where TRequest : IRequest<TResponse>
+public class ValidateCommandBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
+    : IPipelineBehavior<TRequest, TResponse>
+    where TResponse : IOperationResult, new()
+    where TRequest : IRequest<TResponse>
 {
-    private readonly IEnumerable<IValidator<TRequest>> _validators;
-
-    public ValidateCommandBehavior(IEnumerable<IValidator<TRequest>> validators)
-    {
-        _validators = validators;
-    }
-
-
     public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
     {
         var errors = new List<ValidationFailure>();
 
 
-        foreach (var validator in _validators)
+        foreach (var validator in validators)
         {
             var validationResult =
                 await validator.ValidateAsync(new ValidationContext<TRequest>(message), cancellationToken);
@@ -31,7 +25,13 @@ public class ValidateCommandBehavior<TRequest, TResponse> : IPipelineBehavior<TR
         }
 
         if (errors.Any())
-            throw new ValidationException(errors);
+        {
+            return new TResponse()
+            {
+                ErrorMessages = errors.Select(c => new KeyValuePair<string, string>(c.PropertyName, c.ErrorMessage))
+                    .ToList()
+            };
+        }
 
 
         return await next(message, cancellationToken);

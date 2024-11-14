@@ -2,7 +2,6 @@
 using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Contracts.Persistence;
 using CleanArc.Domain.Entities.User;
-using CleanArc.Infrastructure.Identity.Identity;
 using CleanArc.Infrastructure.Identity.Identity.Dtos;
 using CleanArc.Infrastructure.Identity.Identity.Extensions;
 using CleanArc.Infrastructure.Identity.Identity.Manager;
@@ -12,7 +11,6 @@ using CleanArc.Infrastructure.Identity.UserManager;
 using CleanArc.Infrastructure.Persistence;
 using CleanArc.Infrastructure.Persistence.Repositories.Common;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

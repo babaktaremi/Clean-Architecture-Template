@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using CleanArc.SharedKernel.ValidationBase;
+﻿using CleanArc.SharedKernel.ValidationBase;
 using CleanArc.SharedKernel.ValidationBase.Contracts;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CleanArc.SharedKernel.Extensions
 {
@@ -21,7 +14,6 @@ namespace CleanArc.SharedKernel.Extensions
                     i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IValidatableModel<>)))
                 .ToList();
 
-            var serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions(){ValidateScopes = true}).CreateScope();
 
 
             foreach (var type in types)
@@ -34,14 +26,13 @@ namespace CleanArc.SharedKernel.Extensions
 
                 if (model != null)
                 {
-                    var methodArgument = Activator.CreateInstance(typeof(ApplicationBaseValidationModelProvider<>).MakeGenericType(type), serviceProvider);
+                    var methodArgument = Activator.CreateInstance(typeof(ApplicationBaseValidationModelProvider<>).MakeGenericType(type));
                     var validator = methodInfo?.Invoke(model, new[] { methodArgument });
 
                     if (validator != null)
                     {
                         var interfaces = validator.GetType().GetInterfaces();
-
-                        //services.AddSingleton(validator.GetType(),validator);
+                        
 
                         var validatorInterface = interfaces
                             .FirstOrDefault(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IValidator<>));

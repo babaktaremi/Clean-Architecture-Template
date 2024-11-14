@@ -23,7 +23,7 @@ public class ApiResult
 }
 
 public class ApiResult<TData> : ApiResult
-    where TData : class
+
 {
     public TData Data { get; set; }
 

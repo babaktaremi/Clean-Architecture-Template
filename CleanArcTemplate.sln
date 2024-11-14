@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArc.Test.Infrastructure.Identity", "src\Tests\CleanArc.Test.Infrastructure.Identity\CleanArc.Test.Infrastructure.Identity\CleanArc.Test.Infrastructure.Identity.csproj", "{54203B4F-3CE8-4EBA-B5E2-F7C985FACE60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArc.Infrastructure.Monitoring", "src\Infrastructure\CleanArc.Infrastructure.Monitoring\CleanArc.Infrastructure.Monitoring.csproj", "{7699705C-2C15-467F-957D-4C5EBE4FD92E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +95,10 @@ Global
 		{54203B4F-3CE8-4EBA-B5E2-F7C985FACE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54203B4F-3CE8-4EBA-B5E2-F7C985FACE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54203B4F-3CE8-4EBA-B5E2-F7C985FACE60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7699705C-2C15-467F-957D-4C5EBE4FD92E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7699705C-2C15-467F-957D-4C5EBE4FD92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7699705C-2C15-467F-957D-4C5EBE4FD92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7699705C-2C15-467F-957D-4C5EBE4FD92E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,6 +123,7 @@ Global
 		{33AF382A-9E22-42F0-82E5-4F78BCFD40C1} = {34B1F72E-A991-4705-ACC5-08E65E46D26E}
 		{45FA88C0-9986-40E5-A2E2-7742302518D2} = {77986571-8153-4120-AD08-36729310A56B}
 		{54203B4F-3CE8-4EBA-B5E2-F7C985FACE60} = {45FA88C0-9986-40E5-A2E2-7742302518D2}
+		{7699705C-2C15-467F-957D-4C5EBE4FD92E} = {2373AFFC-1389-4D78-8465-074AB22084AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05C223B9-EA89-44B2-B9F5-D01181F85DFE}

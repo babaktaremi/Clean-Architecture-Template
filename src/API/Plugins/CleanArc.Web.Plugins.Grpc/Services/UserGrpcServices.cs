@@ -31,7 +31,7 @@ public class UserGrpcServices : UserServices.UserServicesBase
             context.Status = new Status(StatusCode.InvalidArgument, "User not found");
 
             return new TokenRequestResult()
-            { IsSuccess = false, Message = tokenQuery.ErrorMessage, UserTokenRequestResult = null };
+            { IsSuccess = false, Message = tokenQuery.GetErrorMessage(), UserTokenRequestResult = null };
         }
 
         if (tokenQuery.IsNotFound)
@@ -39,7 +39,7 @@ public class UserGrpcServices : UserServices.UserServicesBase
             context.Status = new Status(StatusCode.NotFound, "User Not Found");
 
             return new TokenRequestResult()
-            { IsSuccess = false, Message = tokenQuery.ErrorMessage, UserTokenRequestResult = null };
+            { IsSuccess = false, Message = tokenQuery.GetErrorMessage(), UserTokenRequestResult = null };
         }
 
         return new TokenRequestResult()
@@ -64,9 +64,9 @@ public class UserGrpcServices : UserServices.UserServicesBase
 
         if (!tokenQuery.IsSuccess)
         {
-            context.Status = new Status(StatusCode.InvalidArgument, tokenQuery.ErrorMessage);
+            context.Status = new Status(StatusCode.InvalidArgument, tokenQuery.GetErrorMessage());
 
-            return new GetUserTokenRequestResult() { IsSuccess = false, Message = tokenQuery.ErrorMessage };
+            return new GetUserTokenRequestResult() { IsSuccess = false, Message = tokenQuery.GetErrorMessage() };
         }
 
 

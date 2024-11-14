@@ -28,7 +28,7 @@ namespace CleanArc.Web.Plugins.Grpc.Services
 
             if (!query.IsSuccess)
             {
-                context.Status = new Status(StatusCode.InvalidArgument, query.ErrorMessage);
+                context.Status = new Status(StatusCode.InvalidArgument, query.GetErrorMessage());
                 return;
             }
 

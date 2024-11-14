@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using Asp.Versioning;
 using CleanArc.Application.Features.Order.Queries.GetAllOrders;
+using CleanArc.WebFramework.Attributes;
 using CleanArc.WebFramework.BaseController;
-using CleanArc.WebFramework.WebExtensions;
 using Mediator;
 
 namespace CleanArc.Web.Api.Controllers.V1.Admin
@@ -25,6 +25,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         }
 
         [HttpGet("OrderList")]
+        [ProducesOkApiResponseType<List<GetAllOrdersQueryResult>>]
         public async Task<IActionResult> GetOrders()
         {
             var queryResult = await _sender.Send(new GetAllOrdersQuery());
