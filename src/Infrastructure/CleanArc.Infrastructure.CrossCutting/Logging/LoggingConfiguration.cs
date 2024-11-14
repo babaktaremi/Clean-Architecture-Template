@@ -40,8 +40,8 @@ public static class LoggingConfiguration
         {
             configuration.WriteTo
                 .MSSqlServer(
-                    connectionString: context.Configuration.GetConnectionString("SqlServer"),
-                    sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents", AutoCreateSqlTable = true, SchemaName = "log" })
+                    connectionString: context.Configuration.GetConnectionString("logDb"),
+                    sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents", AutoCreateSqlTable = true, SchemaName = "log",AutoCreateSqlDatabase = true})
                 .MinimumLevel.Warning();
 
         }

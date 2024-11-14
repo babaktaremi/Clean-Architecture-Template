@@ -15,6 +15,7 @@ COPY ["src/Core/CleanArc.Domain/CleanArc.Domain.csproj", "src/Core/CleanArc.Doma
 COPY ["src/Infrastructure/CleanArc.Infrastructure.CrossCutting/CleanArc.Infrastructure.CrossCutting.csproj", "src/Infrastructure/CleanArc.Infrastructure.CrossCutting/"]
 COPY ["src/Infrastructure/CleanArc.Infrastructure.Identity/CleanArc.Infrastructure.Identity.csproj", "src/Infrastructure/CleanArc.Infrastructure.Identity/"]
 COPY ["src/Infrastructure/CleanArc.Infrastructure.Persistence/CleanArc.Infrastructure.Persistence.csproj", "src/Infrastructure/CleanArc.Infrastructure.Persistence/"]
+COPY ["src/Infrastructure/CleanArc.Infrastructure.Monitoring/CleanArc.Infrastructure.Monitoring.csproj", "src/Infrastructure/CleanArc.Infrastructure.Monitoring/"]
 COPY ["src/Shared/CleanArc.SharedKernel/CleanArc.SharedKernel.csproj", "src/Shared/CleanArc.SharedKernel/"]
 COPY ["src/Tests/CleanArc.Test.Infrastructure.Identity/CleanArc.Test.Infrastructure.Identity/CleanArc.Test.Infrastructure.Identity.csproj", "src/Tests/CleanArc.Test.Infrastructure.Identity/CleanArc.Test.Infrastructure.Identity/"]
 COPY ["src/Tests/CleanArc.Tests.Setup/CleanArc.Tests.Setup.csproj", "src/Tests/CleanArc.Tests.Setup/"]
