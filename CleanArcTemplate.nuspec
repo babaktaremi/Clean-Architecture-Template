@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>9.0.0</version>
+    <version>9.0.1</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 9. With many features available out of the box </description>
@@ -11,7 +11,7 @@
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
      <releaseNotes>
-Update To NET 9, Package Updates, Replaced Swashbuckle With NSwag ,Validation Errors No longer Throw Exceptions ,Removed Dependency of IServiceProvider in Base validator class, Monitoring Project ( Health Checks And Metrics ) Added With OpenTelemetry And Prometheus ,Added Metrics Related To Commands/Queries ,Updated AutoMapper Sample For Supporting Record Types, Dockerfile updated for .NET9 SDK, Added Custom Produce Response attribute to add ApiResult type example
+      Fixed Docker File 
     </releaseNotes>
   
 
