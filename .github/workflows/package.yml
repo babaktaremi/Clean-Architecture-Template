@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - 'CleanArcTemplate.nuspec'
+      - 'CleanArcTemplate.nuspec' 
 jobs:
 
   publish:
