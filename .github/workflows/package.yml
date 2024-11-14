@@ -19,7 +19,7 @@ jobs:
           nuget-version: '6.x'
       - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.x
+          dotnet-version: 9.x
       
       - name: "run xUnit"
         run: dotnet test --logger "trx;LogFileName=test-results.trx" || true
