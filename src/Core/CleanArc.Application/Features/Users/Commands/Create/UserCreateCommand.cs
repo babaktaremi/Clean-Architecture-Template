@@ -6,7 +6,6 @@ using CleanArc.SharedKernel.ValidationBase;
 using CleanArc.SharedKernel.ValidationBase.Contracts;
 using FluentValidation;
 using Mediator;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArc.Application.Features.Users.Commands.Create;
 

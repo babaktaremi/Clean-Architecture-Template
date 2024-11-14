@@ -5,8 +5,8 @@ using CleanArc.Application.Features.Role.Commands.UpdateRoleClaimsCommand;
 using CleanArc.Application.Features.Role.Queries.GetAllRolesQuery;
 using CleanArc.Application.Features.Role.Queries.GetAuthorizableRoutesQuery;
 using CleanArc.Infrastructure.Identity.Identity.PermissionManager;
+using CleanArc.WebFramework.Attributes;
 using CleanArc.WebFramework.BaseController;
-using CleanArc.WebFramework.WebExtensions;
 using Mediator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +22,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
     public class RoleManagerController(ISender sender) : BaseController
     {
         [HttpGet("Roles")]
+        [ProducesOkApiResponseType<List<GetAllRolesQueryResponse>>]
         public async Task<IActionResult> GetRoles()
         {
             var queryResult = await sender.Send(new GetAllRolesQuery());
@@ -30,6 +31,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         }
 
         [HttpGet("AuthRoutes")]
+        [ProducesOkApiResponseType<List<GetAuthorizableRoutesQueryResponse>>]
         public async Task<IActionResult> GetAuthRoutes()
         {
             var queryModel = await sender.Send(new GetAuthorizableRoutesQuery());
@@ -43,6 +45,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPut("UpdateRolePermissions")]
+        [ProducesOkApiResponseType]
         public async Task<IActionResult> UpdateRolePermissions(UpdateRoleClaimsCommand model)
         {
             var commandResult =
@@ -52,6 +55,7 @@ namespace CleanArc.Web.Api.Controllers.V1.Admin
         }
 
         [HttpPost("NewRole")]
+        [ProducesOkApiResponseType]
         public async Task<IActionResult> AddRole(AddRoleCommand model)
         {
             var commandResult = await sender.Send(model);

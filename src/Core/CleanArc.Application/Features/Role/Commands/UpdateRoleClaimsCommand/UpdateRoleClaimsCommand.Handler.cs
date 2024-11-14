@@ -5,18 +5,12 @@ using Mediator;
 
 namespace CleanArc.Application.Features.Role.Commands.UpdateRoleClaimsCommand
 {
-    internal class UpdateRoleClaimsCommandHandler:IRequestHandler<UpdateRoleClaimsCommand,OperationResult<bool>>
+    internal class UpdateRoleClaimsCommandHandler(IRoleManagerService roleManagerService)
+        : IRequestHandler<UpdateRoleClaimsCommand, OperationResult<bool>>
     {
-        private readonly IRoleManagerService _roleManagerService;
-
-        public UpdateRoleClaimsCommandHandler(IRoleManagerService roleManagerService)
-        {
-            _roleManagerService = roleManagerService;
-        }
-
         public async ValueTask<OperationResult<bool>> Handle(UpdateRoleClaimsCommand request, CancellationToken cancellationToken)
         {
-            var updateRoleResult = await _roleManagerService.ChangeRolePermissionsAsync(new EditRolePermissionsDto()
+            var updateRoleResult = await roleManagerService.ChangeRolePermissionsAsync(new EditRolePermissionsDto()
                 { RoleId = request.RoleId, Permissions = request.RoleClaimValue });
 
             return updateRoleResult

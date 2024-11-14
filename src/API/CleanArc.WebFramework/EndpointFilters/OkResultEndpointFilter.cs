@@ -1,6 +1,5 @@
 ﻿using CleanArc.Application.Models.ApiResult;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CleanArc.WebFramework.EndpointFilters;
 

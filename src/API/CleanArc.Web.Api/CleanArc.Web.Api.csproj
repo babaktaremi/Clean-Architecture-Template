@@ -1,38 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <IsPackable>true</IsPackable>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Project.xml</DocumentationFile>
-    <OutputPath>bin\Debug\</OutputPath>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-	  <PackageReference Include="Carter" Version="8.0.0" />
-	  <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
-	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
+	  <PackageReference Include="Carter" Version="8.2.1" />
+	  <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+	  <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
 	  <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\CleanArc.Infrastructure.Monitoring\CleanArc.Infrastructure.Monitoring.csproj" />
     <ProjectReference Include="..\CleanArc.WebFramework\CleanArc.WebFramework.csproj" />
     <ProjectReference Include="..\Plugins\CleanArc.Web.Plugins.Grpc\CleanArc.Web.Plugins.Grpc.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Project.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

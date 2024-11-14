@@ -1,9 +1,8 @@
 ﻿using CleanArc.Application.Models.Common;
+using CleanArc.SharedKernel.Extensions;
 using CleanArc.WebFramework.EndpointFilters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace CleanArc.WebFramework.WebExtensions;
@@ -16,15 +15,12 @@ public static class EndpointExtensions
 
         if (result.IsSuccess) return result.Result is bool ?  Results.Ok() :Results.Ok(result.Result);
 
-        if (result.IsNotFound) return string.IsNullOrEmpty(result.ErrorMessage) ? Results.NotFound() : Results.NotFound(new Dictionary<string, List<string>>()
-        {
-            {"GeneralError",new (){result.ErrorMessage}}
-        });
+        if (result.IsNotFound)
+            return result.ErrorMessages.Any()
+                ? Results.NotFound(result.ErrorMessages.ToGroupedDictionary())
+                : Results.NotFound();
 
-        return string.IsNullOrEmpty(result.ErrorMessage) ? Results.BadRequest() : Results.BadRequest(new Dictionary<string,List<string>>()
-        {
-            {"GeneralError",new (){result.ErrorMessage}}
-        });
+        return string.IsNullOrEmpty(result.GetErrorMessage()) ? Results.BadRequest() : Results.BadRequest(result.ErrorMessages.ToGroupedDictionary());
     }
 
 

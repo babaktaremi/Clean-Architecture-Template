@@ -1,8 +1,6 @@
 ﻿using CleanArc.Application.Models.ApiResult;
-using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
 using CleanArc.SharedKernel.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -41,13 +39,22 @@ public class ExceptionHandler(ILogger<ExceptionHandler> logger,IWebHostEnvironme
             return true;
         }
 
-        logger.LogError(exception,"Error captured in global exception handler");
+        var exceptionFeature = context.Features.Get<IExceptionHandlerPathFeature>();
+
+        if (exceptionFeature is not null)
+            logger.LogError(exceptionFeature.Error,
+                "Unhandled exception occured. Path: {exceptionUrlPath} ."
+                , exceptionFeature.Path
+            );
+
+        else
+            logger.LogError(exception, "Error captured in global exception handler");
 
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
         context.Response.ContentType = "application/problem+json";
         var response = new ApiResult(false,
-            ApiResultStatusCode.ServerError, "Server Error");
+            ApiResultStatusCode.ServerError, "Internal Server Error");
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
         await context.Response.WriteAsJsonAsync(response, cancellationToken: cancellationToken);
 

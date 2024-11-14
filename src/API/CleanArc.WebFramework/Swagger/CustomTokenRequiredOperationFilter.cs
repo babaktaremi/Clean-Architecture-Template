@@ -1,24 +1,36 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
-using Swashbuckle.AspNetCore.SwaggerGen;
+﻿using NSwag;
+using NSwag.Generation.Processors;
+using NSwag.Generation.Processors.Contexts;
+
 
 namespace CleanArc.WebFramework.Swagger;
 
-public class CustomTokenRequiredOperationFilter : IOperationFilter
+public class CustomTokenRequiredOperationFilter : IOperationProcessor
 {
-    private readonly SecurityRequirementsOperationFilter<RequireTokenWithoutAuthorizationAttribute> filter;
-
-    public CustomTokenRequiredOperationFilter()
+    
+    public bool Process(OperationProcessorContext context)
     {
-        this.filter =
-            new SecurityRequirementsOperationFilter<RequireTokenWithoutAuthorizationAttribute>(
-                _ => Array.Empty<string>(), false);
+        var hasAttribute = context.MethodInfo
+            .GetCustomAttributes(typeof(RequireTokenWithoutAuthorizationAttribute), false).Any();
+
+        if (hasAttribute)
+        {
+            // Add security requirements to the operation
+            var securityScheme = new OpenApiSecurityScheme
+            {
+                Type = OpenApiSecuritySchemeType.Http,
+                Scheme = "bearer",
+                BearerFormat = "JWT",
+                In = OpenApiSecurityApiKeyLocation.Header,
+                Name = "Authorization"
+            };
+
+            var securityRequirement = new OpenApiSecurityRequirement { { securityScheme.Scheme, new List<string>() } };
+
+            
+            context.OperationDescription.Operation.Security=[securityRequirement];
+        }
+
+        return true;
     }
-
-    public void Apply(OpenApiOperation operation, OperationFilterContext context) => this.filter.Apply(operation, context);
-
-
 }
