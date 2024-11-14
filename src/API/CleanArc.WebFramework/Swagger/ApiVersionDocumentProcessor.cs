@@ -1,4 +1,5 @@
-﻿using NSwag.Generation.Processors;
+﻿using CleanArc.SharedKernel.Extensions;
+using NSwag.Generation.Processors;
 using NSwag.Generation.Processors.Contexts;
 
 namespace CleanArc.WebFramework.Swagger;
@@ -11,7 +12,7 @@ public class ApiVersionDocumentProcessor: IDocumentProcessor
         var version = context.Document.Info.Version; // e.g., "v1"
 
         var pathsToRemove = context.Document.Paths
-            .Where(pathItem => !pathItem.Key.Contains(version))
+            .Where(pathItem => !RegExHelpers.MatchesApiVersion( version,pathItem.Key))
             .Select(path => path.Key)
             .ToList();
 
