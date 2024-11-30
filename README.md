@@ -32,15 +32,15 @@ Check [This link](https://learn.microsoft.com/en-us/visualstudio/ide/file-nestin
 
 Open powershell or command prompt and execute the following command:
 
- ```
+```
 dotnet new install Bobby.CleanArcTemplate
- ```
+```
  
- Create an empty folder. Navigate to it via Powershell or CMD and then execute the following command:
+Create an empty folder. Navigate to it via Powershell or CMD and then execute the following command:
  
-  ```
+```
 dotnet new ca-template
- ```
+```
 Your project is created and ready to code! 
 
 
@@ -49,7 +49,7 @@ Your project is created and ready to code!
 First you need to generate a self-signed SSL certificate. Open Terminal and run the following command:
 
 ```
- dotnet dev-certs https -ep $env:USERPROFILE/.aspnet/https/cleanarc.pfx -p Strong@Password
+dotnet dev-certs https -ep $env:USERPROFILE/.aspnet/https/cleanarc.pfx -p Strong@Password
 ```
 
 Now for trusting the certificate , run the following command:
@@ -61,7 +61,7 @@ dotnet dev-certs https --trust
 Navigate to the project directory and run the following command using your prefered terminal:
 
 ```
- docker build -t bobby-cleanarc -f dockerfile.
+docker build -t bobby-cleanarc -f dockerfile.
 ```
 
 and lastly run the following command ( Note that this command will pull the latest SQL Server 2022 image from docker hub):
