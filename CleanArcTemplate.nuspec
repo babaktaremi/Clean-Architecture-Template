@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>9.0.2</version>
+    <version>10.0.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 9. With many features available out of the box </description>
@@ -11,7 +11,12 @@
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
      <releaseNotes>
-     Fixed URL grouping by version where versions having dot were not detected properly using Regex
+     - Updated to .NET 10 
+     - Updated all packages to latest versions
+     - Added central nuget package management
+     - Removed Health Check UI package due to incompatiblity
+     - Removed Carter package for symblicity and reducing redundant packages
+     - Replaced Automapper package with Mapster
     </releaseNotes>
   
 
