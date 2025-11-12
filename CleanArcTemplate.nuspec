@@ -16,7 +16,7 @@
      - Added central nuget package management
      - Removed Health Check UI package due to incompatiblity
      - Removed Carter package for symblicity and reducing redundant packages
-     - Replaced Automapper package with Mapster
+     - Replaced Automapper package with Mapster 
     </releaseNotes>
   
 
