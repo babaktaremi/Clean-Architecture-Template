@@ -1,6 +1,7 @@
 using System.Diagnostics;
-using Carter;
+using CleanArc.Application.Features.Users.Commands.Create;
 using CleanArc.Application.Models.ApiResult;
+using CleanArc.Application.Models.Identity;
 using CleanArc.Application.ServiceConfiguration;
 using CleanArc.Domain.Entities.User;
 using CleanArc.Infrastructure.CrossCutting.Logging;
@@ -16,6 +17,7 @@ using CleanArc.WebFramework.Filters;
 using CleanArc.WebFramework.Middlewares;
 using CleanArc.WebFramework.ServiceConfiguration;
 using CleanArc.WebFramework.Swagger;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
@@ -60,7 +62,7 @@ builder.Services.AddControllers(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger("v1","v1.1");
-builder.Services.AddCarter(configurator: configurator => { configurator.WithEmptyValidators();});
+
 
 builder.Services.AddApplicationServices()
     .RegisterIdentityServices(identitySettings)
@@ -70,6 +72,11 @@ builder.Services.AddApplicationServices()
 builder.Services.RegisterValidatorsAsServices();
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 
+builder.Services.AddMapster();
+
+TypeAdapterConfig.GlobalSettings.Scan(typeof(UserCreateCommand).Assembly,
+    typeof(GetRolesDto).Assembly);
+
 
 #region Plugin Services Configuration
 
@@ -77,10 +84,7 @@ builder.Services.ConfigureGrpcPluginServices();
 
 #endregion
 
-builder.Services.AddAutoMapper(expression =>
-{
-    expression.AddMaps(typeof(User), typeof(JwtService), typeof(UserController));
-});
+
 
 var app = builder.Build();
 
@@ -96,7 +100,6 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler(_=>{});
 app.UseSwaggerAndUi();
 
-app.MapCarter();
 app.UseRouting();
 
 app.UseAuthentication();

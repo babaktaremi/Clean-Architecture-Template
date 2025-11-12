@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using CleanArc.Application.Contracts.Identity;
+﻿using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Models.Common;
 using CleanArc.Domain.Entities.User;
+using MapsterMapper;
 using Mediator;
 using Microsoft.Extensions.Logging;
 
