@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using CleanArc.Application.Models.Common;
-using CleanArc.Application.Profiles;
 using CleanArc.Domain.Entities.User;
 using CleanArc.SharedKernel.ValidationBase;
 using CleanArc.SharedKernel.ValidationBase.Contracts;
@@ -13,7 +12,6 @@ public record UserCreateCommand
     (string UserName, string Name, string FamilyName, string PhoneNumber) 
     : IRequest<OperationResult<UserCreateCommandResult>>
         ,IValidatableModel<UserCreateCommand>
-,ICreateMapper<User>
 {
 
     public IValidator<UserCreateCommand> ValidateApplicationModel(ApplicationBaseValidationModelProvider<UserCreateCommand> validator)

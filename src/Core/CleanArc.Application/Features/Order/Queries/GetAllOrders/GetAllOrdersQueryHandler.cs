@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using CleanArc.Application.Contracts.Persistence;
+﻿using CleanArc.Application.Contracts.Persistence;
 using CleanArc.Application.Models.Common;
+using MapsterMapper;
 using Mediator;
 
 namespace CleanArc.Application.Features.Order.Queries.GetAllOrders

@@ -10,7 +10,8 @@ public class ValidateCommandBehavior<TRequest, TResponse>(IEnumerable<IValidator
     where TResponse : IOperationResult, new()
     where TRequest : IRequest<TResponse>
 {
-    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
+   
+    public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
     {
         var errors = new List<ValidationFailure>();
 

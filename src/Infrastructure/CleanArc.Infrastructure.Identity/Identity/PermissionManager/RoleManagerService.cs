@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using AutoMapper;
 using CleanArc.Application.Contracts.Identity;
 using CleanArc.Application.Models.Identity;
 using CleanArc.Domain.Entities.User;
 using CleanArc.Infrastructure.Identity.Identity.Manager;
 using CleanArc.Infrastructure.Persistence;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

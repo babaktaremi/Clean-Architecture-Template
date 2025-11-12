@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using CleanArc.Application.Common;
+using Mapster;
 using Mediator;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,12 +19,7 @@ public static class ServiceCollectionExtension
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(MetricsBehaviour<,>));
         
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidateCommandBehavior<,>));
-
         
-        services.AddAutoMapper(expression =>
-        {
-            expression.AddMaps(Assembly.GetExecutingAssembly());
-        });
 
 
         return services;

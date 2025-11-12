@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -12,12 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CleanArc.Domain\CleanArc.Domain.csproj" />
-    <PackageReference Include="Mediator.SourceGenerator" Version="2.1.7">
+    <PackageReference Include="Mediator.SourceGenerator">
 	    <PrivateAssets>all</PrivateAssets>
 	    <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Mediator.Abstractions" Version="2.1.7" />
-    <PackageReference Include="System.Linq.Async" Version="6.0.1" />
+    <PackageReference Include="Mediator.Abstractions" />
+    <PackageReference Include="System.Linq.Async" />
   </ItemGroup>
 
 </Project>

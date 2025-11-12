@@ -29,14 +29,10 @@ internal abstract class BaseAsyncRepository<TEntity> where TEntity:class,IEntity
            
     }
 
-    protected virtual async Task UpdateAsync(
-        Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> updateExpression)
-    {
-        await Entities.ExecuteUpdateAsync(updateExpression);
-    }
+   
 
     protected virtual async Task UpdateAsync(
-        Expression<Func<TEntity,bool>> whereExpression,Expression<Func<SetPropertyCalls<TEntity>, SetPropertyCalls<TEntity>>> updateExpression)
+        Expression<Func<TEntity,bool>> whereExpression,Action<UpdateSettersBuilder<TEntity>>  updateExpression)
     {
         await Entities.Where(whereExpression).ExecuteUpdateAsync(updateExpression);
     }

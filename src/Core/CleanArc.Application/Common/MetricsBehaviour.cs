@@ -17,7 +17,8 @@ public class MetricsBehaviour<TRequest, TResponse> :
             , "Determines the total request response durations");
     }
     
-    public async ValueTask<TResponse> Handle(TRequest message, CancellationToken cancellationToken, MessageHandlerDelegate<TRequest, TResponse> next)
+
+    public async ValueTask<TResponse> Handle(TRequest message, MessageHandlerDelegate<TRequest, TResponse> next, CancellationToken cancellationToken)
     {
         var stopWatch = Stopwatch.StartNew();
 
