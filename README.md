@@ -17,7 +17,7 @@
    <img src="https://img.shields.io/badge/-Babak%20Taremi-0072b1?style=flat&logo=telegram&logoColor=white&color=darkblue" />
  </a>
 
-# ASP NET Core 9 Clean architecture boiler plate. Everything that you need to start an enterprise project!
+# ASP NET Core 10 Clean architecture boiler plate. Everything that you need to start an enterprise project!
 
 Personally I've seen a lot of ASP NET Core based clean architecture templates, but most of them are not usable in production and you face problems created by the framework itself rather than the actual domain problems. I've worked for about 5 years in different startups and companies so trust me when I say this framework was built upon actual real-world challenges rather than reading a book and convert its every paragraph to code.
 
@@ -161,7 +161,7 @@ Personally I love this framework and use it in many of my personal projects and 
 
 If you like this framework , just give it a star. Your star keeps me motivated to maintain this repo and develop new open source and exciting packages for it. Thanks in advance!
 
-## Code Inspirations
+## Inspirations
 
 [ MJ Ebrahimi Complete Web API Repo](https://github.com/mjebrahimi/AspNetCore-WebApi-Course)
 
