@@ -96,8 +96,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+else
+    app.UseExceptionHandler(_=>{});
 
-app.UseExceptionHandler(_=>{});
 app.UseSwaggerAndUi();
 
 app.UseRouting();
