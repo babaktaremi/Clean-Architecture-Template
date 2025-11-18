@@ -34,7 +34,7 @@ jobs:
          fail-on-error: true
 
       - name: Create the package
-        run: nuget pack CleanArcTemplate.nuspec -NoDefaultExcludes
+        run: dotnet pack -p:NuspecFile=CleanArcTemplate.nuspec --configuration Release
         
       - name: Publish the package
         run: nuget push *.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}} -SkipDuplicate
