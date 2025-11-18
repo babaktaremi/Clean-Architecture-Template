@@ -33,6 +33,11 @@ jobs:
          reporter: dotnet-trx
          fail-on-error: true
 
+      - name: Install Mono
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mono-complete
+
       - name: Create the package
         run: dotnet pack -p:NuspecFile=CleanArcTemplate.nuspec --configuration Release
         
