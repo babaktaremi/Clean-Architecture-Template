@@ -6,6 +6,7 @@ namespace CleanArc.Application.Contracts.Identity;
 public interface IAppUserManager
 {
     Task<IdentityResult> CreateUser(User user);
+    Task<IdentityResult> CreateUser(User user,string password);
     Task<bool> IsExistUser(string phoneNumber);
     Task<bool> IsExistUserName(string userName);
     Task<string> GeneratePhoneNumberConfirmationToken(User user, string phoneNumber);
@@ -14,7 +15,6 @@ public interface IAppUserManager
     Task<IdentityResult> VerifyUserCode(User user,string code);
     Task<string> GenerateOtpCode(User user);
     Task<User> GetUserByPhoneNumber(string phoneNumber);
-    Task<SignInResult> AdminLogin(User user,string password);
     Task<User> GetByUserName(string userName);
     Task<User> GetUserByIdAsync(int userId);
     Task<List<User>> GetAllUsersAsync();
@@ -25,4 +25,7 @@ public interface IAppUserManager
     Task ResetUserLockoutAsync(User user);
     Task UpdateUserAsync(User user);
     Task UpdateSecurityStampAsync(User user);
+    
+    Task<bool> IsPasswordValidAsync(User user, string password);
+    Task<string[]> GetRoleAsync(User user);
 }

@@ -3,7 +3,7 @@
   <metadata>
 
     <id>Bobby.CleanArcTemplate</id>
-    <version>10.0.1</version>
+    <version>10.1.0</version>
     <title>Clean Architecture Solution Template</title>
     <authors>BabakTaremi</authors>
     <description>Clean Architecture Solution Template for and .NET 10 with many features available out of the box </description>
@@ -11,7 +11,9 @@
      Ready to develop template based on clean architecture principles. Supports ASP NET Core Identity integrated with JWE tokens, OTP authentication, stand alone plugin development, CQRS pattern using MediatR library and dynamic permission management system out of the box
     </summary>
      <releaseNotes>
-     - Fixed a bug in exception handler middleware when environment is set to Development.
+    - Added password login feature
+    - Refactored user manager service
+    - Added checking for user roles in admin user login feature
     </releaseNotes>
   
 

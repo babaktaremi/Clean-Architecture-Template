@@ -8,19 +8,20 @@ using Microsoft.Extensions.Logging;
 namespace CleanArc.Application.Features.Users.Commands.Create;
 
 internal class UserCreateCommandHandler(
-    IAppUserManager userRepository,
+    IAppUserManager userManager,
     ILogger<UserCreateCommandHandler> logger,
     IMapper mapper)
     : IRequestHandler<UserCreateCommand, OperationResult<UserCreateCommandResult>>
 {
-    public async ValueTask<OperationResult<UserCreateCommandResult>> Handle(UserCreateCommand request, CancellationToken cancellationToken)
+    public async ValueTask<OperationResult<UserCreateCommandResult>> Handle(UserCreateCommand request,
+        CancellationToken cancellationToken)
     {
-        var userNameExist = await userRepository.IsExistUser(request.PhoneNumber);
+        var userNameExist = await userManager.IsExistUser(request.PhoneNumber);
 
         if (userNameExist)
             return OperationResult<UserCreateCommandResult>.FailureResult("Phone number already exists");
 
-        var phoneNumberExist = await userRepository.IsExistUserName(request.UserName);
+        var phoneNumberExist = await userManager.IsExistUserName(request.UserName);
 
         if (phoneNumberExist)
             return OperationResult<UserCreateCommandResult>.FailureResult("Username already exists");
@@ -29,20 +30,25 @@ internal class UserCreateCommandHandler(
 
         var user = mapper.Map<User>(request);
 
-        var createResult = await userRepository.CreateUser(user);
+        
+            var createResult =string.IsNullOrEmpty(request.Password)? 
+                await userManager.CreateUser(user)
+                :await  userManager.CreateUser(user, request.Password);
 
         if (!createResult.Succeeded)
         {
-            return OperationResult<UserCreateCommandResult>.FailureResult(string.Join(",", createResult.Errors.Select(c => c.Description)));
+            return OperationResult<UserCreateCommandResult>.FailureResult(string.Join(",",
+                createResult.Errors.Select(c => c.Description)));
         }
 
-        var code = await userRepository.GeneratePhoneNumberConfirmationToken(user, user.PhoneNumber);
+        var code = await userManager.GeneratePhoneNumberConfirmationToken(user, user.PhoneNumber);
 
 
         logger.LogWarning($"Generated Code for User ID {user.Id} is {code}");
 
         //TODO Send Code Via Sms Provider
 
-        return OperationResult<UserCreateCommandResult>.SuccessResult(new UserCreateCommandResult { UserGeneratedKey = user.GeneratedCode });
+        return OperationResult<UserCreateCommandResult>.SuccessResult(new UserCreateCommandResult
+            { UserGeneratedKey = user.GeneratedCode });
     }
 }

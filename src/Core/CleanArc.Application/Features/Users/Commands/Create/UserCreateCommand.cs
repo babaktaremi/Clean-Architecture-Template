@@ -9,7 +9,7 @@ using Mediator;
 namespace CleanArc.Application.Features.Users.Commands.Create;
 
 public record UserCreateCommand
-    (string UserName, string Name, string FamilyName, string PhoneNumber) 
+    (string UserName, string Name, string FamilyName, string PhoneNumber,string Password,string RepeatPassword) 
     : IRequest<OperationResult<UserCreateCommandResult>>
         ,IValidatableModel<UserCreateCommand>
 {
@@ -41,6 +41,10 @@ public record UserCreateCommand
             .MaximumLength(20).WithMessage("PhoneNumber must not exceed 50 characters.")
             .Matches(new Regex(@"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$")).WithMessage("Phone number is not valid");
 
+        validator.RuleFor(c => c.Password)
+            .Matches(c => c.RepeatPassword)
+            .WithMessage("passwords do not match");
+        
         return validator;
     }
 }

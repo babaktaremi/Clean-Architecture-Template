@@ -80,4 +80,9 @@ public class UserController : BaseController
 
         return base.OperationResult(commandResult);
     }
+    
+    [HttpPost("PasswordTokenRequest")]
+    [ProducesOkApiResponseType<AccessToken>]
+    public async Task<IActionResult> PasswordTokenRequest(PasswordUserTokenRequestQuery model)
+    => base.OperationResult(await _mediator.Send(model));
 }
