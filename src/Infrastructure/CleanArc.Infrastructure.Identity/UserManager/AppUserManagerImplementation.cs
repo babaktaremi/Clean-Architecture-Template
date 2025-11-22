@@ -20,6 +20,11 @@ public class AppUserManagerImplementation : IAppUserManager
         return _userManager.CreateAsync(user);
     }
 
+    public async Task<IdentityResult> CreateUser(User user, string password)
+    {
+        return await _userManager.CreateAsync(user, password);
+    }
+
     public Task<bool> IsExistUser(string phoneNumber)
     {
         return _userManager.Users.AnyAsync(c => c.PhoneNumber == phoneNumber);
@@ -68,11 +73,7 @@ public class AppUserManagerImplementation : IAppUserManager
     {
         return _userManager.Users.FirstOrDefaultAsync(c => c.PhoneNumber.Equals(phoneNumber));
     }
-
-    public async Task<SignInResult> AdminLogin(User user, string password)
-    {
-        return await _userManager.CheckPasswordAsync(user, password) ? SignInResult.Success : SignInResult.Failed;
-    }
+    
 
     public Task<User> GetByUserName(string userName)
     {
@@ -130,5 +131,15 @@ public class AppUserManagerImplementation : IAppUserManager
     public async Task UpdateSecurityStampAsync(User user)
     {
         await _userManager.UpdateSecurityStampAsync(user);
+    }
+
+    public async Task<bool> IsPasswordValidAsync(User user, string password)
+    {
+        return await _userManager.CheckPasswordAsync(user, password);
+    }
+
+    public async Task<string[]> GetRoleAsync(User user)
+    {
+        return (await _userManager.GetRolesAsync(user)).ToArray();
     }
 }
