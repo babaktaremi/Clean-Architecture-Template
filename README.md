@@ -61,7 +61,7 @@ dotnet dev-certs https --trust
 Navigate to the project directory and run the following command using your prefered terminal:
 
 ```
-docker build -t bobby-cleanarc -f dockerfile.
+docker build -t bobby-cleanarc -f Dockerfile .
 ```
 
 and lastly run the following command ( Note that this command will pull the latest SQL Server 2022 image from docker hub):
