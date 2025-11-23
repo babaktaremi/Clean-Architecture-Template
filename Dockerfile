@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
+COPY ["../Directory.Packages.props", "./"]
 COPY ["src/API/CleanArc.Web.Api/CleanArc.Web.Api.csproj", "src/API/CleanArc.Web.Api/"]
 COPY ["src/API/CleanArc.WebFramework/CleanArc.WebFramework.csproj", "src/API/CleanArc.WebFramework/"]
 COPY ["src/API/Plugins/CleanArc.Web.Plugins.Grpc/CleanArc.Web.Plugins.Grpc.csproj", "src/API/Plugins/CleanArc.Web.Plugins.Grpc/"]
